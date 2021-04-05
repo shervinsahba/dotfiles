@@ -1,0 +1,486 @@
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## i3 gaps config file
+## by Shervin S
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## comment with # but inline comments disallowed after commands!
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## display setup
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+set $output1 DP-0
+set $mode1 3440x1440
+set $rate 100
+# set $output1 eDP1
+# set $output2 HDMI1
+
+exec --no-startup-id xrandr --output $output1 --mode $mode1 --primary --rate $rate
+
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## wallpaper
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## Boot chosen wallpaper file or fallback to solid gray
+set $wallpaper $HOME/.local/share/wallpapers/moon-3440x1440.jpg
+exec --no-startup-id "feh --bg-fill $wallpaper || xsetroot -solid '#111111'"
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## i3 mod key
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## The Caps_Lock key is my i3 modifier of choice.
+## It's set via .Xmodmap to register as [Hyper_R NoSymbol ...],
+## and Hyper_R registers as Mod3.
+## See mod key assignments with xmodmap and xmodmap -pke.
+
+set $usermodmap "$HOME/.Xmodmap"
+exec_always --no-startup-id xmodmap $usermodmap
+
+set $mod Mod3
+set $windowskey Mod4
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## colors and fonts
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## colors
+set $transparent #00000000
+set $black       #111111
+set $darkblack   #000000
+set $red         #fb4934
+set $darkred     #cc241d
+set $green       #b8bb26
+set $darkgreen   #98971a
+set $yellow      #fabd2f
+set $darkyellow  #d79921
+set $blue        #83a598
+set $darkblue    #458588
+set $magenta     #d3869b
+set $darkmagenta #b16286
+set $cyan        #8ec07c
+set $darkcyan    #689d6a
+set $white       #ebdbb2
+set $darkwhite   #a89984
+set $background  #000000
+set $greenish    #1ABC9C
+set $greenishdk  #24A484
+set $greenishpop #00A96B
+set $gray3       #333333
+set $gray8       #888888
+set $gray9       #999999
+set $steellt     #484e50
+set $steeldk     #292d2e
+
+##<colorclass>           <border> <background> <text>       <indicator>  <child_border>
+client.focused           $black   $steellt     $greenish    $greenishpop
+client.focused_inactive  $black   $steeldk     $greenish    $steellt
+client.unfocused         $black   $steeldk     $darkwhite   $steellt
+client.urgent            $black   $greenishpop $magenta     $steellt
+
+## font for window titles and i3 bar
+font pango:Fira Code Retina 8
+
+## window title modifier
+for_window [class=".*"] title_format "<b>%title</b>"
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## i3 control
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## Kill focused window
+bindsym $mod+Shift+q kill
+
+## reload the configuration file
+bindsym $mod+Shift+c reload
+
+## restart i3 inplace (preserves session)
+bindsym $mod+Shift+r restart
+
+## exit i3 (logs you out of your X session)
+# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## workspaces
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# workspace default layout
+#workspace_layout tabbed
+
+# switch between the current and the previously focused one
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab move container to workspace back_and_forth
+
+# cycle through workspaces
+bindsym $mod+$windowskey+Right workspace next_on_output
+bindsym $mod+$windowskey+Left workspace next_on_output
+
+## switch to workspace
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+0 workspace 10
+
+## move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+0 move container to workspace 10
+
+## banish to and recover from shadow realm (scratchpad workspace)
+bindsym $mod+z move scratchpad
+#bindsym $mod+Ctrl+z scratchpad show
+bindsym $mod+Shift+z exec $HOME/src/scratchpad-rofi
+
+## Move workspace to another display monitor
+bindsym $mod+x move workspace to output right
+
+## Assign applications to workspaces
+#assign [class="jetbrains-pycharm"] "pycharm"
+bindsym $mod+$windowskey+1 workspace pycharm
+bindsym $mod+Shift+$windowskey+1 move container to workspace thinkorswim
+
+assign [title="thinkorswim updater"] "thinkorswim"
+assign [title="Logon to thinkorswim"] "thinkorswim"
+bindsym $mod+$windowskey+2 workspace thinkorswim
+bindsym $mod+Shift+$windowskey+2 move container to workspace thinkorswim
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## multimonitor
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## Move focus between screens
+bindsym $mod+Alt+Left focus output left
+bindsym $mod+Alt+Right focus output right
+
+# Moving workspaces between screens
+# xrandr --output $output1 --primary
+bindsym $mod+Ctrl+Up move workspace to output up
+bindsym $mod+Ctrl+Down move workspace to output down
+bindsym $mod+Ctrl+Left move workspace to output left
+bindsym $mod+Ctrl+Right move workspace to output right
+
+
+#workspace 1 output $output1
+#workspace 2 output $output1
+#workspace 3 output $output1
+#workspace 4 output $output1
+#workspace 5 output $output2
+#workspace 6 output $output2
+#workspace 7 output $output2
+#workspace 8 output $output2
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## window layout bindings
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+bindsym $mod+h split v
+bindsym $mod+v split h
+bindsym $mod+t split h, layout tabbed
+bindsym $mod+f fullscreen toggle, exec "polybar-msg cmd toggle"
+bindsym $mod+Shift+t layout toggle splitv splith tabbed
+bindsym $mod+Shift+space floating toggle
+#bindsym $mod+Alt+t [tiling] border toggle 0
+
+bindsym $mod+Alt+m move position mouse
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## window focus bindings
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+focus_wrapping no
+
+## change focus
+#bindsym $mod+j focus left
+#bindsym $mod+k focus down
+#bindsym $mod+l focus up
+#bindsym $mod+semicolon focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+## parent/child focus
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+
+## toggle focus to floats / tiles
+bindsym $mod+space focus mode_toggle
+
+## move focused window
+#bindsym $mod+Shift+j move left
+#bindsym $mod+Shift+k move down
+#bindsym $mod+Shift+l move up
+#bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+## mouse focus. use mouse+$mod to move floating windows.
+floating_modifier $mod
+focus_follows_mouse no
+mouse_warping none
+
+## sticky window
+bindsym $mod+Shift+p sticky toggle
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## resizing windows
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# resize window with mod+Mouse or use...
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+        bindsym Left resize shrink width 10 px or 5 ppt
+        bindsym Down resize grow height 10 px or 5 ppt
+        bindsym Up resize shrink height 10 px or 5 ppt
+        bindsym Right resize grow width 10 px or 5 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## i3-gaps control
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+for_window [class="^.*"] border pixel 0
+#smart_gaps on
+smart_borders on
+
+set $inner_px 20
+set $outer_px 4
+gaps inner $inner_px
+gaps outer $outer_px
+
+
+## Gaps mode
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
+set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+bindsym $mod+Shift+g mode "$mode_gaps"
+
+mode "$mode_gaps" {
+        bindsym o      mode "$mode_gaps_outer"
+        bindsym i      mode "$mode_gaps_inner"
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_inner" {
+        bindsym plus  gaps inner current plus 5
+        bindsym minus gaps inner current minus 5
+        bindsym 0     gaps inner current set 0
+        bindsym d     gaps inner current set $inner_px
+
+        bindsym Shift+plus  gaps inner all plus 5
+        bindsym Shift+minus gaps inner all minus 5
+        bindsym Shift+0     gaps inner all set 0
+        bindsym Shift+d     gaps inner all set $inner_px
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+mode "$mode_gaps_outer" {
+        bindsym plus  gaps outer current plus 5
+        bindsym minus gaps outer current minus 5
+        bindsym 0     gaps outer current set 0
+        bindsym d     gaps inner current set $outer_px
+
+        bindsym Shift+plus  gaps outer all plus 5
+        bindsym Shift+minus gaps outer all minus 5
+        bindsym Shift+0     gaps outer all set 0
+        bindsym Shift+d     gaps inner all set $outer_px
+
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## program launcher bindings
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## tdrop - dropdown floating windows
+set $tdropfloat tdrop -ma 
+bindsym F12 exec $tdropfloat -w 60% -h 80% -x 20% kitty
+bindsym $windowskey+x exec $tdropfloat -w 1000 -h 800 -x 5% -y 10% keepassxc
+bindsym $windowskey+a exec $tdropfloat -w 800 -h 400 -x -810 -y -440 pavucontrol
+bindsym $windowskey+b exec $tdropfloat -w 800 -h 400 -x -810 -y -440 blueman-manager
+bindsym $windowskey+z exec $tdropfloat -w 50% -h 96% -x 2% -y 2% zotero
+#bindsym $windowskey+e exec $tdropfloat -w 40% -h 80% -x 0% -y 10% tutanota
+#bindsym $windowskey+Shift+t exec $tdropfloat -w 40% -h 80% -x 0% -y 10% thunar
+
+## lockscreen
+bindsym $mod+Shift+Ctrl+Escape exec betterlockscreen --update $wallpaper --lock dim --off 5
+
+## launcher (rofi)
+set $menu1 --no-startup-id "env QT_QPA_PLATFORMTHEME=gtk2 rofi -font 'Fire Code Retina 15' -theme solarized_alternate -modi run,calc,ssh,windowcd,window -show drun -icon-theme Breath2 -show-icons -width 50 -sidebar-mode"
+bindsym $mod+Shift+d exec $menu1
+bindsym $windowskey+d exec $menu1
+
+## rofi-file-selector
+bindsym $mod+Shift+s exec "env QT_QPA_PLATFORMTHEME=gtk2 $HOME/src/rofi-file-selector/rofi-file-selector.sh"
+
+## i3-layout manager
+bindsym $mod+$windowskey+l exec i3-layout-manager
+
+## terminal(s)
+bindsym $mod+Return exec kitty
+bindsym $windowskey+Return exec kitty
+bindsym $mod+Shift+Return exec alacritty
+
+## screenshots (via maim)
+set $maimsavelocation "$HOME/Downloads/Screenshots/maim/$(date -Iseconds).png"
+bindsym --release Print exec maim -uBs $maimsavelocation | xclip -selection clipboard -t image/pngbindsym --release Ctrl+Print exec maim -uBsD $maimsavelocation | xclip -selection clipboard -t image/png
+#bindsym Ctrl+Shift+Print exec maim -usD $maimsavelocation | xclip -selection clipboard -t image/png
+bindsym --release $windowskey+Print exec maim -uBs | tee $maimsavelocation | feh - -x
+#bindsym Ctrl+Print exec maim -uBs | tee $maimsavelocation | feh - -x
+#bindsym Ctrl+Shift+Print exec maim -us | tee $maimsavelocation | feh - -x
+#bindsym Ctrl+Print exec $HOME/bin/maim-crop
+#bindsym $windowskey+Print exec $HOME/bin/maim-desktop-crop
+
+## file manager
+bindsym $windowskey+t exec thunar
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## startup programs
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## polybar
+set $polybar "$HOME/.config/i3/polylaunch.sh"
+exec_always --no-startup-id $polybar
+
+## toggle polybar
+bindsym $mod+b exec "polybar-msg cmd toggle"
+
+## compositor
+exec_always --no-startup-id "if command -v picom &> /dev/null; then picom --config $HOME/.config/picom/picom.conf; else xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55; fi"
+exec_always --no-startup-id "if command -v $HOME/miniconda3/bin/flashfocus &>/dev/null; then $HOME/miniconda3/bin/flashfocus; fi"
+#exec_always --no-startup-id "xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55"
+
+## xidlehook
+exec xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update $HOME/.local/share/wallpapers/moon-3440x1440.jpg --lock dim --off 900" &
+
+## network manager
+exec --no-startup-id nm-applet
+
+## cloud storage
+exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
+
+## yakuake
+#exec --no-startup-id yakuake
+
+## vpn
+#exec --no-startup-id "if command -v mullvad &>/dev/null ; then mullvad connect; fi"
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## floating windows
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+floating_minimum_size 200x200
+floating_maximum_size $mode1
+default_floating_border none
+
+## Run xprop and click on window to find out WM class or title.
+
+for_window [class="zoom"] floating enable, sticky enable
+for_window [class="ringcentral"] floating enable, sticky enable
+for_window [class="keepassxc"] floating enable, move position mouse
+for_window [class="KeePassXC"] floating enable, move position mouse
+for_window [class="mpv"] floating enable
+for_window [class="nvidia-settings"] floating enable
+for_window [class="Nvidia-settings"] floating enable
+for_window [class="tutanota-desktop"] floating enable
+for_window [class="qbittorrent"] floating enable
+for_window [class="qBittorrent"] floating enable
+for_window [class="matplotlib"] floating enable
+for_window [title="Figure *"] floating enable
+for_window [title="glxgears"] floating enable
+for_window [class="ark"] floating enable
+for_window [title="Manjaro Settings Manager"] floating enable
+for_window [class="pavucontrol"] floating enable, move position mouse, move up 30, move left 30, sticky enable
+for_window [class="Pavucontrol"] floating enable, move position mouse, move up 30, move left 30, sticky enable
+for_window [class="blueman-manager"] floating enable, move position mouse, move up 30, move left 30, sticky enable
+for_window [class="Blueman-manager"] floating enable, move position mouse, move up 30, move left 30, sticky enable
+for_window [class="pulseeffects"] floating enable, sticky enable
+for_window [class="Pulseeffects"] floating enable, sticky enable
+for_window [class="feh"] floating enable
+for_window [class="viewnior"] floating enable
+for_window [class="Viewnior"] floating enable
+for_window [title="Explain Margin"] floating enable
+for_window [title="AQEMU"] floating enable
+for_window [title="Oracle VM VirtualBox Manager"] floating enable
+for_window [title="MetaMask Notification"] floating enable
+for_window [title="Steam Library Folders"] floating enable
+for_window [title="Create or select new Steam library folder:"] floating enable
+for_window [title="Steam - News"] floating enable
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## audio control
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## Pulse audio.
+## see `pactl list sinks`
+#set $sink 0
+#bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume $sink +5%"
+#bindsym XF86AudioLowerVolume exec "pactl set-sink-volume $sink -5%"
+#bindsym XF86AudioMute exec "pactl set-sink-mute $sink toggle"
+
+bindsym XF86AudioRaiseVolume exec "$HOME/src/changeVolume up"
+bindsym XF86AudioLowerVolume exec "$HOME/src/changeVolume down"
+bindsym XF86AudioMute exec "$HOME/src/changeVolume mute"
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## plasma integration
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+#
+## Kill the wallpaper set by Plasma (else it may obstruct the workspace)
+#exec --no-startup-id wmctrl -c Plasma
+#for_window [title="Desktop — Plasma"] kill, floating enable, border none
+#
+## Set location for Plasma notifications
+for_window [class="plasmashell" window_type="notification"] move position 30 0
+#
+## Avoid tiling popups, dropdown windows from plasma
+for_window [class="yakuake"] floating enable
+# for_window [class="systemsettings"] floating enable
+# for_window [class="plasmashell"] floating enable
+# for_window [class="Plasma"] floating enable, border none
+# for_window [title="plasma-desktop"] floating enable, border none
+# for_window [title="win7"] floating enable, border none
+# for_window [class="krunner"] floating enable, border none
+# for_window [class="Kmix"] floating enable, border none
+# for_window [class="Klipper"] floating enable, border none
+# for_window [class="Plasmoidviewer"] floating enable, border none
+

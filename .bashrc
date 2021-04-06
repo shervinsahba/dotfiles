@@ -106,44 +106,9 @@ export QT_QPA_PLATFORMTHEME=gtk2 #gtk2, qt5ct
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## aliases
 
-alias sudo='sudo '        # permits using sudo with aliased commands
-alias cp='cp -i'          # confirm before overwriting something
+# see ~/.aliases for more commands aliased in .profile
+[[ -f ~/.aliases ]] && source ~/.aliases  # TODO remove if loading in .profile
 
-alias grep='grep --colour=auto'
-alias egrep='grep -E'	  # extended grep
-alias fgrep='grep -F'	  # fixed grep
-alias less='less -R'	  # allow colorized pipes to less
-alias more='less'
-alias h='head'
-alias t='tail'
-alias his='history'
-
-alias ls='ls --color=auto'
-alias ll='ls -Flh'
-alias lll='ls -Flha'
-alias tree1='tree -L 1 -hFC'
-alias tree2='tree -L 2 -hFC'
-alias tree3='tree -L 3 -hFC'
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias cl='clear; echo $(date)'
-
-alias c="xclip -selection clipboard"	  # xclip copy
-alias p="xclip -selection clipboard -o"   # xclip paste
-
-alias df='df -h'          		# disk space in human-readable sizes
-alias free='free -m'      		# shows free memory in MB
-alias duh='du -h --max-depth=1' # disk space in human-readable sizes
-
-alias journalctl="journalctl --output=short-iso"	# ISO timestamps
-
-# cd shortcuts
-alias cdX='cd /etc/X11/xorg.conf.d/; ll'
-alias cdtrash='cd $HOME/.local/share/Trash'
-alias cdbin="cd $HOME/bin"
-alias cdsrc="cd $HOME/src"
-alias cdD="cd $HOME/Downloads"
 
 # cleanup
 alias clean-all-uninstalled-packages="paccache -ruk 0"
@@ -153,10 +118,6 @@ alias clean-journal="journalctl --vacuum-size=50M"
 alias clean-garbageremoval="rm -rf $HOME/.local/share/Trash/*"
 alias clean-1yearcache="find $HOME/.cache/ -type f -atime +365 -delete"
 
-alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'"
-alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
-
-command -v vim >/dev/null 2>&1 && alias vi=vim
 alias subl="subl3"
 alias sptd="spotifyd-restart; spt"
 alias spotify-tui=sptd

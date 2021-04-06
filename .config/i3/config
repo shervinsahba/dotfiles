@@ -407,7 +407,7 @@ exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
 ## floating windows
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-floating_minimum_size 200x200
+floating_minimum_size 600x600
 floating_maximum_size $mode1
 default_floating_border none
 

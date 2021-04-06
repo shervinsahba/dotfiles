@@ -1,11 +1,4 @@
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## bash.rc by Shervin Sahba
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 [[ $- != *i* ]] && return
-
 
 [ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
 
@@ -122,7 +115,6 @@ alias his='history'
 alias jobs='jobs -l'
 
 # cd shortcuts
-alias cdl='cd; ls'
 alias cdtrash='cd $HOME/.local/share/Trash'
 alias cdX='cd /etc/X11/xorg.conf.d/; ls -l'
 
@@ -132,6 +124,9 @@ alias journalctl="journalctl --output=short-iso"
 # filesystem
 alias duh='du -h --max-depth=1'
 alias treee='tree -L 3'
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
 
 # xclip copy and paste
 alias c="xclip -selection clipboard"
@@ -146,20 +141,15 @@ alias clean-garbageremoval="confirm 'rm -rf $HOME/.local/share/Trash/*'"
 alias clean-1yearcache="confirm 'find $HOME/.cache/ -type f -atime +365 -delete'"
 
 # refresh and set things
-alias plasma="killall plasmashell; plasmashell > /dev/null 2>&1 & disown"
 alias picommence="picom --config $HOME/.config/picom/picom.conf"
 alias x-antishadow="xcompmgr -c -l0 -t0 -r0 -o.00"
 alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'"
 alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
-alias remap-keys="xmodmap $HOME/.Xmodmap"
-alias remap-keys-i3="xmodmap $HOME/.Xmodmap-i3"
 alias spotifyd-restart="systemctl --user restart spotifyd.service"
 
 # quick programs
 alias vi="nvim"
 alias subl="subl3"
-#alias sublime="subl"
-#alias sublimetext="subl"
 alias sptd="spotifyd-restart; spt"
 alias spotify-tui=sptd
 alias ytop="ytop -c solarized-dark"
@@ -167,13 +157,6 @@ alias ytop="ytop -c solarized-dark"
 ## GPU test
 alias DRIglxgears="DRI_PRIME=1 glxgears"
 alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
-
-
-## aliases programs to run with doubled font size
-## Alternatively edit the corresponding application.desktop
-## to have Exec=GDK_SCALE=2 app
-alias unityhub="GDK_SCALE=2 unityhub"
-
 
 
 ## personal cd shortcuts
@@ -189,12 +172,9 @@ alias sshfs-vergil="sshfs -o allow_other,default_permissions,idmap=user ssahba@v
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## Powerline and Powerline-fonts for Bash, VIM, etc...
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-## Powerline-Shell
-function _update_ps1() {
-    PS1=$(powerline-shell $?)
-}
-
+#function _update_ps1() {
+#    PS1=$(powerline-shell $?)
+#}
 # if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
 #     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
 # fi
@@ -203,19 +183,10 @@ function _update_ps1() {
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## stderrred-git
 ## https://github.com/sickill/stderred
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-# colorizes all stderr as red
 #export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
 
 
-
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-#export TERM=linux
-
-echo $(date)
-
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/shervin/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -231,3 +202,6 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+echo $(date)

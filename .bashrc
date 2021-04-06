@@ -51,9 +51,6 @@ if ${use_color} ; then
 	else
 		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 	fi
-
-	alias ls='ls --color=auto'
-	alias grep='grep --colour=auto'
 else
 	if [[ ${EUID} == 0 ]] ; then
 		# show root@ when we don't have colors
@@ -74,9 +71,9 @@ shopt -s histappend		# history appending instead of overwriting
 
 xhost +local:root > /dev/null 2>&1	# allow local connections from root
 
+
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-# # ex - archive extractor
-# # usage: ex <file>
+# # ex - archive extractor, usage: ex <file>
 ex ()
 {
   if [ -f $1 ] ; then
@@ -112,6 +109,7 @@ export QT_QPA_PLATFORMTHEME=gtk2 #gtk2, qt5ct
 alias sudo='sudo '        # permits using sudo with aliased commands
 alias cp='cp -i'          # confirm before overwriting something
 
+alias grep='grep --colour=auto'
 alias egrep='grep -E'	  # extended grep
 alias fgrep='grep -F'	  # fixed grep
 alias less='less -R'	  # allow colorized pipes to less
@@ -120,7 +118,7 @@ alias h='head'
 alias t='tail'
 alias his='history'
 
-
+alias ls='ls --color=auto'
 alias ll='ls -Flh'
 alias lll='ls -Flha'
 alias tree1='tree -L 1 -hFC'
@@ -148,34 +146,29 @@ alias cdsrc="cd $HOME/src"
 alias cdD="cd $HOME/Downloads"
 
 # cleanup
-alias clean-sudo-paccache-u0="confirm 'sudo paccache -ruk 0'"
-alias clean-sudo-paccache-3="confirm 'sudo paccache -rk 3'"
-alias clean-sudo-pacman-orphans="confirm 'pacman -R $(pacman -Qdtq)'"
-alias clean-sudo-journal="confirm 'sudo journalctl --vacuum-size=50M'"
-alias clean-garbageremoval="confirm 'rm -rf $HOME/.local/share/Trash/*'"
-alias clean-1yearcache="confirm 'find $HOME/.cache/ -type f -atime +365 -delete'"
+alias clean-all-uninstalled-packages="paccache -ruk 0"
+alias clean-paccache-keep3versions="paccache -rk 3"
+alias clean-pacman-orphans="pacman -Qdtq; echo; echo Choose packages to remove manually."
+alias clean-journal="journalctl --vacuum-size=50M"
+alias clean-garbageremoval="rm -rf $HOME/.local/share/Trash/*"
+alias clean-1yearcache="find $HOME/.cache/ -type f -atime +365 -delete"
 
-# refresh and set things
-alias picommence="picom --config $HOME/.config/picom/picom.conf"
-alias x-antishadow="xcompmgr -c -l0 -t0 -r0 -o.00"
 alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'"
 alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
-alias spotifyd-restart="systemctl --user restart spotifyd.service"
 
-# quick programs
-alias vi="nvim"
+command -v vim >/dev/null 2>&1 && alias vi=vim
 alias subl="subl3"
 alias sptd="spotifyd-restart; spt"
 alias spotify-tui=sptd
+alias spotifyd-restart="systemctl --user restart spotifyd.service"
 
 ## GPU test
 alias DRIglxgears="DRI_PRIME=1 glxgears"
 alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
 
-## personal cd shortcuts
+## personal cd and ssh shortcuts
 alias cdR="cd $HOME/ACADEMIA/RESEARCH/"
-
-## networks and SSH
+alias cdUW="cd $HOME/ACADEMIA/UW/"
 alias hyak="ssh -X ssahba@mox.hyak.uw.edu"
 alias sshfs-vergil="sshfs -o allow_other,default_permissions,idmap=user ssahba@vergil.u.washington.edu: /home/shervin/ACADEMIA/UW/vergil/"
 

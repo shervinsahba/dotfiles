@@ -1,11 +1,17 @@
-[[ $- != *i* ]] && return
+# ~/.bashrc
 
-[ -r /usr/share/bash-completion/bash_completion ] && . /usr/share/bash-completion/bash_completion
+[[ $- != *i* ]] && return  # if not an interactive shell, return without doing anything
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-# Change the window title of X terminals
+# auto-completion
+[ -r /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion
 
+complete -cf sudo  # option specified by sudo may not be followed by a filename
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# window title of X terminals
 case ${TERM} in
 	xterm*|rxvt*|Eterm*|aterm|alacritty|kterm|gnome*|interix|konsole*)
 		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'	;;
@@ -22,7 +28,6 @@ esac
 # globbing instead of external grep binary.
 
 use_color=true
-
 safe_term=${TERM//[^[:alnum:]]/?}   # sanitize TERM
 match_lhs=""
 [[ -f ~/.dir_colors   ]] && match_lhs="${match_lhs}$(<~/.dir_colors)"
@@ -31,9 +36,8 @@ match_lhs=""
 	&& type -P dircolors >/dev/null \
 	&& match_lhs=$(dircolors --print-database)
 [[ $'\n'${match_lhs} == *$'\n'"TERM "${safe_term}* ]] && use_color=true
-
 if ${use_color} ; then
-	# Enable colors for ls, etc.  Prefer ~/.dir_colors #64489
+	# colors for ls, grep.  Prefer ~/.dir_colors #64489
 	if type -P dircolors >/dev/null ; then
 		if [[ -f ~/.dir_colors ]] ; then
 			eval $(dircolors -b ~/.dir_colors)
@@ -43,15 +47,13 @@ if ${use_color} ; then
 	fi
 
 	if [[ ${EUID} == 0 ]] ; then
-		PS1='\[\033[01;31m\][\h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
+		PS1='\[\033[01;31m\][   \h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
 	else
 		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 	fi
 
 	alias ls='ls --color=auto'
 	alias grep='grep --colour=auto'
-	alias egrep='egrep --colour=auto'
-	alias fgrep='fgrep --colour=auto'
 else
 	if [[ ${EUID} == 0 ]] ; then
 		# show root@ when we don't have colors
@@ -60,77 +62,90 @@ else
 		PS1='\u@\h \w \$ '
 	fi
 fi
+unset safe_term match_lhs sh
 
-unset use_color safe_term match_lhs sh
 
-xhost +local:root > /dev/null 2>&1
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# shell options
+shopt -s cdspell		# minor errors during cd command are corrected
+shopt -s checkwinsize	# check terminal window size. update if needed
+shopt -s expand_aliases # expand aliases
+shopt -s histappend		# history appending instead of overwriting
 
-complete -cf sudo
+xhost +local:root > /dev/null 2>&1	# allow local connections from root
 
-# Bash won't get SIGWINCH if another process is in the foreground.
-# Enable checkwinsize so that bash will check the terminal size when
-# it regains control.  #65623
-# http://cnswww.cns.cwru.edu/~chet/bash/FAQ (E11)
-shopt -s checkwinsize
-
-shopt -s expand_aliases
-
-# Enable history appending instead of overwriting.  #139609
-shopt -s histappend
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+# # ex - archive extractor
+# # usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## environment variables
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 export EDITOR=/usr/bin/nano
-
-export QT_QPA_PLATFORMTHEME=gtk2
-#export QT_QPA_PLATFORMTHEME=qt5ct
-
-HOMEBIN=$HOME/bin
-HOMESRC=$HOME/src
-PATH=$PATH:$HOMEBIN
-PATH=$PATH:$HOMESRC
-export PATH
+export QT_QPA_PLATFORMTHEME=gtk2 #gtk2, qt5ct
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## aliases
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 alias sudo='sudo '        # permits using sudo with aliased commands
+alias cp='cp -i'          # confirm before overwriting something
 
-# basic commands
-alias cp="cp -i"          # confirm before overwriting something
-alias df='df -h'          # human-readable sizes
-alias free='free -m'      # show sizes in MB
-alias more=less
-alias ll='ls -Flh'
-alias lll='ls -Flha'
-alias cl='clear; echo $(date)'
+alias egrep='grep -E'	  # extended grep
+alias fgrep='grep -F'	  # fixed grep
+alias less='less -R'	  # allow colorized pipes to less
+alias more='less'
 alias h='head'
 alias t='tail'
 alias his='history'
-alias jobs='jobs -l'
+
+
+alias ll='ls -Flh'
+alias lll='ls -Flha'
+alias tree1='tree -L 1 -hFC'
+alias tree2='tree -L 2 -hFC'
+alias tree3='tree -L 3 -hFC'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias cl='clear; echo $(date)'
+
+alias c="xclip -selection clipboard"	  # xclip copy
+alias p="xclip -selection clipboard -o"   # xclip paste
+
+alias df='df -h'          		# disk space in human-readable sizes
+alias free='free -m'      		# shows free memory in MB
+alias duh='du -h --max-depth=1' # disk space in human-readable sizes
+
+alias journalctl="journalctl --output=short-iso"	# ISO timestamps
 
 # cd shortcuts
+alias cdX='cd /etc/X11/xorg.conf.d/; ll'
 alias cdtrash='cd $HOME/.local/share/Trash'
-alias cdX='cd /etc/X11/xorg.conf.d/; ls -l'
-
-# system
-alias journalctl="journalctl --output=short-iso"
-
-# filesystem
-alias duh='du -h --max-depth=1'
-alias treee='tree -L 3'
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-
-# xclip copy and paste
-alias c="xclip -selection clipboard"
-alias p="xclip -selection clipboard -o"
+alias cdbin="cd $HOME/bin"
+alias cdsrc="cd $HOME/src"
+alias cdD="cd $HOME/Downloads"
 
 # cleanup
 alias clean-sudo-paccache-u0="confirm 'sudo paccache -ruk 0'"
@@ -152,38 +167,23 @@ alias vi="nvim"
 alias subl="subl3"
 alias sptd="spotifyd-restart; spt"
 alias spotify-tui=sptd
-alias ytop="ytop -c solarized-dark"
 
 ## GPU test
 alias DRIglxgears="DRI_PRIME=1 glxgears"
 alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
 
-
 ## personal cd shortcuts
 alias cdR="cd $HOME/ACADEMIA/RESEARCH/"
-alias cdbin="cd $HOME/bin"
-alias cdsrc="cd $HOME/src"
 
 ## networks and SSH
 alias hyak="ssh -X ssahba@mox.hyak.uw.edu"
 alias sshfs-vergil="sshfs -o allow_other,default_permissions,idmap=user ssahba@vergil.u.washington.edu: /home/shervin/ACADEMIA/UW/vergil/"
 
 
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## Powerline and Powerline-fonts for Bash, VIM, etc...
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-#function _update_ps1() {
-#    PS1=$(powerline-shell $?)
-#}
-# if [[ $TERM != linux && ! $PROMPT_COMMAND =~ _update_ps1 ]]; then
-#     PROMPT_COMMAND="_update_ps1; $PROMPT_COMMAND"
-# fi
-
-
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## stderrred-git
 ## https://github.com/sickill/stderred
-#export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
+# export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

@@ -407,12 +407,13 @@ exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
 ## floating windows
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-floating_minimum_size 600x600
+floating_minimum_size 200x400
 floating_maximum_size $mode1
 default_floating_border none
 
 ## Run xprop and click on window to find out WM class or title.
 
+for_window [class="libreoffice"] resize set 1200 800
 for_window [class="zoom"] floating enable, sticky enable
 for_window [class="ringcentral"] floating enable, sticky enable
 for_window [class="keepassxc"] floating enable, move position mouse

@@ -1,0 +1,51 @@
+alias sudo='sudo '        # permits using sudo with aliased commands
+alias cp='cp -i'          # confirm before overwriting something
+# alias rm='rm -i'          # confirm before removing something
+
+alias grep='grep --colour=auto'
+alias egrep='grep -E'	  # extended grep
+alias fgrep='grep -F'	  # fixed grep 
+alias less='less -R'	  # allow colorized pipes to less
+alias more='less'
+alias h='head'
+alias t='tail'
+
+alias mkdir='mkdir -p'	  		# makes parent directory if it doesn't exist
+alias ls='ls --color=auto'
+alias ll='ls -Flh'
+alias lll='ls -Flha'
+alias llll='ls -Flha | less'
+alias lh='ll -d .[^.]*'			# long list hidden files only
+alias tree1='tree -L 1 -hFC'
+alias tree2='tree -L 2 -hFC'
+alias tree3='tree -L 3 -hFC'
+alias ..='cd ..'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+alias ..4='cd ../../../..'
+
+alias his='history'
+alias cl='clear; echo $(date)'
+
+alias c='xclip -selection clipboard'	  # xclip copy
+alias p='xclip -selection clipboard -o'   # xclip paste
+
+alias mount='mount | column -t' 		# pretty print mount
+alias df='df -h'          				# disk space in human-readable sizes
+alias free='free -m'      				# shows free memory in MB
+alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
+alias paths='echo -e ${PATH//:/\\n}'	# pretty print paths
+alias timestamp='date +"%Y%m%dT%H%M%S"'
+
+alias journalctl='journalctl --output=short-iso'	# ISO timestamps
+
+alias cdX='cd /etc/X11/xorg.conf.d/; ll'
+alias cdtrash='cd $HOME/.local/share/Trash'
+alias cdbin='cd $HOME/bin'
+alias cdsrc='cd $HOME/src'
+alias cdD='cd $HOME/Downloads'
+
+command -v vim >/dev/null 2>&1 && alias vi=vim
+
+alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'"
+alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"

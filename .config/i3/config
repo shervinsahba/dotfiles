@@ -411,6 +411,8 @@ floating_minimum_size 200x400
 floating_maximum_size $mode1
 default_floating_border none
 
+bindsym $mod+$windowskey+r move position 50 50
+
 ## Run xprop and click on window to find out WM class or title.
 
 for_window [class="libreoffice"] resize set 1200 800
@@ -445,6 +447,7 @@ for_window [title="MetaMask Notification"] floating enable
 for_window [title="Steam Library Folders"] floating enable
 for_window [title="Create or select new Steam library folder:"] floating enable
 for_window [title="Steam - News"] floating enable
+for_window [class="Slack"] floating enable
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## audio control

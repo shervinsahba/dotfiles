@@ -37,8 +37,6 @@ alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
 alias paths='echo -e ${PATH//:/\\n}'	# pretty print paths
 alias timestamp='date +"%Y%m%dT%H%M%S"'
 
-alias journalctl='journalctl --output=short-iso'	# ISO timestamps
-
 alias cdX='cd /etc/X11/xorg.conf.d/; ll'
 alias cdtrash='cd $HOME/.local/share/Trash'
 alias cdbin='cd $HOME/bin'
@@ -49,3 +47,7 @@ command -v vim >/dev/null 2>&1 && alias vi=vim
 
 alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'"
 alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
+
+# systemctl
+alias journalctl='journalctl --output=short-iso'	            # ISO timestamps
+alias restart-net="systemctl restart NetworkManager.service"    # restarts network and /etc/hosts

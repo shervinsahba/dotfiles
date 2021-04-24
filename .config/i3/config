@@ -81,7 +81,7 @@ set $steeldk     #292d2e
 client.focused           $black   $steellt     $greenish    $greenishpop
 client.focused_inactive  $black   $steeldk     $greenish    $steellt
 client.unfocused         $black   $steeldk     $darkwhite   $steellt
-client.urgent            $black   $greenishpop $magenta     $steellt
+client.urgent            $black   $greenishpop $black       $steellt
 
 ## font for window titles and i3 bar
 font pango:Fira Code Retina 8

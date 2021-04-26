@@ -128,6 +128,7 @@ alias DRIglxgears="DRI_PRIME=1 glxgears"
 alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
 
 ## personal cd and ssh shortcuts
+alias cdconfig="cd $HOME/.config"
 alias cdR="cd $HOME/ACADEMIA/RESEARCH/"
 alias cdUW="cd $HOME/ACADEMIA/UW/"
 alias hyak="ssh -X ssahba@mox.hyak.uw.edu"

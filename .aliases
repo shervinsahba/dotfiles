@@ -19,8 +19,6 @@ alias lh='ll -d .[^.]*'			# long list hidden files only
 alias tree1='tree -L 1 -hFC'
 alias tree2='tree -L 2 -hFC'
 alias tree3='tree -L 3 -hFC'
-alias ..='cd ..'
-alias ...='cd ../..'
 
 alias locate='locate -e'  # only shows files that still exist
 alias his='history'
@@ -35,6 +33,10 @@ alias free='free -m'      				# shows free memory in MB
 alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
 alias paths='echo -e ${PATH//:/\\n}'	# pretty print paths
 alias timestamp='date +"%Y%m%dT%H%M%S"'
+
+alias -='cd -'
+alias ..='cd ..'
+alias ...='cd ../..'
 
 alias cdX='cd /etc/X11/xorg.conf.d/; ll'
 alias cdtrash='cd $HOME/.local/share/Trash'

@@ -134,6 +134,24 @@ alias cdUW="cd $HOME/ACADEMIA/UW/"
 alias hyak="ssh -X ssahba@mox.hyak.uw.edu"
 alias sshfs-vergil="sshfs -o allow_other,default_permissions,idmap=user ssahba@vergil.u.washington.edu: /home/shervin/ACADEMIA/UW/vergil/"
 
+hyak-send()
+{
+  local_file_path="$1"
+  destination_path="$2"
+  LOGIN=ssahba
+
+  scp "$local_file_path" "$LOGIN"@mox.hyak.uw.edu:"$destination_path"
+}
+
+hyak-get()
+{
+  remote_file_path="$1"
+  destination_path="$2"
+  LOGIN=ssahba
+
+  scp "$LOGIN"@mox.hyak.uw.edu:"$remote_file_path" "$destination_path"
+}
+
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## stderrred-git

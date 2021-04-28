@@ -20,10 +20,9 @@ alias tree1='tree -L 1 -hFC'
 alias tree2='tree -L 2 -hFC'
 alias tree3='tree -L 3 -hFC'
 alias ..='cd ..'
-alias ..2='cd ../..'
-alias ..3='cd ../../..'
-alias ..4='cd ../../../..'
+alias ...='cd ../..'
 
+alias locate='locate -e'  # only shows files that still exist
 alias his='history'
 alias cl='clear; echo $(date)'
 

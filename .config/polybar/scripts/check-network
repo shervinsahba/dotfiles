@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+disconnected=""
+disconnected1="Offline"
+wireless_connected=""
+ethernet_connected=" Wired"
+
+SSID_NAME=$(iwgetid -r)
+ID="$(ip link | awk '/state UP/ {print $2}')"
+
+while true; do
+    if (ping -c 1 archlinux.org || ping -c 1 duckduckgo.com || ping -c 1 bitbucket.org || ping -c 1 github.com || ping -c 1 sourceforge.net) &>/dev/null; then
+        if [[ $ID == e* ]]; then
+            echo "$ethernet_connected" ; sleep 10
+        else
+            echo "$wireless_connected" "${SSID_NAME}"; sleep 10
+        fi
+    else
+        echo "$disconnected" "$disconnected1"; sleep 2
+    fi
+done

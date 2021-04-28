@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rofi -font 'Fire Code Retina 15' -theme solarized_alternate \
+     -modi run,drun,ssh,windowcd,window -show drun \
+     -location 1 -xoffset 10 -yoffset 32 \
+     -line-padding 4 -columns 1 -width 20 -lines 25 -padding 10 \
+     -hide-scrollbar -show-icons -drun-icon-theme "Breath2"

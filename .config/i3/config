@@ -335,7 +335,10 @@ bindsym F12 exec $tdropfloat -w 60% -h 80% -x 20% kitty
 bindsym $windowskey+x exec $tdropfloat -w 1000 -h 800 -x 5% -y 10% keepassxc
 bindsym $windowskey+a exec $tdropfloat -w 800 -h 400 -x -810 -y -440 pavucontrol
 bindsym $windowskey+b exec $tdropfloat -w 800 -h 400 -x -810 -y -440 blueman-manager
+bindsym $windowskey+r exec $tdropfloat -w 90% -h 90% -x 5% -y 5% ranger
+#bindsym $windowskey+n exec $tdropfloat -w 800 -h 800 -x -800 -y -840 -n 1000 urxvt -e nmtui   # size issue with new terminal
 bindsym $windowskey+z exec $tdropfloat -w 50% -h 96% -x 2% -y 2% zotero
+
 #bindsym $windowskey+e exec $tdropfloat -w 40% -h 80% -x 0% -y 10% tutanota
 #bindsym $windowskey+Shift+t exec $tdropfloat -w 40% -h 80% -x 0% -y 10% thunar
 
@@ -377,7 +380,7 @@ bindsym $windowskey+t exec thunar
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 ## polybar
-set $polybar "$HOME/.config/i3/polylaunch.sh"
+set $polybar "$HOME/.config/polybar/launch.sh"
 exec_always --no-startup-id $polybar
 
 ## toggle polybar

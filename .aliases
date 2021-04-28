@@ -34,7 +34,6 @@ alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
 alias paths='echo -e ${PATH//:/\\n}'	# pretty print paths
 alias timestamp='date +"%Y%m%dT%H%M%S"'
 
-alias -='cd -'
 alias ..='cd ..'
 alias ...='cd ../..'
 

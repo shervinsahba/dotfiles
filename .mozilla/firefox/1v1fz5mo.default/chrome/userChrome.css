@@ -2,38 +2,88 @@
 /* #browser vbox #appcontent tabbrowser, #content, #tabbrowser-tabpanels, browser[type=content-primary], browser[type=content] > html { background: black !important } */
 
 /* Hide min,max,close buttons */
-.titlebar-buttonbox-container{ display: none }
+.titlebar-buttonbox-container{
+  display: none
+}
 /* Provide space for min,max,close buttons */
 /* #nav-bar{ margin-right: 38px;} */
 
 
-/* HIDE TOP FIREFOX TABS (Because I'm using the Tree Style Tabs Extension)*/
-#TabsToolbar > .toolbar-items,
-#TabsToolbar > .titlebar-spacer{ visibility: hidden }
-#nav-bar{
-  margin-top: -28px;
-  padding: 0px 15px 0px 75px !important;
+/*AUTO-HIDE TOP TABS WHEN USING SIDEBERY*/
+/*#main-window #TabsToolbar {
+  height: 29px !important;
+  overflow: hidden;
+  transition: height .3s .3s !important;
+}
+#main-window[titlepreface*="⧌"] #TabsToolbar {
+  height: 0 !important;
+}
+#main-window[titlepreface*="⧌"] #tabbrowser-tabs {
+  z-index: 0 !important;
+}*/
+
+
+ /*HIDE TOP FIREFOX TABS (For Tree Style Tabs and/or Sidebery)*/
+#TabsToolbar {
+  height: 0px !important;
+}
+#tabbrowser-tabs {
+  z-index: 0 !important;
 }
 
 
 /* SIDE BAR */
 /* Minimize room on left and top of sidebar.*/
+/*
 #sidebar-box{
   margin-left: -4px;
+  max-width: 192px;
 }
 #sidebar-header{
   margin-top: -12px;
   margin-bottom: -14px;
   visibility: visible;
 }
+*/
+
+
+/* SIDE BAR AUTO-HIDE */
+:root {
+  --sidebar-min-width: 33px;
+  --sidebar-visible-width: 300px;
+}
+#sidebar-box #sidebar-header {
+  display: none !important;
+  overflow: hidden !important;
+}
 #sidebar-splitter {
   display: none !important;
+}
+#sidebar,
+#sidebar-box,
+#sidebar-header {
+  position: relative !important;
+  min-width: var(--sidebar-min-width) !important;
+  max-width: var(--sidebar-min-width) !important;
+  transition: 200ms ease 150ms;
+  z-index:1;
+  border-right: 0px solid black !important;
+}
+#sidebar-box:hover :-moz-any(#sidebar,#sidebar-header) {
+  background-color: var(--toolbar-bgcolor) !important;
+  min-width: var(--sidebar-visible-width) !important;
+  max-width: var(--sidebar-visible-width) !important;
+  margin-right: calc((var(--sidebar-visible-width) - var(--sidebar-min-width)) * -1) !important;
+  z-index:1;
+  position: relative !important;
+  transition: 120ms ease 150ms;
+  border-right: 0px solid black !important;
 }
 
 
 /* SIDE BAR SETTINGS FOR TREE STYLE TABS */
 /* Shrink sidebar until hovered, when using Tree Style Tabs. */
-:root { --thin-tab-width: 36px; }
+/*:root { --thin-tab-width: 36px; }
 :root { --wide-tab-width: 350px; }
 #sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
   min-width: var(--wide-tab-width) !important;
@@ -56,13 +106,19 @@
   margin-right: calc((var(--wide-tab-width) - var(--thin-tab-width)) * -1) !important;
   z-index: 1;
   border-right: 0px solid black !important;
-}
+}*/
 
 
 /* URL BAR */
-#urlbar-background { border: none !important; }
-#identity-box {	display: none;  }
-#urlbar-background { animation: none !important;  }
+#urlbar-background {
+  border: none !important;
+}
+#identity-box {
+  display: none;
+}
+#urlbar-background {
+  animation: none !important;
+}
 
 
 /* URL BAR ANIMATIONS - Open on hover, then collapse. */

@@ -1,0 +1,6 @@
+/* Set new tab and blank page to black */
+@-moz-document url("about:newtab"){ body { background-color: #111111 !important; color: #444444 !important; } }
+@-moz-document url("about:blank") { html { background-color: #111111; } }
+
+/* Set text in buttons and forms to gray, b/c black/white disappear on black/white backgrounds.*/
+button, input, select, select > input[type="button"], textarea { color: #888888 !important;}

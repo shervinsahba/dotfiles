@@ -3,35 +3,38 @@
 
 /* Hide min,max,close buttons */
 .titlebar-buttonbox-container{ display: none }
-
-/* HIDE ORIGINAL FIREFOX TABS */
-#TabsToolbar > .toolbar-items,
-#TabsToolbar > .titlebar-spacer{ visibility: hidden }
-#nav-bar{ 
-  margin-top: -32px; 
-  padding: 0px 15px 0px 75px !important; 
-}
-
 /* Provide space for min,max,close buttons */
 /* #nav-bar{ margin-right: 38px;} */
 
 
+/* HIDE TOP FIREFOX TABS (Because I'm using the Tree Style Tabs Extension)*/
+#TabsToolbar > .toolbar-items,
+#TabsToolbar > .titlebar-spacer{ visibility: hidden }
+#nav-bar{
+  margin-top: -28px;
+  padding: 0px 15px 0px 75px !important;
+}
+
+
 /* SIDE BAR */
 /* Minimize room on left and top of sidebar.*/
-#sidebar-box{ margin-left: -4px; }
-#sidebar-header{ 
-  margin-top: -12px; 
-  margin-bottom: -14px;  
-  visibility: visible; 
+#sidebar-box{
+  margin-left: -4px;
+}
+#sidebar-header{
+  margin-top: -12px;
+  margin-bottom: -14px;
+  visibility: visible;
 }
 #sidebar-splitter {
   display: none !important;
 }
 
-/* SIDE BAR: TREE STYLE TABS */
+
+/* SIDE BAR SETTINGS FOR TREE STYLE TABS */
+/* Shrink sidebar until hovered, when using Tree Style Tabs. */
 :root { --thin-tab-width: 36px; }
 :root { --wide-tab-width: 350px; }
-/* Shrink sidebar until hovered, when using Tree Style Tab. */
 #sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
   min-width: var(--wide-tab-width) !important;
   max-width: none !important;
@@ -62,9 +65,10 @@
 #urlbar-background { animation: none !important;  }
 
 
-/* URL BAR animations */
+/* URL BAR ANIMATIONS - Open on hover, then collapse. */
 /*  See https://github.com/ChiD12/firefox/blob/master/userChrome.css */
-/* Library, Sidebar, Navigations */
+
+/* Library, Sidebar, Back, Forward, Reload */
 #library-button .toolbarbutton-icon,
 #sidebar-button .toolbarbutton-icon,
 #back-button .toolbarbutton-icon,
@@ -83,6 +87,7 @@
   width: 28px !important;
   transition: all 0.12s;
 }
+/* Pocket, PageAction?, Star */
 #pocket-button,
 #pageActionButton,
 #star-button{
@@ -97,9 +102,28 @@
   width: 24px !important;
   transition: all 0.12s;
 }
+/* Badges - the little notices on toolbar button icons */
+.toolbarbutton-badge {
+  margin-top: -10px !important;
+  width: 0px !important;
+  height: 0px !important;
+  min-height: 0px !important;
+  min-width: 0px !important;
+  transition: all 1.0s;
+}
+#navigator-toolbox:hover .toolbarbutton-badge {
+  margin-top: -5px !important;
+  transform: rotate(-360deg);
+  width: 18px !important;
+  height: 9px !important;
+  min-height: 0px !important;
+  min-width: 0px !important;
+  transition: all 0.12s;
+}
+/* Bookmarks, Tracking Protection Shield, Avatar, Hamburger */
 #personal-bookmarks .toolbarbutton-icon,
 #tracking-protection-icon-box,
-#fxa-avatar-image, 
+#fxa-avatar-image,
 .toolbarbutton-badge-stack .toolbarbutton-icon {
   width: 0px !important;
   min-height: 0px !important;
@@ -117,27 +141,13 @@
   min-width: 0px !important;
   transition: all 0.12s;
 }
-.toolbarbutton-badge {
-  width: 0px !important;
-  min-height: 0px !important;
-  min-width: 0px !important;
-  height: 0px !important;
-  transition: all 1.0s;
-}
-#navigator-toolbox:hover .toolbarbutton-badge {
-  transform: rotate(-360deg);
-  width: 10px !important;
-  min-height: 10px !important;
-  min-width: 12px !important;
-  transition: all 0.12s;
-}
-/* TRACKING SHIELD  animation */
+/* Tracking shield icon animation */
 #tracking-protection-icon-animatable-image{
   width: 0px !important;
   transition: all 1.0s;
 }
 #navigator-toolbox:hover #tracking-protection-icon-animatable-image{
-  transform: rotate(720deg);
+  transform: rotate(-360deg);
   width: 272px !important;
   transition: all 0.12s;
 }

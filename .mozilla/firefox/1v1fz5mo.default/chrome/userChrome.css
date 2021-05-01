@@ -59,9 +59,9 @@
 #sidebar-splitter {
   display: none !important;
 }
-#sidebar,
-#sidebar-box,
-#sidebar-header {
+#main-window[titlepreface*="⧌"] #sidebar,
+#main-window[titlepreface*="⧌"] #sidebar-box,
+#main-window[titlepreface*="⧌"] #sidebar-header {
   position: relative !important;
   min-width: var(--sidebar-min-width) !important;
   max-width: var(--sidebar-min-width) !important;
@@ -69,7 +69,7 @@
   z-index:1;
   border-right: 0px solid black !important;
 }
-#sidebar-box:hover :-moz-any(#sidebar,#sidebar-header) {
+#main-window[titlepreface*="⧌"] #sidebar-box:hover :-moz-any(#sidebar,#sidebar-header) {
   background-color: var(--toolbar-bgcolor) !important;
   min-width: var(--sidebar-visible-width) !important;
   max-width: var(--sidebar-visible-width) !important;

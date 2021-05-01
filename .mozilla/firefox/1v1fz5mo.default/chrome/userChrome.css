@@ -47,11 +47,7 @@
 */
 
 
-/* SIDE BAR AUTO-HIDE FOR SIDEBERY */
-:root {
-  --sidebar-min-width: 33px;
-  --sidebar-visible-width: 300px;
-}
+/* SIDE BAR SETTINGS */
 #sidebar-box #sidebar-header {
   display: none !important;
   overflow: hidden !important;
@@ -59,58 +55,54 @@
 #sidebar-splitter {
   display: none !important;
 }
-#main-window:not([titlepreface*="⧌"]) #sidebar-box {
+/* SIDE BAR AUTO-HIDE PREVENTION */
+:root {
+  --sidebar-min-width: 33px;
+  --sidebar-visible-width: 300px;
+}
+#main-window:not([titlepreface*="⧌"]),
+#sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
   min-width: var(--sidebar-visible-width) !important;
   max-width: none !important;
 }
+/* SIDE BAR AUTO-HIDE SIDEBERY */
 #main-window[titlepreface*="⧌"] #sidebar,
 #main-window[titlepreface*="⧌"] #sidebar-header,
-#main-window[titlepreface*="⧌"] #sidebar-box {
+#main-window[titlepreface*="⧌"] #sidebar-box{
   position: relative !important;
   min-width: var(--sidebar-min-width) !important;
   max-width: var(--sidebar-min-width) !important;
   transition: 200ms ease 150ms;
   z-index:1;
-  border-right: 0px solid black !important;
 }
 #main-window[titlepreface*="⧌"] #sidebar-box:hover :-moz-any(#sidebar,#sidebar-header) {
   background-color: var(--toolbar-bgcolor) !important;
+  position: relative !important;
   min-width: var(--sidebar-visible-width) !important;
   max-width: var(--sidebar-visible-width) !important;
-  margin-right: calc((var(--sidebar-visible-width) - var(--sidebar-min-width)) * -1) !important;
-  z-index:1;
-  position: relative !important;
   transition: 120ms ease 150ms;
-  border-right: 0px solid black !important;
+  z-index:1;
+  margin-right: calc((var(--sidebar-visible-width) - var(--sidebar-min-width)) * -1) !important;
 }
-
-
-/* SIDE BAR SETTINGS FOR TREE STYLE TABS */
-/* Shrink sidebar until hovered, when using Tree Style Tabs. */
-/*:root { --thin-tab-width: 36px; }
-:root { --wide-tab-width: 350px; }
-#sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
-  min-width: var(--wide-tab-width) !important;
-  max-width: none !important;
-}
+/* SIDE BAR AUTO-HIDE TREE STYLE TABS */
 #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] {
   overflow: hidden !important;
   position: relative !important;
-  transition: all 120ms !important;
-  min-width: var(--thin-tab-width) !important;
-  max-width: var(--thin-tab-width) !important;
-  z-index: 1;
-  border-right: 0px solid black !important;
+  min-width: var(--sidebar-min-width) !important;
+  max-width: var(--sidebar-min-width) !important;
+  transition: 200ms ease 150ms;
+  z-index:2;
+  /*border-right: 0px solid black !important;*/
 }
 #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]:hover,
 #sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar {
-  transition: all 120ms !important;
-  min-width: var(--wide-tab-width) !important;
-  max-width: var(--wide-tab-width) !important;
-  margin-right: calc((var(--wide-tab-width) - var(--thin-tab-width)) * -1) !important;
-  z-index: 1;
-  border-right: 0px solid black !important;
-}*/
+  position: relative !important;
+  min-width: var(--sidebar-visible-width) !important;
+  max-width: var(--sidebar-visible-width) !important;
+  transition: 120ms ease 150ms;
+  z-index:2;
+  /*border-right: 0px solid black !important;*/
+}
 
 
 /* URL BAR */

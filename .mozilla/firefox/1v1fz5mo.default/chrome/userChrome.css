@@ -47,7 +47,7 @@
 */
 
 
-/* SIDE BAR AUTO-HIDE */
+/* SIDE BAR AUTO-HIDE FOR SIDEBERY */
 :root {
   --sidebar-min-width: 33px;
   --sidebar-visible-width: 300px;
@@ -59,9 +59,13 @@
 #sidebar-splitter {
   display: none !important;
 }
+#main-window:not([titlepreface*="⧌"]) #sidebar-box {
+  min-width: var(--sidebar-visible-width) !important;
+  max-width: none !important;
+}
 #main-window[titlepreface*="⧌"] #sidebar,
-#main-window[titlepreface*="⧌"] #sidebar-box,
-#main-window[titlepreface*="⧌"] #sidebar-header {
+#main-window[titlepreface*="⧌"] #sidebar-header,
+#main-window[titlepreface*="⧌"] #sidebar-box {
   position: relative !important;
   min-width: var(--sidebar-min-width) !important;
   max-width: var(--sidebar-min-width) !important;

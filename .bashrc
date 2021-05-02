@@ -185,5 +185,12 @@ export NVM_DIR="$HOME/.nvm"
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## ruby
+
+#export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
+
+eval "$(rbenv init -)"
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 echo $(date)
 

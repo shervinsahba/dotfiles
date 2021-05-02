@@ -50,9 +50,9 @@ APP_PROCESS_NAME="$1"
 
 check_app() {
 	if pgrep -x "$APP_PROCESS_NAME" >/dev/null; then
-		echo %{F$COLOR_CONNECTED}" $GLYPH "%{F-}
+		echo %{F$COLOR_CONNECTED}"$GLYPH"%{F-}
 	else
-		echo %{F$COLOR_DISCONNECTED}" $GLYPH "%{F-}
+		echo %{F$COLOR_DISCONNECTED}"$GLYPH"%{F-}
 	fi
 }
 

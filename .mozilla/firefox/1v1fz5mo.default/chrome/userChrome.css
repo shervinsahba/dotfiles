@@ -71,7 +71,7 @@
     opacity: 0 !important;
 }
 #sidebar-header {
-    -moz-transition: all 120ms ease-out 200ms !important;
+    -moz-transition: all 150ms ease-out 150ms !important;
     background-color: rgb(40, 42, 54) !important;
 }
 

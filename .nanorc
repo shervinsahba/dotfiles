@@ -1,5 +1,4 @@
 set linenumbers
-set smooth      # smooth scrolling
 set autoindent  # new line indents to match previous line's indent
 set backup      # upon write, backs up file that you're working on with suffix ~ added
 set backupdir "~/.nano-backups"

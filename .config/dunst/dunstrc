@@ -6,7 +6,7 @@
 
     follow = mouse
 
-    geometry = "280x50+40+30"
+    geometry = "320x50-40+30"
 
     indicate_hidden = yes
 
@@ -16,29 +16,31 @@
 
     notification_height = 0
 
-    separator_height = 4
+    separator_height = 2
+
+    separator_color = frame
 
     padding = 12
     
     horizontal_padding = 12
 
-    frame_width = 0
+    frame_width = 2
 
-    frame_color = "#BE302F"
+    frame_color = "#BD93f9"
 
-    separator_color = frame
+    corner_radius = 8
 
     sort = yes
 
     idle_threshold = 200
 
-	font = Fire Code Retina 11
+	font = FiraCode Nerd Font 11
 
-    line_height = 4
+    line_height = 2
 
     markup = full
 
-    format = "%a:\n<b>%s</b>\n%b"
+    format = "<small>%a</small>\n<b>%s</b>\n%b"
 
     alignment = left
 

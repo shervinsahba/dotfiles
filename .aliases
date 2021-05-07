@@ -22,7 +22,7 @@ alias tree3='tree -L 3 -hFC'
 
 alias locate='locate -e'  # only shows files that still exist
 alias his='history'
-alias cl='clear; echo $(date)'
+alias cl='clear'
 
 alias c='xclip -selection clipboard'	  # xclip copy
 alias p='xclip -selection clipboard -o'   # xclip paste

@@ -132,6 +132,7 @@ alias cdconfig="cd $HOME/.config"
 alias cdR="cd $HOME/ACADEMIA/RESEARCH/"
 alias cdUW="cd $HOME/ACADEMIA/UW/"
 alias hyak="ssh -X ssahba@mox.hyak.uw.edu"
+alias hyakport="ssh -L 6969:127.0.0.1:6969 ssahba@mox.hyak.uw.edu"
 alias sshfs-vergil="sshfs -o allow_other,default_permissions,idmap=user ssahba@vergil.u.washington.edu: /home/shervin/ACADEMIA/UW/vergil/"
 
 hyak-send()
@@ -156,8 +157,8 @@ hyak-get()
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## stderrred-git
 ## https://github.com/sickill/stderred
-# export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
-
+export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
+#export LD_PRELOAD="/usr/lib/libstderred.so\$LIB/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # >>> conda initialize >>>

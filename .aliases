@@ -53,3 +53,7 @@ alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
 # systemctl
 alias journalctl='journalctl --output=short-iso'	            # ISO timestamps
 alias restart-net="systemctl restart NetworkManager.service"    # restarts network and /etc/hosts
+
+
+# kittens
+alias icat="kitty +kitten icat"

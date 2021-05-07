@@ -45,6 +45,8 @@ alias cdD='cd $HOME/Downloads'
 
 command -v vim >/dev/null 2>&1 && alias vi=vim
 
+alias condacheck='conda env list | grep *'
+
 alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'"
 alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
 

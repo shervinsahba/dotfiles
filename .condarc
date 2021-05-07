@@ -5,3 +5,5 @@ channels:
 allow_conda_downgrades: true
 
 env_prompt: ({name})
+auto_activate_base: true
+changeps1: false

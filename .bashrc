@@ -45,10 +45,12 @@ if ${use_color} ; then
 			eval $(dircolors -b /etc/DIR_COLORS)
 		fi
 	fi
-
+    # if root
 	if [[ ${EUID} == 0 ]] ; then
 		PS1='\[\033[01;31m\][   \h\[\033[01;36m\] \W\[\033[01;31m\]]\$\[\033[00m\] '
-	else
+	elif [[ ${USER}@${HOSTNAME} == 'shervin@fractal' ]] ; then
+		PS1='\[\033[01;32m\] \[\033[01;37m\]\W\[\033[01;32m\] \$\[\033[00m\] '
+    else # if any other user
 		PS1='\[\033[01;32m\][\u@\h\[\033[01;37m\] \W\[\033[01;32m\]]\$\[\033[00m\] '
 	fi
 else

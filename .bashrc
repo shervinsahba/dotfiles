@@ -101,7 +101,7 @@ ex ()
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## environment variables
-export EDITOR=/usr/bin/nano
+export EDITOR=/usr/bin/vim
 export QT_QPA_PLATFORMTHEME=gtk2 #gtk2, qt5ct
 
 

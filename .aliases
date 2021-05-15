@@ -44,6 +44,8 @@ alias cdsrc='cd $HOME/src'
 alias cdD='cd $HOME/Downloads'
 
 command -v vim >/dev/null 2>&1 && alias vi=vim
+alias ra=ranger
+
 
 alias condacheck='conda env list | grep *'
 

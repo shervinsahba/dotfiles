@@ -415,50 +415,54 @@ exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
 ## floating windows
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-floating_minimum_size 200x400
+floating_minimum_size 200x200
 floating_maximum_size $mode1
 default_floating_border pixel 1
 
 bindsym $mod+$windowskey+r move position 50 50
 
 ## Run xprop and click on window to find out WM class or title.
-
-for_window [class="libreoffice"] resize set 1200 800
-for_window [class="zoom"] floating enable, sticky enable
-#for_window [class="zoom" title="Zoom - Licensed Account"] move position 20 20
-for_window [class="zoom"] [title="Zoom Meeting"] resize set 1600 900, move position 20 20
-for_window [class="zoom"] [title="Chat"] move position mouse
-for_window [class="ringcentral"] floating enable, sticky enable
-for_window [class="keepassxc"] floating enable, move position mouse
-for_window [class="KeePassXC"] floating enable, move position mouse
-for_window [class="mpv"] floating enable
-for_window [class="nvidia-settings"] floating enable
-for_window [class="Nvidia-settings"] floating enable
-for_window [class="tutanota-desktop"] floating enable
-for_window [class="qbittorrent"] floating enable
-for_window [class="qBittorrent"] floating enable
-for_window [class="matplotlib"] floating enable
-for_window [title="Figure *"] floating enable
-for_window [title="glxgears"] floating enable
+for_window [title="AQEMU"] floating enable
 for_window [class="ark"] floating enable
-for_window [title="Manjaro Settings Manager"] floating enable
-for_window [class="pavucontrol"] floating enable, move position mouse, move up 30, move left 30, sticky enable
-for_window [class="Pavucontrol"] floating enable, move position mouse, move up 30, move left 30, sticky enable
 for_window [class="blueman-manager"] floating enable, move position mouse, move up 30, move left 30, sticky enable
 for_window [class="Blueman-manager"] floating enable, move position mouse, move up 30, move left 30, sticky enable
+for_window [class="feh"] floating enable
+for_window [title="glxgears"] floating enable
+for_window [class="keepassxc"] floating enable, move position mouse
+for_window [class="KeePassXC"] floating enable, move position mouse
+for_window [class="libreoffice"] resize set 1200 800
+for_window [class="mpv"] floating enable
+for_window [title="Manjaro Settings Manager"] floating enable
+for_window [class="matplotlib"] floating enable
+for_window [title="MetaMask Notification"] floating enable
+for_window [class="nvidia-settings"] floating enable
+for_window [class="Nvidia-settings"] floating enable
+for_window [class="pavucontrol"] floating enable, move position mouse, move up 30, move left 30, sticky enable
+for_window [class="Pavucontrol"] floating enable, move position mouse, move up 30, move left 30, sticky enable
 for_window [class="pulseeffects"] floating enable, sticky enable
 for_window [class="Pulseeffects"] floating enable, sticky enable
-for_window [class="feh"] floating enable
+for_window [class="qbittorrent"] floating enable
+for_window [class="qBittorrent"] floating enable
+for_window [class="ringcentral"] floating enable, sticky enable
+for_window [class="Slack"] floating enable
+for_window [class="tutanota-desktop"] floating enable
 for_window [class="viewnior"] floating enable
 for_window [class="Viewnior"] floating enable
-for_window [title="Explain Margin"] floating enable
-for_window [title="AQEMU"] floating enable
+
+for_window [title="Figure *"] floating enable  #matlab
 for_window [title="Oracle VM VirtualBox Manager"] floating enable
-for_window [title="MetaMask Notification"] floating enable
+for_window [title="Explain Margin"] floating enable  #thinkorswim
+
+#steam
 for_window [title="Steam Library Folders"] floating enable
 for_window [title="Create or select new Steam library folder:"] floating enable
 for_window [title="Steam - News"] floating enable
-for_window [class="Slack"] floating enable
+
+#zoom
+for_window [class="zoom"] floating enable, sticky enable
+for_window [class="zoom" title="Zoom Meeting"] resize set 1600 900, move position 20 20
+for_window [class="zoom" title="Chat"] move position mouse
+
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## audio control

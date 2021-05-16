@@ -77,14 +77,21 @@ set $gray9       #999999
 set $steellt     #484e50
 set $steeldk     #292d2e
 
+#dracula
+set $purp        #bd93f9
+set $dpurp       #4b3a63
+set $slate       #dc6272a4
+set $pink        #ff79c6
+set $gray        #282b37
+
 ##<colorclass>           <border> <background> <text>       <indicator>  <child_border>
-client.focused           $black   $steellt     $greenish    $greenishpop
-client.focused_inactive  $black   $steeldk     $greenish    $steellt
-client.unfocused         $black   $steeldk     $darkwhite   $steellt
-client.urgent            $black   $greenishpop $black       $steellt
+client.focused           $black   $dpurp       $greenish    $greenishpop $purp
+client.focused_inactive  $black   $steeldk     $greenish    $steellt     $purp
+client.unfocused         $black   $steeldk     $darkwhite   $steellt     $dpurp
+client.urgent            $black   $greenishpop $black       $steellt     $pink
 
 ## font for window titles and i3 bar
-font pango:Fira Code Retina 8
+font pango:FiraCode Nerd Font 8
 
 ## window title modifier
 for_window [class=".*"] title_format "<b>%title</b>"
@@ -271,9 +278,11 @@ bindsym $mod+r mode "resize"
 ## i3-gaps control
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-for_window [class="^.*"] border pixel 0
+#for_window [class="^.*"] border pixel 1
+default_border pixel 1
 #smart_gaps on
 smart_borders on
+
 
 set $inner_px 20
 set $outer_px 4
@@ -337,13 +346,13 @@ bindsym $windowskey+a exec $tdropfloat -w 800 -h 400 -x -810 -y -440 pavucontrol
 bindsym $windowskey+b exec $tdropfloat -w 800 -h 400 -x -810 -y -440 blueman-manager
 bindsym $windowskey+r exec $tdropfloat -w 90% -h 90% -x 5% -y 5% ranger
 #bindsym $windowskey+n exec $tdropfloat -w 800 -h 800 -x -800 -y -840 -n 1000 urxvt -e nmtui   # size issue with new terminal
-bindsym $windowskey+z exec $tdropfloat -w 50% -h 96% -x 2% -y 2% zotero
+bindsym $windowskey+z exec $tdropfloat -w 40% -h 92% -x 2% -y 4% zotero
 
 #bindsym $windowskey+e exec $tdropfloat -w 40% -h 80% -x 0% -y 10% tutanota
 #bindsym $windowskey+Shift+t exec $tdropfloat -w 40% -h 80% -x 0% -y 10% thunar
 
 ## lockscreen
-bindsym $mod+Shift+Ctrl+Escape exec betterlockscreen --update $wallpaper --lock dim --off 5
+bindsym $mod+Shift+Ctrl+Escape exec betterlockscreen --update $wallpaper --lock dim
 
 ## launcher (rofi)
 set $menu1 --no-startup-id "env QT_QPA_PLATFORMTHEME=gtk2 rofi -font 'Fire Code Retina 15' -theme solarized_alternate -modi run,calc,ssh,windowcd,window -show drun -icon-theme Breath2 -show-icons -width 50 -sidebar-mode"
@@ -392,7 +401,8 @@ exec_always --no-startup-id "if command -v $HOME/miniconda3/bin/flashfocus &>/de
 #exec_always --no-startup-id "xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55"
 
 ## xidlehook
-exec xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update $HOME/.local/share/wallpapers/moon-3440x1440.jpg --lock dim --off 900" &
+#exec --no-startup-id xidlehook --timer 300 "brightnessctl set 60%" "brightnessctl set 100%"
+exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update ~/.local/share/wallpapers/moon-3440x1440.jpg --lock dim" ""
 
 ## network manager
 exec --no-startup-id nm-applet
@@ -400,11 +410,6 @@ exec --no-startup-id nm-applet
 ## cloud storage
 exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
 
-## yakuake
-#exec --no-startup-id yakuake
-
-## vpn
-#exec --no-startup-id "if command -v mullvad &>/dev/null ; then mullvad connect; fi"
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## floating windows
@@ -412,7 +417,7 @@ exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
 
 floating_minimum_size 200x400
 floating_maximum_size $mode1
-default_floating_border none
+default_floating_border pixel 1
 
 bindsym $mod+$windowskey+r move position 50 50
 
@@ -420,6 +425,7 @@ bindsym $mod+$windowskey+r move position 50 50
 
 for_window [class="libreoffice"] resize set 1200 800
 for_window [class="zoom"] floating enable, sticky enable
+#for_window [class="zoom" title="Zoom - Licensed Account"] move position 20 20
 for_window [class="zoom"] [title="Zoom Meeting"] resize set 1600 900, move position 20 20
 for_window [class="zoom"] [title="Chat"] move position mouse
 for_window [class="ringcentral"] floating enable, sticky enable

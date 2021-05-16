@@ -464,14 +464,9 @@ for_window [class="Slack"] floating enable
 ## audio control
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-## Pulse audio.
-## see `pactl list sinks`
-#set $sink 0
-#bindsym XF86AudioRaiseVolume exec "pactl set-sink-volume $sink +5%"
-#bindsym XF86AudioLowerVolume exec "pactl set-sink-volume $sink -5%"
-#bindsym XF86AudioMute exec "pactl set-sink-mute $sink toggle"
-bindsym XF86AudioRaiseVolume exec "$HOME/src/changeVolume up"
-bindsym XF86AudioLowerVolume exec "$HOME/src/changeVolume down"
-bindsym XF86AudioMute exec "$HOME/src/changeVolume mute"
+## Pulse audio. Use custom changeVolume script for dunst messages, else fallback to pactl.
+bindsym XF86AudioRaiseVolume exec "~/src/changeVolume up || pactl set-sink-volume 0 +5%"
+bindsym XF86AudioLowerVolume exec "~/src/changeVolume down || pactl set-sink-volume 0 -5%"
+bindsym XF86AudioMute exec "~/src/changeVolume mute || pactl set-sink-mute 0 toggle"
 
 

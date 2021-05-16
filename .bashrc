@@ -63,6 +63,8 @@ else
 fi
 unset safe_term match_lhs sh
 
+# prepend [ranger] tag if stepping into a shell opened within ranger
+if [ -n "$RANGER_LEVEL" ]; then export PS1="[ranger]$PS1"; fi
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # shell options
@@ -76,7 +78,7 @@ xhost +local:root > /dev/null 2>&1	# allow local connections from root
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # # ex - archive extractor, usage: ex <file>
-ex ()
+xxx ()
 {
   if [ -f $1 ] ; then
     case $1 in
@@ -101,7 +103,7 @@ ex ()
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## environment variables
-export EDITOR=/usr/bin/vim
+export EDITOR="/usr/bin/vim --remote-tab"
 export QT_QPA_PLATFORMTHEME=gtk2 #gtk2, qt5ct
 
 

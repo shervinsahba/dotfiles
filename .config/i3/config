@@ -335,8 +335,24 @@ mode "$mode_gaps_outer" {
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## startup programs
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+exec --no-startup-id nm-applet
+exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
+exec --no-startup-id "~/.config/polybar/launch.sh"
+exec --no-startup-id "if command -v picom &> /dev/null; then picom --config $HOME/.config/picom/picom.conf; else xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55; fi"
+exec --no-startup-id "if command -v ~/miniconda3/bin/flashfocus &>/dev/null; then ~/miniconda3/bin/flashfocus; fi"
+#exec --no-startup-id xidlehook --timer 300 "brightnessctl set 60%" "brightnessctl set 100%"
+exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update ~/.local/share/wallpapers/moon-3440x1440.jpg --lock dim" ""
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## program launcher bindings
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+## toggle polybar
+bindsym $mod+b exec "polybar-msg cmd toggle"
 
 ## tdrop - dropdown floating windows
 set $tdropfloat tdrop -ma 
@@ -344,18 +360,13 @@ bindsym F12 exec $tdropfloat -w 60% -h 80% -x 20% kitty
 bindsym $windowskey+x exec $tdropfloat -w 1000 -h 800 -x 5% -y 10% keepassxc
 bindsym $windowskey+a exec $tdropfloat -w 800 -h 400 -x -810 -y -440 pavucontrol
 bindsym $windowskey+b exec $tdropfloat -w 800 -h 400 -x -810 -y -440 blueman-manager
-bindsym $windowskey+r exec $tdropfloat -w 90% -h 90% -x 5% -y 5% ranger
-#bindsym $windowskey+n exec $tdropfloat -w 800 -h 800 -x -800 -y -840 -n 1000 urxvt -e nmtui   # size issue with new terminal
 bindsym $windowskey+z exec $tdropfloat -w 40% -h 92% -x 2% -y 4% zotero
-
-#bindsym $windowskey+e exec $tdropfloat -w 40% -h 80% -x 0% -y 10% tutanota
-#bindsym $windowskey+Shift+t exec $tdropfloat -w 40% -h 80% -x 0% -y 10% thunar
 
 ## lockscreen
 bindsym $mod+Shift+Ctrl+Escape exec betterlockscreen --update $wallpaper --lock dim
 
-## launcher (rofi)
-set $menu1 --no-startup-id "env QT_QPA_PLATFORMTHEME=gtk2 rofi -font 'Fire Code Retina 15' -theme solarized_alternate -modi run,calc,ssh,windowcd,window -show drun -icon-theme Breath2 -show-icons -width 50 -sidebar-mode"
+## rofi launcher
+set $menu1 --no-startup-id "env QT_QPA_PLATFORMTHEME=gtk2 rofi -font 'FiraCode Nerd Font 15' -theme solarized_alternate -modi run,calc,ssh,windowcd,window -show drun -icon-theme Breath2 -show-icons -width 50 -sidebar-mode"
 bindsym $mod+Shift+d exec $menu1
 bindsym $windowskey+d exec $menu1
 
@@ -365,50 +376,18 @@ bindsym $mod+Shift+s exec "env QT_QPA_PLATFORMTHEME=gtk2 $HOME/src/rofi-file-sel
 ## i3-layout manager
 bindsym $mod+$windowskey+l exec i3-layout-manager
 
-## terminal(s)
+## terminal
 bindsym $mod+Return exec kitty
 bindsym $windowskey+Return exec kitty
-bindsym $mod+Shift+Return exec alacritty
 
 ## screenshots (via maim)
 set $maimsavelocation "$HOME/Downloads/Screenshots/maim/$(date -Iseconds).png"
 bindsym --release Print exec maim -uBs $maimsavelocation | xclip -selection clipboard -t image/pngbindsym --release Ctrl+Print exec maim -uBsD $maimsavelocation | xclip -selection clipboard -t image/png
-#bindsym Ctrl+Shift+Print exec maim -usD $maimsavelocation | xclip -selection clipboard -t image/png
 bindsym --release $windowskey+Print exec maim -uBs | tee $maimsavelocation | feh - -x
-#bindsym Ctrl+Print exec maim -uBs | tee $maimsavelocation | feh - -x
-#bindsym Ctrl+Shift+Print exec maim -us | tee $maimsavelocation | feh - -x
-#bindsym Ctrl+Print exec $HOME/bin/maim-crop
-#bindsym $windowskey+Print exec $HOME/bin/maim-desktop-crop
 
 ## file manager
 bindsym $windowskey+t exec thunar
-
-
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## startup programs
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-## polybar
-set $polybar "$HOME/.config/polybar/launch.sh"
-exec_always --no-startup-id $polybar
-
-## toggle polybar
-bindsym $mod+b exec "polybar-msg cmd toggle"
-
-## compositor
-exec_always --no-startup-id "if command -v picom &> /dev/null; then picom --config $HOME/.config/picom/picom.conf; else xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55; fi"
-exec_always --no-startup-id "if command -v $HOME/miniconda3/bin/flashfocus &>/dev/null; then $HOME/miniconda3/bin/flashfocus; fi"
-#exec_always --no-startup-id "xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55"
-
-## xidlehook
-#exec --no-startup-id xidlehook --timer 300 "brightnessctl set 60%" "brightnessctl set 100%"
-exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update ~/.local/share/wallpapers/moon-3440x1440.jpg --lock dim" ""
-
-## network manager
-exec --no-startup-id nm-applet
-
-## cloud storage
-exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
+bindsym $windowskey+r exec kitty ranger
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -445,23 +424,20 @@ for_window [class="qbittorrent"] floating enable
 for_window [class="qBittorrent"] floating enable
 for_window [class="ringcentral"] floating enable, sticky enable
 for_window [class="Slack"] floating enable
+for_window [class="Steam" title="Steam Library Folders"] floating enable
+for_window [class="Steam" title="Create or select new Steam library folder:"] floating enable
+for_window [class="Steam "title="Steam - News"] floating enable
 for_window [class="tutanota-desktop"] floating enable
 for_window [class="viewnior"] floating enable
 for_window [class="Viewnior"] floating enable
+for_window [class="zoom"] floating enable, sticky enable
+for_window [class="zoom" title="Zoom Meeting"] resize set 1600 900, move position 20 20
+for_window [class="zoom" title="Chat"] move position mouse
+
 
 for_window [title="Figure *"] floating enable  #matlab
 for_window [title="Oracle VM VirtualBox Manager"] floating enable
 for_window [title="Explain Margin"] floating enable  #thinkorswim
-
-#steam
-for_window [title="Steam Library Folders"] floating enable
-for_window [title="Create or select new Steam library folder:"] floating enable
-for_window [title="Steam - News"] floating enable
-
-#zoom
-for_window [class="zoom"] floating enable, sticky enable
-for_window [class="zoom" title="Zoom Meeting"] resize set 1600 900, move position 20 20
-for_window [class="zoom" title="Chat"] move position mouse
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

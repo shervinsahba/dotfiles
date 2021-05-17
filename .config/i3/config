@@ -15,17 +15,10 @@ set $mode1 3440x1440
 set $rate 100
 # set $output1 eDP1
 # set $output2 HDMI1
-
 exec --no-startup-id xrandr --output $output1 --mode $mode1 --primary --rate $rate
 
-
-
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## wallpaper
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
 ## Boot chosen wallpaper file or fallback to solid gray
-set $wallpaper $HOME/.local/share/wallpapers/moon-3440x1440.jpg
+set $wallpaper ~/.local/share/wallpapers/moon-3440x1440.jpg
 exec --no-startup-id "feh --bg-fill $wallpaper || xsetroot -solid '#111111'"
 
 
@@ -38,7 +31,7 @@ exec --no-startup-id "feh --bg-fill $wallpaper || xsetroot -solid '#111111'"
 ## and Hyper_R registers as Mod3.
 ## See mod key assignments with xmodmap and xmodmap -pke.
 
-set $usermodmap "$HOME/.Xmodmap"
+set $usermodmap "~/.Xmodmap"
 exec_always --no-startup-id xmodmap $usermodmap
 
 set $mod Mod3
@@ -49,7 +42,6 @@ set $windowskey Mod4
 ## colors and fonts
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-## colors
 set $transparent #00000000
 set $black       #111111
 set $darkblack   #000000
@@ -101,33 +93,19 @@ for_window [class=".*"] title_format "<b>%title</b>"
 ## i3 control
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-## Kill focused window
 bindsym $mod+Shift+q kill
-
-## reload the configuration file
-bindsym $mod+Shift+c reload
-
-## restart i3 inplace (preserves session)
 bindsym $mod+Shift+r restart
-
-## exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## workspaces
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-# workspace default layout
-#workspace_layout tabbed
-
 # switch between the current and the previously focused one
 bindsym $mod+Tab workspace back_and_forth
-bindsym $mod+Shift+Tab move container to workspace back_and_forth
 
 # cycle through workspaces
-bindsym $mod+$windowskey+Right workspace next_on_output
-bindsym $mod+$windowskey+Left workspace next_on_output
+bindsym $mod+Shift+Tab workspace next_on_output
 
 ## switch to workspace
 bindsym $mod+1 workspace 1
@@ -153,23 +131,12 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
-## banish to and recover from shadow realm (scratchpad workspace)
+## scratchpad - banish to and recover from shadow realm!
 bindsym $mod+z move scratchpad
-#bindsym $mod+Ctrl+z scratchpad show
-bindsym $mod+Shift+z exec $HOME/src/scratchpad-rofi
+bindsym $mod+Shift+z exec ~/src/scratchpad-rofi
 
 ## Move workspace to another display monitor
-bindsym $mod+x move workspace to output right
-
-## Assign applications to workspaces
-#assign [class="jetbrains-pycharm"] "pycharm"
-bindsym $mod+$windowskey+1 workspace pycharm
-bindsym $mod+Shift+$windowskey+1 move container to workspace thinkorswim
-
-assign [title="thinkorswim updater"] "thinkorswim"
-assign [title="Logon to thinkorswim"] "thinkorswim"
-bindsym $mod+$windowskey+2 workspace thinkorswim
-bindsym $mod+Shift+$windowskey+2 move container to workspace thinkorswim
+#bindsym $mod+x move workspace to output right
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -177,6 +144,8 @@ bindsym $mod+Shift+$windowskey+2 move container to workspace thinkorswim
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 ## Move focus between screens
+bindsym $mod+Alt+Up focus output up
+bindsym $mod+Alt+Down focus output down
 bindsym $mod+Alt+Left focus output left
 bindsym $mod+Alt+Right focus output right
 
@@ -188,29 +157,16 @@ bindsym $mod+Ctrl+Left move workspace to output left
 bindsym $mod+Ctrl+Right move workspace to output right
 
 
-#workspace 1 output $output1
-#workspace 2 output $output1
-#workspace 3 output $output1
-#workspace 4 output $output1
-#workspace 5 output $output2
-#workspace 6 output $output2
-#workspace 7 output $output2
-#workspace 8 output $output2
-
-
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## window layout bindings
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-bindsym $mod+h split v
-bindsym $mod+v split h
+bindsym $mod+v split v
+bindsym $mod+Shift+v split h
 bindsym $mod+t split h, layout tabbed
 bindsym $mod+f fullscreen toggle, exec "polybar-msg cmd toggle"
-bindsym $mod+Shift+t layout toggle splitv splith tabbed
 bindsym $mod+Shift+space floating toggle
-#bindsym $mod+Alt+t [tiling] border toggle 0
 
-bindsym $mod+Alt+m move position mouse
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## window focus bindings
@@ -219,10 +175,10 @@ bindsym $mod+Alt+m move position mouse
 focus_wrapping no
 
 ## change focus
-#bindsym $mod+j focus left
-#bindsym $mod+k focus down
-#bindsym $mod+l focus up
-#bindsym $mod+semicolon focus right
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
@@ -236,10 +192,10 @@ bindsym $mod+Shift+a focus child
 bindsym $mod+space focus mode_toggle
 
 ## move focused window
-#bindsym $mod+Shift+j move left
-#bindsym $mod+Shift+k move down
-#bindsym $mod+Shift+l move up
-#bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -278,11 +234,13 @@ bindsym $mod+r mode "resize"
 ## i3-gaps control
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-#for_window [class="^.*"] border pixel 1
+#for_window [class="^.*"] border pixel 0
 default_border pixel 1
-#smart_gaps on
-smart_borders on
+default_floating_border pixel 1
 
+# only draw gaps/borders if there is more than one window in workspace
+smart_gaps on
+smart_borders on
 
 set $inner_px 20
 set $outer_px 4
@@ -294,6 +252,7 @@ gaps outer $outer_px
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_outer Outer Gaps: +|-|0 (local), Shift + +|-|0 (global)
 set $mode_gaps_inner Inner Gaps: +|-|0 (local), Shift + +|-|0 (global)
+
 bindsym $mod+Shift+g mode "$mode_gaps"
 
 mode "$mode_gaps" {
@@ -322,12 +281,12 @@ mode "$mode_gaps_outer" {
         bindsym plus  gaps outer current plus 5
         bindsym minus gaps outer current minus 5
         bindsym 0     gaps outer current set 0
-        bindsym d     gaps inner current set $outer_px
+        bindsym d     gaps outer current set $outer_px
 
         bindsym Shift+plus  gaps outer all plus 5
         bindsym Shift+minus gaps outer all minus 5
         bindsym Shift+0     gaps outer all set 0
-        bindsym Shift+d     gaps inner all set $outer_px
+        bindsym Shift+d     gaps outer all set $outer_px
 
         bindsym Return mode "default"
         bindsym Escape mode "default"
@@ -357,6 +316,7 @@ bindsym $mod+b exec "polybar-msg cmd toggle"
 ## tdrop - dropdown floating windows
 set $tdropfloat tdrop -ma 
 bindsym F12 exec $tdropfloat -w 60% -h 80% -x 20% kitty
+bindsym $mod+x exec $tdropfloat -w 60% -h 80% -x 20% kitty
 bindsym $windowskey+x exec $tdropfloat -w 1000 -h 800 -x 5% -y 10% keepassxc
 bindsym $windowskey+a exec $tdropfloat -w 800 -h 400 -x -810 -y -440 pavucontrol
 bindsym $windowskey+b exec $tdropfloat -w 800 -h 400 -x -810 -y -440 blueman-manager
@@ -367,11 +327,10 @@ bindsym $mod+Shift+Ctrl+Escape exec betterlockscreen --update $wallpaper --lock 
 
 ## rofi launcher
 set $menu1 --no-startup-id "env QT_QPA_PLATFORMTHEME=gtk2 rofi -font 'FiraCode Nerd Font 15' -theme solarized_alternate -modi run,calc,ssh,windowcd,window -show drun -icon-theme Breath2 -show-icons -width 50 -sidebar-mode"
-bindsym $mod+Shift+d exec $menu1
-bindsym $windowskey+d exec $menu1
+bindsym $mod+d exec $menu1
 
 ## rofi-file-selector
-bindsym $mod+Shift+s exec "env QT_QPA_PLATFORMTHEME=gtk2 $HOME/src/rofi-file-selector/rofi-file-selector.sh"
+bindsym $mod+s exec "env QT_QPA_PLATFORMTHEME=gtk2 ~/src/rofi-file-selector/rofi-file-selector.sh"
 
 ## i3-layout manager
 bindsym $mod+$windowskey+l exec i3-layout-manager
@@ -396,7 +355,6 @@ bindsym $windowskey+r exec kitty ranger
 
 floating_minimum_size 200x200
 floating_maximum_size $mode1
-default_floating_border pixel 1
 
 bindsym $mod+$windowskey+r move position 50 50
 

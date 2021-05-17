@@ -10,12 +10,11 @@
 ## display setup
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-set $output1 DP-0
+#set $output1 DP-0
 set $mode1 3440x1440
-set $rate 100
-# set $output1 eDP1
-# set $output2 HDMI1
-exec --no-startup-id xrandr --output $output1 --mode $mode1 --primary --rate $rate
+#set $rate 100
+#exec --no-startup-id xrandr --output $output1 --mode $mode1 --primary --rate $rate
+exec_always --no-startup-id autorandr --change
 
 ## Boot chosen wallpaper file or fallback to solid gray
 set $wallpaper ~/.local/share/wallpapers/moon-3440x1440.jpg
@@ -44,28 +43,11 @@ set $windowskey Mod4
 
 set $transparent #00000000
 set $black       #111111
-set $darkblack   #000000
-set $red         #fb4934
-set $darkred     #cc241d
-set $green       #b8bb26
-set $darkgreen   #98971a
-set $yellow      #fabd2f
-set $darkyellow  #d79921
-set $blue        #83a598
-set $darkblue    #458588
-set $magenta     #d3869b
-set $darkmagenta #b16286
-set $cyan        #8ec07c
-set $darkcyan    #689d6a
 set $white       #ebdbb2
 set $darkwhite   #a89984
-set $background  #000000
 set $greenish    #1ABC9C
 set $greenishdk  #24A484
 set $greenishpop #00A96B
-set $gray3       #333333
-set $gray8       #888888
-set $gray9       #999999
 set $steellt     #484e50
 set $steeldk     #292d2e
 
@@ -150,7 +132,6 @@ bindsym $mod+Alt+Left focus output left
 bindsym $mod+Alt+Right focus output right
 
 # Moving workspaces between screens
-# xrandr --output $output1 --primary
 bindsym $mod+Ctrl+Up move workspace to output up
 bindsym $mod+Ctrl+Down move workspace to output down
 bindsym $mod+Ctrl+Left move workspace to output left
@@ -300,7 +281,7 @@ mode "$mode_gaps_outer" {
 exec --no-startup-id nm-applet
 exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
 exec --no-startup-id "~/.config/polybar/launch.sh"
-exec --no-startup-id "if command -v picom &> /dev/null; then picom --config $HOME/.config/picom/picom.conf; else xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55; fi"
+exec --no-startup-id "if command -v picom &> /dev/null; then picom --config ~/.config/picom/picom.conf; else xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55; fi"
 exec --no-startup-id "if command -v ~/miniconda3/bin/flashfocus &>/dev/null; then ~/miniconda3/bin/flashfocus; fi"
 #exec --no-startup-id xidlehook --timer 300 "brightnessctl set 60%" "brightnessctl set 100%"
 exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update ~/.local/share/wallpapers/moon-3440x1440.jpg --lock dim" ""
@@ -340,7 +321,7 @@ bindsym $mod+Return exec kitty
 bindsym $windowskey+Return exec kitty
 
 ## screenshots (via maim)
-set $maimsavelocation "$HOME/Downloads/Screenshots/maim/$(date -Iseconds).png"
+set $maimsavelocation "~/Downloads/Screenshots/maim/$(date -Iseconds).png"
 bindsym --release Print exec maim -uBs $maimsavelocation | xclip -selection clipboard -t image/pngbindsym --release Ctrl+Print exec maim -uBsD $maimsavelocation | xclip -selection clipboard -t image/png
 bindsym --release $windowskey+Print exec maim -uBs | tee $maimsavelocation | feh - -x
 

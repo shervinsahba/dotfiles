@@ -296,8 +296,8 @@ bindsym $mod+b exec "polybar-msg cmd toggle"
 
 ## tdrop - dropdown floating windows
 set $tdropfloat tdrop -ma 
-bindsym F12 exec $tdropfloat -w 60% -h 80% -x 20% kitty
-bindsym $mod+x exec $tdropfloat -w 60% -h 80% -x 20% kitty
+bindsym F12 exec $tdropfloat -w 60% -h 80% -x 35% kitty
+bindsym $mod+x exec $tdropfloat -w 60% -h 80% -x 35% kitty
 bindsym $windowskey+x exec $tdropfloat -w 1000 -h 800 -x 5% -y 10% keepassxc
 bindsym $windowskey+a exec $tdropfloat -w 800 -h 400 -x -810 -y -440 pavucontrol
 bindsym $windowskey+b exec $tdropfloat -w 800 -h 400 -x -810 -y -440 blueman-manager
@@ -329,6 +329,8 @@ bindsym --release $windowskey+Print exec maim -uBs | tee $maimsavelocation | feh
 bindsym $windowskey+t exec thunar
 bindsym $windowskey+r exec kitty ranger
 
+## internet
+bindsym $windowskey+f exec firefox --new-window
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## floating windows
@@ -346,6 +348,7 @@ for_window [class="blueman-manager"] floating enable, move position mouse, move 
 for_window [class="Blueman-manager"] floating enable, move position mouse, move up 30, move left 30, sticky enable
 for_window [class="feh"] floating enable
 for_window [title="glxgears"] floating enable
+for_window [class="imv"] floating enable
 for_window [class="keepassxc"] floating enable, move position mouse
 for_window [class="KeePassXC"] floating enable, move position mouse
 for_window [class="libreoffice"] resize set 1200 800

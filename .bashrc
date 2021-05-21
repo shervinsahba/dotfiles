@@ -77,31 +77,6 @@ xhost +local:root > /dev/null 2>&1	# allow local connections from root
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## archive extractor, usage: xxx <file>
-xxx ()
-{
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1     ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
-      *)           echo "'$1' cannot be extracted via ex()" ;;
-    esac
-  else
-    echo "'$1' is not a valid file"
-  fi
-}
-
-
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## environment variables
 export EDITOR="/usr/bin/vim --remote-tab"
 export QT_QPA_PLATFORMTHEME=gtk2 #gtk2, qt5ct
@@ -109,6 +84,8 @@ export QT_QPA_PLATFORMTHEME=gtk2 #gtk2, qt5ct
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## fzf
+source "/usr/share/fzf/key-bindings.bash"
+source "/usr/share/fzf/completion.bash"
 export FZF_DEFAULT_COMMAND="fd --type file --hidden --no-ignore --follow \
     --exclude '.git' --exclude '.idea' --exclude '.ipynb_checkpoints' --exclude '__pycache__' \
     . $HOME"
@@ -160,12 +137,37 @@ hyak-get()
   scp "$LOGIN"@mox.hyak.uw.edu:"$remote_file_path" "$destination_path"
 }
 
-gf() {
-  git -c color.status=always status --short |
-  fzf --height 50% --border --ansi --nth 2..,.. \
-    --preview '(git diff --color=always -- {-1}; \
-    bat --style=numbers --line-range :500 {-1})'
+nuke() {  # fzf kill -9
+  local pid
+  pid=$(ps -ef | grep -v ^root | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
 }
+
+xxx () {  # archive extractor, usage xxx <file>
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1     ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # >>> conda initialize >>>

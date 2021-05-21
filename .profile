@@ -9,5 +9,3 @@ fi
 
 export PATH
 
-# aliases
-[[ -f ~/.aliases ]] && source ~/.aliases

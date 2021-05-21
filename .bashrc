@@ -77,7 +77,7 @@ xhost +local:root > /dev/null 2>&1	# allow local connections from root
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-# # ex - archive extractor, usage: ex <file>
+## archive extractor, usage: xxx <file>
 xxx ()
 {
   if [ -f $1 ] ; then
@@ -108,43 +108,47 @@ export QT_QPA_PLATFORMTHEME=gtk2 #gtk2, qt5ct
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## fzf
+export FZF_DEFAULT_COMMAND="fd --type file --hidden --no-ignore --follow \
+    --exclude '.git' --exclude '.idea' --exclude '.ipynb_checkpoints' --exclude '__pycache__' \
+    . $HOME"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type directory . $HOME"
+export FZF_DEFAULT_OPTS="
+    --multi --height 80% --reverse --border --info inline
+    --color 'fg:#bbccdd,fg+:#ddeeff,bg:#334455,preview-bg:#223344,border:#778899'
+    --pointer='▶' --marker='✗'
+    --preview '([[ -f {} ]] && (bat --style=numbers --color=always --line-range :500 {} || cat {})) \
+            || ([[ -d {} ]] && (tree -C {} || less {})) \
+            || echo {} 2> /dev/null | head -200'
+    --preview-window=:hidden
+    --bind '?:toggle-preview'
+    --bind 'ctrl-a:select-all'
+    --bind 'ctrl-y:execute-silent(echo {+} | xclip -selection clipboard)'
+    --bind 'ctrl-e:execute(echo {+} | xargs -o vim)'
+    --bind 'ctrl-v:execute(code {+})'
+    "
+   
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## stderrred-git (https://github.com/sickill/stderred)
+export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## aliases
 
-# see ~/.aliases for more commands aliased in .profile
-[[ -f ~/.aliases ]] && source ~/.aliases  # TODO remove if loading in .profile
+# load file with most aliases
+[[ -f ~/.aliases ]] && source ~/.aliases 
 
-
-# cleanup
-alias clean-all-uninstalled-packages="paccache -ruk 0"
-alias clean-paccache-keep3versions="paccache -rk 3"
-alias clean-pacman-orphans="pacman -Qdtq; echo; echo Choose packages to remove manually."
-alias clean-journal="journalctl --vacuum-size=50M"
-alias clean-garbageremoval="rm -rf $HOME/.local/share/Trash/*"
-alias clean-1yearcache="find $HOME/.cache/ -type f -atime +365 -delete"
-
-alias subl="subl3"
-alias sptd="spotifyd-restart; spt"
-alias spotify-tui=sptd
-alias spotifyd-restart="systemctl --user restart spotifyd.service"
-
-## GPU test
-alias DRIglxgears="DRI_PRIME=1 glxgears"
-alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
-
-## personal cd and ssh shortcuts
-alias cdconfig="cd $HOME/.config"
-alias cdR="cd $HOME/ACADEMIA/RESEARCH/"
-alias cdUW="cd $HOME/ACADEMIA/UW/"
-alias hyak="ssh -X ssahba@mox.hyak.uw.edu"
-alias hyakport="ssh -L 6969:127.0.0.1:6969 ssahba@mox.hyak.uw.edu"
-alias sshfs-vergil="sshfs -o allow_other,default_permissions,idmap=user ssahba@vergil.u.washington.edu: /home/shervin/ACADEMIA/UW/vergil/"
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## functions
 
 hyak-send()
 {
   local_file_path="$1"
   destination_path="$2"
   LOGIN=ssahba
-
   scp "$local_file_path" "$LOGIN"@mox.hyak.uw.edu:"$destination_path"
 }
 
@@ -153,16 +157,15 @@ hyak-get()
   remote_file_path="$1"
   destination_path="$2"
   LOGIN=ssahba
-
   scp "$LOGIN"@mox.hyak.uw.edu:"$remote_file_path" "$destination_path"
 }
 
-
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## stderrred-git
-## https://github.com/sickill/stderred
-export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
-#export LD_PRELOAD="/usr/lib/libstderred.so\$LIB/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
+gf() {
+  git -c color.status=always status --short |
+  fzf --height 50% --border --ansi --nth 2..,.. \
+    --preview '(git diff --color=always -- {-1}; \
+    bat --style=numbers --line-range :500 {-1})'
+}
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 # >>> conda initialize >>>
@@ -193,7 +196,6 @@ export NVM_DIR="$HOME/.nvm"
 ## ruby
 
 #export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
-
 eval "$(rbenv init -)"
 
 

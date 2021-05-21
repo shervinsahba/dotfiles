@@ -1,28 +1,27 @@
 alias sudo='sudo '        # permits using sudo with aliased commands
 alias cp='cp -i'          # confirm before overwriting something
 # alias rm='rm -i'          # confirm before removing something
+alias mkdir='mkdir -p'	  		# makes parent directory if it doesn't exist
 
-alias grep='grep --colour=auto'
-alias egrep='grep -E'	  # extended grep
-alias fgrep='grep -F'	  # fixed grep 
 alias less='less -R'	  # allow colorized pipes to less
 alias more='less'
 alias h='head'
 alias t='tail'
-
-alias mkdir='mkdir -p'	  		# makes parent directory if it doesn't exist
+alias cl='clear'
+alias grep='grep --colour=auto'
+alias egrep='grep -E'	  # extended grep
+alias fgrep='grep -F'	  # fixed grep 
 alias ls='ls --color=auto'
 alias ll='ls -Flh'
 alias lll='ls -Flha'
 alias llll='ls -Flha | less'
 alias lh='ll -d .[^.]*'			# long list hidden files only
-alias tree1='tree -L 1 -hFC'
-alias tree2='tree -L 2 -hFC'
-alias tree3='tree -L 3 -hFC'
-
+alias tree='tree -hFC'          # human readable, folder /, color
+alias tree1='tree -L 1'
+alias tree2='tree -L 2'
+alias tree3='tree -L 3'
 alias locate='locate -e'  # only shows files that still exist
-alias his='history'
-alias cl='clear'
+alias bat='bat --color=always'
 
 alias c='xclip -selection clipboard'	  # xclip copy
 alias p='xclip -selection clipboard -o'   # xclip paste
@@ -32,23 +31,53 @@ alias df='df -h'          				# disk space in human-readable sizes
 alias free='free -m'      				# shows free memory in MB
 alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
 alias paths='echo -e ${PATH//:/\\n}'	# pretty print paths
+
 alias timestamp='date +"%Y%m%dT%H%M%S"'
 
+# cd
 alias ..='cd ..'
 alias ...='cd ../..'
+alias cdX='cd /etc/X11/xorg.conf.d/'
+alias cdtrash='cd ~/.local/share/Trash/files'
+alias cdbin='cd ~/bin'
+alias cdsrc='cd ~/src'
+alias cdd='cd ~/Downloads'
+alias cdc="cd ~/.config"
 
-alias cdX='cd /etc/X11/xorg.conf.d/; ll'
-alias cdtrash='cd $HOME/.local/share/Trash'
-alias cdbin='cd $HOME/bin'
-alias cdsrc='cd $HOME/src'
-alias cdD='cd $HOME/Downloads'
+# cd personal
+alias cdR="cd ~/ACADEMIA/RESEARCH/"
+alias cdUW="cd ~/ACADEMIA/UW/"
 
-command -v vim >/dev/null 2>&1 && alias vi=vim
-alias ra=ranger
+# ssh personal
+alias hyak="ssh -X ssahba@mox.hyak.uw.edu"
+alias hyakport="ssh -L 6969:127.0.0.1:6969 ssahba@mox.hyak.uw.edu"
+alias sshfs-vergil="sshfs -o allow_other,default_permissions,idmap=user ssahba@vergil.u.washington.edu: /home/ shervin/ACADEMIA/UW/vergil/"
 
+# drop-in replacements for Linux standbys
+command -v vim >/dev/null 2>&1 && alias vi='vim'
+command -v rg >/dev/null 2>&1 && alias grep='rg'
+command -v fd >/dev/null 2>&1 && alias find='fd'
+command -v bat >/dev/null 2>&1 && alias cat='bat'
 
-alias condacheck='conda env list | grep *'
+# programs I use a lot
+alias ra='ranger'
+alias subl='subl3'
+#alias sptd="spotifyd-restart; spt"
+#alias spotify-tui=sptd
+#alias spotifyd-restart="systemctl --user restart spotifyd.service"
 
+# fzf and augmented fuzzy calls
+alias f='fzf'
+alias pacls='pacman -Ss | fzf'
+alias hi='history | fzf'
+alias psf='ps -ef | fzf'
+alias condals='conda list | fzf'
+
+# GPU related
+alias DRIglxgears="DRI_PRIME=1 glxgears"
+alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
+
+# keyboard and xmodmap
 alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'"
 alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
 
@@ -56,6 +85,13 @@ alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
 alias journalctl='journalctl --output=short-iso'	            # ISO timestamps
 alias restart-net="systemctl restart NetworkManager.service"    # restarts network and /etc/hosts
 
+# cleanup
+alias clean-all-uninstalled-packages="paccache -ruk 0"
+alias clean-paccache-keep3="paccache -rk 3"
+alias clean-orphan-list="pacman -Qdtq; echo; echo Choose packages to remove manually."
+alias clean-journal="journalctl --vacuum-size=100M"
+alias clean-trash="rm -rf $HOME/.local/share/Trash/*"
+alias clean-cache-1year="find $HOME/.cache/ -type f -atime +365 -delete"
 
 # kittens
 alias icat="kitty +kitten icat"

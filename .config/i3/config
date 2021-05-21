@@ -280,11 +280,11 @@ mode "$mode_gaps_outer" {
 
 exec --no-startup-id nm-applet
 exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
-exec --no-startup-id "~/.config/polybar/launch.sh"
-exec --no-startup-id "if command -v picom &> /dev/null; then picom --config ~/.config/picom/picom.conf; else xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55; fi"
-exec --no-startup-id "if command -v ~/miniconda3/bin/flashfocus &>/dev/null; then ~/miniconda3/bin/flashfocus; fi"
-#exec --no-startup-id xidlehook --timer 300 "brightnessctl set 60%" "brightnessctl set 100%"
-exec --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update ~/.local/share/wallpapers/moon-3440x1440.jpg --lock dim" ""
+exec_always --no-startup-id "~/.config/polybar/launch.sh"
+exec_always --no-startup-id "if command -v picom &> /dev/null; then picom --config ~/.config/picom/picom.conf; else xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55; fi"
+exec_always --no-startup-id "if command -v ~/miniconda3/bin/flashfocus &>/dev/null; then ~/miniconda3/bin/flashfocus; fi"
+#exec_always --no-startup-id xidlehook --timer 300 "brightnessctl set 60%" "brightnessctl set 100%"
+exec_always --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update ~/.local/share/wallpapers/moon-3440x1440.jpg --lock dim" ""
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -311,7 +311,8 @@ set $menu1 --no-startup-id "env QT_QPA_PLATFORMTHEME=gtk2 rofi -font 'FiraCode N
 bindsym $mod+d exec $menu1
 
 ## rofi-file-selector
-bindsym $mod+s exec "env QT_QPA_PLATFORMTHEME=gtk2 ~/src/rofi-file-selector/rofi-file-selector.sh"
+# this seems to cause crashes and occasionally CPU leaks with its fd calls
+#bindsym $mod+s exec "env QT_QPA_PLATFORMTHEME=gtk2 ~/src/rofi-file-selector/rofi-file-selector.sh"
 
 ## i3-layout manager
 bindsym $mod+$windowskey+l exec i3-layout-manager

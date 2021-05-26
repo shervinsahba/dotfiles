@@ -283,6 +283,7 @@ exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
 exec_always --no-startup-id "if command -v picom &> /dev/null; then picom --config ~/.config/picom/picom.conf; else xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55; fi"
 exec_always --no-startup-id "if command -v ~/miniconda3/bin/flashfocus &>/dev/null; then ~/miniconda3/bin/flashfocus; fi"
+exec_always --no-startup-id "redshift -l $(curl -s https://location.services.mozilla.com/v1/geolocate?key=geoclue | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')"
 #exec_always --no-startup-id xidlehook --timer 300 "brightnessctl set 60%" "brightnessctl set 100%"
 exec_always --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update ~/.local/share/wallpapers/moon-3440x1440.jpg --lock dim" ""
 

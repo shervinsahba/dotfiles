@@ -323,7 +323,7 @@ bindsym $mod+Return exec kitty
 bindsym $windowskey+Return exec kitty
 
 ## screenshots (via maim)
-set $maimsavelocation "~/Downloads/Screenshots/maim/$(date -Iseconds).png"
+set $maimsavelocation "$HOME/Downloads/Screenshots/maim/$(date -Iseconds).png"
 bindsym --release Print exec maim -uBs $maimsavelocation | xclip -selection clipboard -t image/pngbindsym --release Ctrl+Print exec maim -uBsD $maimsavelocation | xclip -selection clipboard -t image/png
 bindsym --release $windowskey+Print exec maim -uBs | tee $maimsavelocation | feh - -x
 

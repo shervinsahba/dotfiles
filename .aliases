@@ -27,7 +27,7 @@ alias c='xclip -selection clipboard'	  # xclip copy
 alias p='xclip -selection clipboard -o'   # xclip paste
 
 alias mount='mount | column -t' 		# pretty print mount
-alias df='df -h'          				# disk space in human-readable sizes
+alias df='dfc || df -h'    				# use color verion or at least human-readable sizes
 alias free='free -m'      				# shows free memory in MB
 alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
 alias paths='echo -e ${PATH//:/\\n}'	# pretty print paths

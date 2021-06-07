@@ -78,7 +78,7 @@ xhost +local:root > /dev/null 2>&1	# allow local connections from root
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## environment variables
-export EDITOR="/usr/bin/vim --remote-tab"
+export EDITOR="/usr/bin/vim"
 export QT_QPA_PLATFORMTHEME=gtk2 #gtk2, qt5ct
 
 

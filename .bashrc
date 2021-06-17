@@ -200,4 +200,6 @@ export NVM_DIR="$HOME/.nvm"
 #export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
 eval "$(rbenv init -)"
 
-
+## pywal colors
+(/usr/bin/cat ~/.cache/wal/sequences &)
+source $HOME/.cache/wal/colors-tty.sh

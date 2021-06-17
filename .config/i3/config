@@ -41,35 +41,57 @@ set $windowskey Mod4
 ## colors and fonts
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-set $transparent #00000000
-set $black       #111111
-set $white       #ebdbb2
-set $darkwhite   #a89984
-set $greenish    #1ABC9C
-set $greenishdk  #24A484
-set $greenishpop #00A96B
-set $steellt     #484e50
-set $steeldk     #292d2e
+#set $transparent #00000000
+#set $black       #111111
+#set $white       #ebdbb2
+#set $darkwhite   #a89984
+#set $greenish    #1ABC9C
+#set $greenishdk  #24A484
+#set $greenishpop #00A96B
+#set $steellt     #484e50
+#set $steeldk     #292d2e
+#
+##dracula
+#set $purp        #bd93f9
+#set $dpurp       #4b3a63
+#set $slate       #dc6272a4
+#set $pink        #ff79c6
+#set $gray        #282b37
+#
+###<colorclass>           <border> <background> <text>       <indicator>  <child_border>
+#client.focused           $black   $dpurp       $greenish    $greenishpop $purp
+#client.focused_inactive  $black   $steeldk     $greenish    $steellt     $purp
+#client.unfocused         $black   $steeldk     $darkwhite   $steellt     $dpurp
+#client.urgent            $black   $greenishpop $black       $steellt     $pink
+#
 
-#dracula
-set $purp        #bd93f9
-set $dpurp       #4b3a63
-set $slate       #dc6272a4
-set $pink        #ff79c6
-set $gray        #282b37
+# Set colors from Xresources
+# Change 'color7' and 'color2' to whatever colors you want i3 to use 
+# from the generated scheme.
+# NOTE: The '#f0f0f0' in the lines below is the color i3 will use if
+# it fails to get colors from Xresources.
+set_from_resource $color0 i3wm.color0
+set_from_resource $color1 i3wm.color1
+set_from_resource $color2 i3wm.color2
+set_from_resource $color3 i3wm.color3
+set_from_resource $color4 i3wm.color4
+set_from_resource $color5 i3wm.color5
+set_from_resource $color6 i3wm.color6
+set_from_resource $color7 i3wm.color7
 
-##<colorclass>           <border> <background> <text>       <indicator>  <child_border>
-client.focused           $black   $dpurp       $greenish    $greenishpop $purp
-client.focused_inactive  $black   $steeldk     $greenish    $steellt     $purp
-client.unfocused         $black   $steeldk     $darkwhite   $steellt     $dpurp
-client.urgent            $black   $greenishpop $black       $steellt     $pink
+# class                 border  backgr. text    indicator child_border
+client.focused          $color2 $color2 $color0 $color3   $color2
+client.focused_inactive $color5 $color2 $color0 $color3   $color5
+client.unfocused        $color5 $color5 $color0 $color3   $color5
+client.urgent           $color2 $color1 $color0 $color3   $color2
+client.background       $color0
+
 
 ## font for window titles and i3 bar
 font pango:FiraCode Nerd Font 8
 
 ## window title modifier
 for_window [class=".*"] title_format "<b>%title</b>"
-
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## i3 control
@@ -145,7 +167,8 @@ bindsym $mod+Ctrl+Right move workspace to output right
 bindsym $mod+v split v
 bindsym $mod+Shift+v split h
 bindsym $mod+t split h, layout tabbed
-bindsym $mod+f fullscreen toggle, exec "polybar-msg cmd toggle"
+#bindsym $mod+f fullscreen toggle, exec "polybar-msg cmd toggle"
+bindsym $mod+f fullscreen toggle
 bindsym $mod+Shift+space floating toggle
 
 
@@ -283,10 +306,10 @@ exec --no-startup-id "if command -v pcloud &>/dev/null ; then pcloud; fi"
 exec_always --no-startup-id "~/.config/polybar/launch.sh"
 exec_always --no-startup-id "if command -v picom &> /dev/null; then picom --config ~/.config/picom/picom.conf; else xcompmgr -c -C -t-5 -l-5 -r4.2 -o.55; fi"
 exec_always --no-startup-id "if command -v ~/miniconda3/bin/flashfocus &>/dev/null; then ~/miniconda3/bin/flashfocus; fi"
-exec_always --no-startup-id "redshift -l $(curl -s https://location.services.mozilla.com/v1/geolocate?key=geoclue | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')"
-#exec_always --no-startup-id xidlehook --timer 300 "brightnessctl set 60%" "brightnessctl set 100%"
+exec_always --no-startup-id "pkill redshift; redshift -l $(curl -s https://location.services.mozilla.com/v1/geolocate?key=geoclue | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')"
+exec_always --no-startup-id xidlehook --timer 300 "brightnessctl set 60%" "brightnessctl set 100%"
 exec_always --no-startup-id xidlehook --not-when-fullscreen --not-when-audio --timer 360 "betterlockscreen --update ~/.local/share/wallpapers/moon-3440x1440.jpg --lock dim" ""
-
+exec_always --no-startup-id wal -R
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## program launcher bindings
@@ -308,7 +331,8 @@ bindsym $windowskey+z exec $tdropfloat -w 40% -h 92% -x 2% -y 4% zotero
 bindsym $mod+Shift+Ctrl+Escape exec betterlockscreen --update $wallpaper --lock dim
 
 ## rofi launcher
-set $menu1 --no-startup-id "env QT_QPA_PLATFORMTHEME=gtk2 rofi -font 'FiraCode Nerd Font 15' -theme solarized_alternate -modi run,calc,ssh,windowcd,window -show drun -icon-theme Breath2 -show-icons -width 50 -sidebar-mode"
+set $menu1 --no-startup-id "env QT_QPA_PLATFORMTHEME=gtk2 rofi -font 'FiraCode Nerd Font 15' -modi run,calc,ssh,windowcd,window -show drun -icon-theme Breath2 -show-icons -width 50 -sidebar-mode"
+#set $menu1 --no-startup-id "env QT_QPA_PLATFORMTHEME=gtk2 rofi -font 'FiraCode Nerd Font 15' -theme solarized_alternate -modi run,calc,ssh,windowcd,window -show drun -icon-theme Breath2 -show-icons -width 50 -sidebar-mode"
 bindsym $mod+d exec $menu1
 
 ## rofi-file-selector

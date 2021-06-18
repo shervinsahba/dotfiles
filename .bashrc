@@ -40,9 +40,9 @@ if ${use_color} ; then
 	# colors for ls, grep.  Prefer ~/.dir_colors #64489
 	if type -P dircolors >/dev/null ; then
 		if [[ -f ~/.dir_colors ]] ; then
-			eval $(dircolors -b ~/.dir_colors)
+			eval "$(dircolors -b ~/.dir_colors)"
 		elif [[ -f /etc/DIR_COLORS ]] ; then
-			eval $(dircolors -b /etc/DIR_COLORS)
+			eval "$(dircolors -b /etc/DIR_COLORS)"
 		fi
 	fi
     # if root
@@ -116,7 +116,7 @@ export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
 ## aliases
 
 # load file with most aliases
-[[ -f ~/.aliases ]] && source ~/.aliases 
+[[ -f ~/.aliases ]] && source "$HOME"/.aliases 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## functions
@@ -143,24 +143,24 @@ nuke() {  # fzf kill -9
 
   if [ "x$pid" != "x" ]
   then
-    echo $pid | xargs kill -${1:-9}
+    echo "$pid" | xargs kill -"${1:-9}"
   fi
 }
 
 xxx () {  # archive extractor, usage xxx <file>
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xjf $1   ;;
-      *.tar.gz)    tar xzf $1   ;;
-      *.bz2)       bunzip2 $1   ;;
-      *.rar)       unrar x $1     ;;
-      *.gz)        gunzip $1    ;;
-      *.tar)       tar xf $1    ;;
-      *.tbz2)      tar xjf $1   ;;
-      *.tgz)       tar xzf $1   ;;
-      *.zip)       unzip $1     ;;
-      *.Z)         uncompress $1;;
-      *.7z)        7z x $1      ;;
+  if [ -f "$1" ] ; then
+    case "$1" in
+      *.tar.bz2)   tar xjf "$1"   ;;
+      *.tar.gz)    tar xzf "$1"   ;;
+      *.bz2)       bunzip2 "$1"   ;;
+      *.rar)       unrar x "$1"     ;;
+      *.gz)        gunzip "$1"    ;;
+      *.tar)       tar xf "$1"    ;;
+      *.tbz2)      tar xjf "$1"   ;;
+      *.tgz)       tar xzf "$1"   ;;
+      *.zip)       unzip "$1"     ;;
+      *.Z)         uncompress "$1";;
+      *.7z)        7z x "$1"      ;;
       *)           echo "'$1' cannot be extracted via ex()" ;;
     esac
   else
@@ -200,6 +200,7 @@ export NVM_DIR="$HOME/.nvm"
 #export PATH="$HOME/.local/share/gem/ruby/3.0.0/bin:$PATH"
 eval "$(rbenv init -)"
 
-## pywal colors
-(/usr/bin/cat ~/.cache/wal/sequences &)
-source $HOME/.cache/wal/colors-tty.sh
+## pywal colors in terminal and tty
+(/usr/bin/cat ~/.cache/wal/sequences &)  # not needed if pywal included in kitty
+source "$HOME"/.cache/wal/colors-tty.sh
+

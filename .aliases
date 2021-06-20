@@ -78,8 +78,8 @@ alias DRIglxgears="DRI_PRIME=1 glxgears"
 alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
 
 # keyboard and xmodmap
-alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'"
-alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
+alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'; xmodmap ~/.Xmodmap"
+alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'; xmodmap ~/.Xmodmap"
 
 # systemctl
 alias zsh_activate="sudo chsh $USER -s /bin/zsh && echo 'User shell changed to zsh. Now log out.'"

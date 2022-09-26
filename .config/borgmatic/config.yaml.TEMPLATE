@@ -14,7 +14,7 @@ location:
     # is used, then add local repository paths in the systemd
     # service file to the ReadWritePaths list.
     repositories:
-        - ssh://jt5b1cl1@jt5b1cl1.repo.borgbase.com/./repo
+        - ssh://<REPO>.repo.borgbase.com/./repo
 
     # Working directory for the "borg create" command. Tildes are
     # expanded. Useful for backing up using relative paths. See

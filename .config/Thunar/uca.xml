@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+<action>
+	<icon>utilities-terminal</icon>
+	<name>Open Terminal Here</name>
+	<unique-id>1596457857490113-1</unique-id>
+	<command>kitty</command>
+	<description>Example for a custom action</description>
+	<patterns>*</patterns>
+	<startup-notify/>
+	<directories/>
+</action>
+<action>
+	<icon></icon>
+	<name>Rotate 90</name>
+	<unique-id>1596690631448590-1</unique-id>
+	<command>for file in %F; do convert &quot;$file&quot; -rotate -90 &quot;$file&quot;; done</command>
+	<description></description>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Rotate 180</name>
+	<unique-id>1596690889448723-2</unique-id>
+	<command>for file in %F; do convert &quot;$file&quot; -rotate 180 &quot;$file&quot;; done</command>
+	<description></description>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Rotate -90</name>
+	<unique-id>1596690915939287-3</unique-id>
+	<command>for file in %F; do convert &quot;$file&quot; -rotate 90 &quot;$file&quot;; done</command>
+	<description></description>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Resize image</name>
+	<unique-id>1596820557497602-1</unique-id>
+	<command>NEW_SIZE=$(/usr/bin/zenity --entry --title &apos;Resize image&apos; --text &apos;Please enter &quot;[pixel]x[pixel]&quot;&apos;); $HOME/bin/convert-resize %F $NEW_SIZE </command>
+	<description></description>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Remove Metadata</name>
+	<unique-id>1597015629265520-1</unique-id>
+	<command>exiftool -all= -overwrite_original %F</command>
+	<description></description>
+	<patterns>*</patterns>
+	<image-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Create symlink</name>
+	<unique-id>1596691054212572-4</unique-id>
+	<command>ln -s %f “%n (symlink)”</command>
+	<description></description>
+	<patterns>*</patterns>
+	<directories/>
+	<other-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Disk usage visual</name>
+	<unique-id>1596691123461424-5</unique-id>
+	<command>baobab %d</command>
+	<description></description>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+<action>
+	<icon></icon>
+	<name>Move files into new directory</name>
+	<unique-id>1596691236976524-6</unique-id>
+	<command>NEW_FOLDER=$(/usr/bin/zenity --entry --title &apos;Move into new folder&apos; --text &apos;Please enter a name for the new folder&apos;); mkdir $NEW_FOLDER; mv %F $NEW_FOLDER </command>
+	<description>elect any number of file/folders. A dialog will popup in which you can write the name of a new folder to create. Selected Files will be moved there.</description>
+	<patterns>*</patterns>
+	<directories/>
+	<audio-files/>
+	<image-files/>
+	<other-files/>
+	<text-files/>
+	<video-files/>
+</action>
+</actions>

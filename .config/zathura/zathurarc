@@ -1,0 +1,23 @@
+# https://jlk.fjfi.cvut.cz/arch/manpages/man/zathurarc.5
+
+set recolor true
+set recolor-keephue "true"
+set recolor-darkcolor "333333"
+set recolor-lightcolor "#1f1f1f"
+
+set render-loading "true"
+
+set window-title-basename "true"
+set window-title-home-tilde "true"
+set statusbar-home-tilde "true"
+# set statusbar-basename "true"
+
+set selection-clipboard "clipboard"
+
+#set highlight-color "#242a80"
+#set highlight-active-color "#242a80"
+set highlight-transparency 0.04
+
+# set first-page-column 1:1
+
+set synctex "true"

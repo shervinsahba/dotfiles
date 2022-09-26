@@ -1,0 +1,9 @@
+ssl_verify: false
+channels:
+  - conda-forge
+  - defaults
+allow_conda_downgrades: true
+
+env_prompt: ({name})
+auto_activate_base: false
+changeps1: false

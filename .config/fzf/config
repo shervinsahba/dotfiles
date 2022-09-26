@@ -1,0 +1,20 @@
+fzf_exclude="--exclude .git --exclude .idea --exclude .ipynb_checkpoints --exclude __pycache__ --exclude miniconda"
+
+source "/usr/share/fzf/key-bindings.bash"
+source "/usr/share/fzf/completion.bash"
+export FZF_DEFAULT_COMMAND="fd $fzf_exclude . $HOME"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd --type directory . $HOME"
+export FZF_DEFAULT_OPTS="
+    --multi --height 100% --reverse --border --info inline
+    --color 'fg:#f8f8f2,fg+:#50fa7b,bg:#1c1c1c,preview-bg:#1c1c1c,border:#1c1c1c'
+    --preview '([[ -f {} ]] && (bat --style=numbers --color=always --line-range :500 {} || cat {})) \
+            || ([[ -d {} ]] && (tree -C {} || less {})) \
+            || echo {} 2> /dev/null | head -200'
+    --pointer='▶' --marker='✗'
+    --bind '?:toggle-preview'
+    --bind 'ctrl-a:select-all'
+    --bind 'ctrl-y:execute-silent(echo {+} | xclip -selection clipboard)'
+    --bind 'ctrl-e:execute(echo {+} | xargs -o vim)'
+    --bind 'ctrl-v:execute(code {+})'
+    "

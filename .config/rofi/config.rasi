@@ -1,0 +1,106 @@
+configuration {
+  modi: "drun,window,ssh,calc,filebrowser";
+  drun-display-format: "{name}";
+  sidebar-mode:     true;
+  show-icons:       true;
+  sort:			        true;
+  sorting-method:	  "normal";
+  scroll-method:	  0;
+  disable-history:	false;
+  display-drun:     "  ";
+  display-window:   "  ";
+  display-ssh:      " ";
+  display-calc:     " ";
+  display-filebrowser:	"F";
+  filebrowser {
+    directory:          "$HOME";
+    directories-first:	true;
+    sorting-method:	    "mtime";
+    }
+}
+
+mainbox { 
+  children: [ inputbar, listview, mode-switcher ]; 
+}
+
+window {
+  transparency:		"real";
+  width:		850px;
+  border:		15px 15px 15px 15px;
+  border-radius:	15px;
+  height:		500px;
+}
+
+prompt { 
+  enabled: true; 
+  background-color:	#00000000;
+  padding:		5px;
+  border-radius:	5px;
+  font:			"FiraCode Nerd Font 16";
+}
+
+entry {
+  background-color:	#00000000;
+  placeholder:		"";
+  expand:		true;
+  padding:		5px;
+  border-radius:	5px;
+  font:			"FiraCode Nerd Font 15";
+}
+
+listview {
+  columns:		2;
+  cycle:		true;
+  dynamic:		true;
+  layout:		vertical;
+  scrollbar:		true;
+}
+
+element {
+  orientation:		horizontal;
+  margin:		2px 5px 2px 5px;
+  border-radius:	5px;
+  background-color:	#00000000;
+}
+
+element-icon {
+  size: 2.5ch ; 
+}
+
+element-text {
+  expand:		true;
+  margin:		2px 5px 2px 5px;
+  font:			"FiraCode Nerd Font 16";
+  background-color:	inherit;
+  text-color:		inherit;
+}
+
+element selected {
+  background-color:	@button;
+  text-color:		#00000000;
+  border-radius:	10px;
+}
+
+mode-switcher {
+  spacing:		10px;
+  border-radius:	10px;
+  background-color:	inherit;
+  text-color:		inherit;
+  margin:		10px 50px 10px 50px;
+}
+
+button {
+  padding:		0px;
+  border-radius:	10px;
+  font:			"FiraCode Nerd Font 15";
+  background-color:	#00000000;
+  vertical-align:	0.5; 
+  horizontal-align:	0.5;
+}
+
+button selected {
+  padding:		0px;
+}
+
+@import "~/.cache/wal/colors-rofi-dark.rasi"
+

@@ -1,0 +1,29 @@
+# tags with "<tag>"
+# hidden feeds with "!<hidden>"
+# rename feeds with "~<name>"
+
+# for youtube
+# https://www.youtube.com/feeds/videos.xml?channel_id=
+
+
+https://www.youtube.com/feeds/videos.xml?channel_id=UCm5mt-A4w61lknZ9lCsZtBw "~YT: Steve Brunton"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCoUOaSVYkTV6W4uLvxvgiFA "~YT: Nathan Kutz"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCWN3xxRkmTPmbKwht9FuE5A "~YT: Siraj Raval"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC6nSFpj9HTCZ5t-N3Rm3-HA "~YT: Vsauce"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCe0TLA0EsQbE-MjuHXevj2A "~YT: ATHLEAN-X"
+https://www.youtube.com/feeds/videos.xml?channel_id=UC3XTzVzaHQEd30rQbuvCtTQ "~YT: John Oliver"
+# https://www.youtube.com/feeds/videos.xml?channel_id=UCweQRqx-Zb9YVIxkvN7uv0A "~YT: TastyTracker"
+https://www.youtube.com/feeds/videos.xml?channel_id=UCHTisXO8TeozyYOxEZGC8XQ "~YT: Yoga w/ Travis Eliot"
+# https://www.youtube.com/feeds/videos.xml?channel_id=
+# https://www.youtube.com/feeds/videos.xml?channel_id=
+https://feeds.npr.org/510308/podcast.xml "~Hidden Brain [Shankar Vedantam]"
+https://philosophizethis.libsyn.com/rss "~Philosophize This! [Stephen West]"
+https://wakingup.libsyn.com/rss "~Waking Up [Sam Harris]"
+https://feeds.npr.org/510313/podcast.xml "~How I Built This [Guy Raz]"
+https://dchhaddendum.libsyn.com/rss?format=xml "~Hardcore History Addendum [Dan Carlin]"
+https://feeds.feedburner.com/dancarlin/history?format=xml "~Hardcore History Main [Dan Carlin]"
+http://feeds.feedburner.com/dancarlin/commonsense "~Common Sense [Dan Carlin]"
+# http://joeroganexp.joerogan.libsynpro.com/rss "~The Joe Rogan Experience" "Culture"
+http://rss.art19.com/the-daily "~The Daily, New York Times [Michael Barbaro]" "News"
+https://feeds.npr.org/510289/podcast.xml "~Planet Money"
+https://feeds.simplecast.com/XA_851k3 "~Stack Overflow Podcast"

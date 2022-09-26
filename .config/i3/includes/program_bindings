@@ -1,0 +1,37 @@
+# polybar toggle
+bindsym $mod+b exec --no-startup-id polybar-msg cmd toggle
+
+# tdrop - dropdown floating windows
+bindsym F12 exec --no-startup-id tdrops kitty
+bindsym $super+a exec --no-startup-id tdrops pavucontrol
+bindsym $super+b exec --no-startup-id tdrops blueman-manager
+bindsym $super+z exec --no-startup-id tdrops zotero
+
+# lockscreen
+bindsym $mod+Shift+Ctrl+Delete exec --no-startup-id xsecurelock
+
+# rofi launchers
+bindsym $mod+d exec --no-startup-id "rofi -modi drun,window,ssh -show drun"
+bindsym $super+v exec --no-startup-id ~/src/polybar-vpn-controller/vpn_module.sh --location-menu
+bindsym $super+m exec --no-startup-id ~/src/Rofi-Scripts/rofi/music/music
+bindsym $super+w exec ~/src/Rofi-Scripts/rofi/wifi/wifi
+bindsym $super+Shift+m exec --no-startup-id ~/src/Rofi-Scripts/rofi/mount/mountusb
+
+# terminal
+bindsym $mod+Return exec kitty --name tile || alacritty || urxvt || xterm
+bindsym $super+Return exec kitty --name float || alacritty || urxvt || xterm
+
+# screenshots (via maim/flameshot)
+#set $maimsavelocation "$HOME/Downloads/Screenshots/maim/$(date -Iseconds).png"
+#bindsym --release Print exec maim -uBs $maimsavelocation | xclip -selection clipboard -t image/pngbindsym --release Ctrl+Print exec maim -uBsD $maimsavelocation | xclip -selection clipboard -t image/png
+#bindsym --release $super+Print exec maim -uBs | tee $maimsavelocation | feh - -x
+#bindsym Print exec flameshot gui -p ~/Downloads/Screenshots/flameshot
+bindsym Print exec flameshot gui
+bindsym $mod+Print exec flameshot full -p ~/Downloads/Screenshots/flameshot
+
+# file manager
+bindsym $super+r exec kitty ranger --name ranger
+
+# internet browser
+bindsym $super+f exec firefox --new-window
+

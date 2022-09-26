@@ -1,0 +1,8 @@
+[Unit]
+Description=Lightweight battery daemon
+
+[Service]
+ExecStart=/usr/bin/batsignal -w 18 -c 8 -d 3
+
+[Install]
+WantedBy=default.target

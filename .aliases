@@ -1,0 +1,105 @@
+alias sudo='sudo '        # permits using sudo with aliased commands
+alias cp='cp -i'          # confirm before overwriting something
+# alias rm='rm -i'         # confirm before removing something
+alias mkdir='mkdir -p'	  # makes parent directory if it doesn't exist
+alias less='less -R'	  # allow colorized pipes to less
+alias more='less'
+alias h='head'
+alias t='tail'
+alias grep='grep --color=auto'
+alias egrep='grep -E'	  # extended grep
+alias fgrep='grep -F'	  # fixed grep
+alias ls='ls --color=auto'
+alias l='ls'
+alias ll='ls -Flh'
+alias lll='ls -Flha'
+alias lh='ll -d .[^.]*'			   # long list hidden files only
+alias tree='tree --dirsfirst -FC'  # human readable, folder /, color
+alias locate='locate -e'		   # only shows files that still exist
+alias bat='bat --color=always'
+alias diff='diff --color'
+alias ip='ip -color'
+
+
+alias c='xclip -selection clipboard'	  # xclip copy
+alias p='xclip -selection clipboard -o'   # xclip paste
+
+alias df='dfc || df -h'    				# use color verion or at least human-readable sizes
+alias free='free -m'      				# shows free memory in MB
+alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
+alias paths='echo -e ${PATH//:/\\n}'	# pretty print paths
+
+alias date-iso='date +"%Y%m%dT%H%M%S"'
+
+# cd
+alias ..='cd ..'
+alias ...='cd ../..'
+alias cdm='cd /mnt'
+alias cdX='cd /etc/X11/xorg.conf.d/'
+alias cdtrash='cd ~/.local/share/Trash/files'
+alias cdsrc='cd ~/src'
+alias cdd='cd ~/Downloads'
+alias cd.="cd ~/.config"
+alias cdR="cd ~/Research"
+
+# drop-in replacements for Linux standbys
+command -v vim >/dev/null 2>&1 && alias vi='vim'
+command -v rg >/dev/null 2>&1 && alias grep='rg'
+command -v lsd > /dev/null 2>&1 && alias ls='lsd'
+#command -v fd >/dev/null 2>&1 && alias find='fd'
+#command -v bat >/dev/null 2>&1 && alias cat='bat'  ## too many clashes in practice
+
+alias feh='feh --auto-zoom --borderless --cache-size 16 --cache-thumbnails --scale-down'
+
+# programs I use a lot
+alias ra='ranger'
+alias n='ncmpcpp'
+alias arch-wiki-man='awman'
+
+# fzf and augmented fuzzy calls
+alias f='fzf'
+alias pacls='pacman -Ss | fzf'
+alias hist='history | fzf'
+alias psf='ps -ef | fzf'
+alias condals='conda list | fzf'
+alias yt='ytfzf -t --thumb-viewer=kitty-viewer --thumbnail-quality=maxresdefault'
+
+# z autojump with fzf
+alias z='z -I'
+
+# GPU related
+alias DRIglxgears="DRI_PRIME=1 glxgears"
+alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
+
+# keyboard and xmodmap
+alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'; xmodmap ~/.Xmodmap"
+alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
+
+# systemctl
+alias yay="if command -v conda >/dev/null; then conda deactivate; fi && yay"
+alias pacman-ls-native="pacman -Qqettn"
+alias pacman-ls-aur="pacman -Qqettm"
+alias zsh_activate="sudo chsh $USER -s /bin/zsh && echo 'User shell changed to zsh. Now log out.'"
+alias bash_activate="sudo chsh $USER -s /bin/bash && echo 'User shell changed to bash. Now log out.'"
+alias journalctl='journalctl --output=short-iso'	            # ISO timestamps
+alias restart-net="systemctl restart NetworkManager.service"    # restarts network and /etc/hosts
+
+# cleanup
+alias clean-all-uninstalled-packages="paccache -ruk 0"
+alias clean-paccache-keep3="paccache -rk 3"
+alias clean-orphan-list="pacman -Qdtq; echo; echo Choose packages to remove manually."
+alias clean-journal="journalctl --vacuum-size=100M"
+alias clean-trash="rm -rf $HOME/.local/share/Trash/*"
+alias clean-cache-1year="find -type f $HOME/.cache/ -type f -atime +365 -delete"
+
+# kittens
+alias icat="kitty +kitten icat"
+alias hg='kitty +kitten hyperlinked_grep'
+alias d="kitty +kitten diff"
+alias ssh-kitty="kitty +kitten ssh"
+[[ "$TERM" == "xterm-kitty" ]] && alias ssh="kitty +kitten ssh"
+
+alias sensor-watch="watch -n 2 'nvidia-smi;sensors'"
+
+alias ssh-keygen-1="ssh-keygen -t ed25519 -a 100"
+alias ssh-keygen-2="ssh-keygen -t rsa -b 4096 -o -a 100"

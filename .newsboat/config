@@ -1,0 +1,50 @@
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## newsboat config
+
+## reloads every 60m
+auto-reload yes
+
+## bookmarking
+#bookmark-cmd <cmd>
+#bookmark-autopilot
+
+## browser
+browser "browsh %u"
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## macros and binds
+
+## open via various browsers
+macro m set browser "mpv %u" ; open-in-browser ; set browser "browsh %u"
+macro f set browser "firefox %u"; open-in-browser ; set browser "browsh %u"
+macro w set browser "w3m %u"; open-in-browser ; set browser "browsh %u"
+
+## mark read after opening
+macro o open-in-browser ; toggle-article-read "read"
+
+## enqueue podcast from url view
+# broken?
+#macro e set browser "echo %u >> ~/.newsboat/queue" ; open-in-browser ; set browser "browsh %u"
+
+## open podboat
+macro p set browser "podboat" ; open-in-browser ; set browser "browsh %u"
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## podcasts
+
+podcast-auto-enqueue no
+
+#macro d pb-download
+#macro c pb-cancel
+#macro p pb-play
+#macro D pb-delete
+#macro P pb-purge
+
+podlist-format "%3i [%5d/%5dMB] [%-8S] %b"
+
+download-path ~/Music/Podcasts
+download-filename-format "%F-%n-%t.%e"
+max-downloads 3
+#player "mpv --no-video"
+player ncmpcpp
+

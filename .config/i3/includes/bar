@@ -1,0 +1,24 @@
+bar {
+        # verbose yes
+        status_command i3status
+        position top
+        height 24
+        mode hide
+        modifier $mod
+        strip_workspace_numbers yes
+        separator_symbol "·"
+        tray_output primary
+        tray_padding 2
+        font pango:OpenDyslexic Nerd Font 12
+        colors {
+                statusline         $colorf
+                background         $colorb
+                separator          $colorf
+                #                  BORDER       BACKGROUND   TEXT
+                focused_workspace  $color5      $color8      $colorf
+                inactive_workspace $colorb      $colorb      $colorf
+                active_workspace   $color8      $color8      $colorf
+                urgent_workspace   $color8      $color1      $colorb
+                binding_mode       $color8      $color5      $colorb
+        }
+}

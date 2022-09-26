@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=thinkorswim
+Comment=Trading platform
+Path=/home/shervin/src/thinkorswim
+Icon=/home/shervin/.local/share/applications/thinkorswim_logo.png
+Exec=/home/shervin/src/thinkorswim/thinkorswim
+Terminal=False

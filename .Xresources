@@ -1,0 +1,43 @@
+!! Xft Configuration
+Xft.dpi:       96
+Xft.antialias: true
+Xft.hinting:   1
+Xft.rgba:      rgb
+Xft.autohint:  false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+
+!! XTerm Configuration
+XTerm*faceName:          Fixed
+XTerm*faceSize:          14
+XTerm*reverseVideo:      on
+XTerm*selectToClipboard: true
+
+!! URxvt Configuration
+URxvt.font:             xft:NotoSansMono:style=Regular:size=14
+URxvt.boldFont:         xft:NotoSansMono:style=Bold:size=14 
+URxvt.italicFont:       xft:NotoSansMono:style=Italic:size=14
+URxvt.boldItalicFont:   xft:NotoSansMono:style=Bold Italic:size=14
+URxvt.depth:                      32
+URxvt.scrollBar:                  false
+URxvt.mouseWheelScrollPage:       true
+URxvt.cursorBlink:                true
+URxvt.saveLines:                  2048
+URxvt.iso14755:                   false
+URxvt.keysym.Shift-Control-V:     eval:paste_clipboard
+URxvt.keysym.Shift-Control-C:     eval:selection_to_clipboard
+URxvt.keysym.Control-Left:        \033[1;5D
+URxvt.keysym.Control-Right:       \033[1;5C
+URxvt.keysym.Control-Up:          eval:scroll_up 1
+URxvt.keysym.Control-Down:        eval:scroll_down 1
+URxvt.keysym.Control-Home:        eval:scroll_to_top
+URxvt.keysym.Control-End:         eval:scroll_to_bottom
+URxvt.perl-ext-common:            default,url-select
+!! URL Select Perl Ext
+URxvt.keysym.Control-Shift-U:     url-select:select_next
+URvxt.url-select.button:          2
+URxvt.url-select.launcher:        firefox
+URxvt.url-select.underline:       true
+
+!! enforce cursor size
+Xcursor.size: 32

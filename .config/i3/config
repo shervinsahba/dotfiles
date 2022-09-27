@@ -16,7 +16,7 @@ set $super Mod4
 set $dir ~/.config/i3/includes
 
 # restart i3
-bindsym $mod+Shift+r exec pkill xidlehook, restart
+bindsym $mod+Shift+r restart
 
 # lightdm user switch
 bindsym $mod+Shift+Escape exec dm-tool switch-to-greeter
@@ -41,12 +41,6 @@ for_window [all] title_window_icon padding px
 ## workspaces
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-# switch between the current and the previously focused one
-bindsym $mod+Tab workspace back_and_forth
-
-# cycle through workspaces
-bindsym $mod+Shift+Tab workspace next_on_output
-
 # set workspace names
 set $ws1   1:Ⅰ
 set $ws2   2:Ⅱ
@@ -58,6 +52,10 @@ set $ws7   7:Ⅶ
 set $ws8   8:Ⅷ
 set $ws9   9:Ⅸ
 set $ws10 10:Ⅹ
+
+# swap or cycle between workspace
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab workspace next_on_output
 
 # switch to workspace
 bindsym $mod+1 workspace $ws1
@@ -83,11 +81,7 @@ bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## scratchpad workspace
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-
-# banish to and recover from shadow realm!
+# banish to and recover from shadow realm (i.e. scratchpad workspace)
 bindsym $mod+z move scratchpad
 bindsym $mod+Shift+z exec ~/src/scripts/rofi-i3scratch || i3-msg scratchpad show
 
@@ -183,7 +177,7 @@ mouse_warping none
 bindsym --release button2 kill
 
 # mouse right button on titlebar toggles floating
-bindsym --release button3 floating toggle
+# bindsym --release button3 floating toggle
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## multimonitor

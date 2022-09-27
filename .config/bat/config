@@ -1,5 +1,6 @@
 --theme="Dracula"
 
-# Show line numbers, Git modifications, file header, grid
---style="numbers,changes,grid"
-
+# Style components:
+#  *default*,  full,  auto,  plain,   changes, header, header-filename, header-filesize, grid, rule, numbers, snip
+#--style="plain"
+--style="full"

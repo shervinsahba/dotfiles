@@ -16,10 +16,9 @@ alias lll='ls -Flha'
 alias lh='ll -d .[^.]*'			   # long list hidden files only
 alias tree='tree --dirsfirst -FC'  # human readable, folder /, color
 alias locate='locate -e'		   # only shows files that still exist
-alias bat='bat --color=always'
 alias diff='diff --color'
 alias ip='ip -color'
-
+alias cat='/bin/bat --paging=never --style=plain'
 
 alias c='xclip -selection clipboard'	  # xclip copy
 alias p='xclip -selection clipboard -o'   # xclip paste

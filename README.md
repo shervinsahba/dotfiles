@@ -345,7 +345,7 @@ mamba install jupyterlab nb_conda_kernels ipykernel ipywidgets
 ```
 Create a ML environment 
 ```
-mamba create -n ml numpy scipy matplotlib pandas scikit-learn seaborn ipykernel ipywidgets hdf5
+mamba create -n ml numpy scipy matplotlib pandas scikit-learn seaborn ipykernel ipywidgets hdf5 tqdm
 ```
 Add torch using the command off [PyTorch's site](https://pytorch.org/). Just replace the `conda` part of the command with `mamba`.
 

@@ -4,5 +4,5 @@ Version=R2022b
 Name=MATLAB
 Comment=Scientific computing software
 Icon=/home/shervin/.local/share/applications/matlab_logo.png
-Exec=TMPDIR=~/.cache/matlab-tmp matlab -desktop
+Exec=env TMPDIR=/home/shervin/.cache/matlab-tmp matlab -desktop
 Terminal=False

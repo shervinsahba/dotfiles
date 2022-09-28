@@ -1,5 +1,5 @@
 configuration {
-  modi: "drun,window,ssh,calc,filebrowser";
+  modi: "drun,window,ssh";
   drun-display-format: "{name}";
   sidebar-mode:     true;
   show-icons:       true;
@@ -76,7 +76,7 @@ element-text {
 }
 
 element selected {
-  background-color:	@button;
+  background-color:	#00000000;
   text-color:		#00000000;
   border-radius:	10px;
 }

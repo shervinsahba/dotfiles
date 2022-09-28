@@ -4,5 +4,6 @@ Version=R2022b
 Name=MATLAB
 Comment=Scientific computing software
 Icon=/home/shervin/.local/share/applications/matlab_logo.png
-Exec=env TMPDIR=/home/shervin/.cache/matlab-tmp matlab -desktop
+Exec=bash -c "export TMPDIR=/home/shervin/.cache/matlab-tmp; matlab -desktop; rm -r $TMPDIR/*"
+#Exec=env TMPDIR=/home/shervin/.cache/matlab-tmp matlab -desktop
 Terminal=False

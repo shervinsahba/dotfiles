@@ -4,8 +4,10 @@ chromium
 figlet
 firejail
 gnome-font-viewer
+iperf3
 jre11-openjdk
 redshift
+sox
 speedtest-cli
 stress
 tectonic

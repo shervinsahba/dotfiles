@@ -37,6 +37,7 @@ alias cdm='cd /mnt'
 alias cdX='cd /etc/X11/xorg.conf.d/'
 alias cdtrash='cd ~/.local/share/Trash/files'
 alias cdsrc='cd ~/src'
+alias cdscripts='cd ~/src/scripts'
 alias cdd='cd ~/Downloads'
 alias cd.="cd ~/.config"
 alias cdR="cd ~/Research"

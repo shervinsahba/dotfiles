@@ -223,7 +223,7 @@ Get some [Ranger plugins](https://github.com/ranger/ranger/wiki/Plugins).
 mkdir -p ~/.config/ranger/plugins
 cd ~/.config/ranger/plugins
 git clone https://github.com/alexanderjeurissen/ranger_devicons
-https://github.com/SL-RU/ranger_udisk_menu
+git clone https://github.com/SL-RU/ranger_udisk_menu
 git clone https://github.com/ask1234560/ranger-zjumper.git
 ```
 Click through the links and add their instructions to ranger's config files if your dotfiles don't already contain said instructions.

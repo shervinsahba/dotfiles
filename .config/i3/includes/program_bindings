@@ -24,8 +24,8 @@ bindsym $super+Return exec kitty --name float || alacritty || urxvt || xterm
 #set $maimsavelocation "$HOME/Downloads/Screenshots/maim/$(date -Iseconds).png"
 #bindsym --release Print exec maim -uBs $maimsavelocation | xclip -selection clipboard -t image/pngbindsym --release Ctrl+Print exec maim -uBsD $maimsavelocation | xclip -selection clipboard -t image/png
 #bindsym --release $super+Print exec maim -uBs | tee $maimsavelocation | feh - -x
-bindsym Print exec flameshot gui -p ~/Downloads/Screenshots
-bindsym $mod+Print exec flameshot full -p ~/Downloads/Screenshots
+bindsym Print exec flameshot gui -c -p ~/Downloads/Screenshots
+bindsym $mod+Print exec flameshot screen -p ~/Downloads/Screenshots
 
 # file manager
 bindsym $super+r exec kitty ranger --name ranger

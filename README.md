@@ -22,7 +22,9 @@ echo blacklist pcspkr > /etc/modprobe.d/nobell.conf
 
 ## multilib
 Enable the multilib repo in `/etc/pacman/conf` if you want packages from there (e.g. steam).
-```sed -i 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf```
+```
+sed -i 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
+```
 
 
 ## kernels
@@ -320,7 +322,7 @@ _products=(
   "Symbolic_Math_Toolbox"
   "Wavelet_Toolbox"
 )
-
+```
 You'll need the matlab-meta package to handle dependencies. After downloading it and following the steps in the README, you can build the matlab package.
 ```
 yay -S --asdeps matlab-meta

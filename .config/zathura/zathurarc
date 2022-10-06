@@ -1,6 +1,6 @@
 # https://jlk.fjfi.cvut.cz/arch/manpages/man/zathurarc.5
 
-set recolor true
+set recolor false
 set recolor-keephue "true"
 set recolor-darkcolor "333333"
 set recolor-lightcolor "#1f1f1f"

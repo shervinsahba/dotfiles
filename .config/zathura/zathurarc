@@ -1,11 +1,16 @@
 # https://jlk.fjfi.cvut.cz/arch/manpages/man/zathurarc.5
 
-set recolor false
+set recolor "false"
+#set recolor-keephue "true"
+#set recolor-reverse-video "false"
+#set recolor-darkcolor "#333333"
+#set recolor-lightcolor "#1f1f1f"
+set recolor-lightcolor "#2A2F3B" #00
+set recolor-darkcolor "#E0E0E0" #06
+set recolor-reverse-video "true"
 set recolor-keephue "true"
-set recolor-darkcolor "333333"
-set recolor-lightcolor "#1f1f1f"
 
-set render-loading "true"
+set render-loading "false"
 
 set window-title-basename "true"
 set window-title-home-tilde "true"

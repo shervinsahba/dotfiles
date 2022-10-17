@@ -48,7 +48,7 @@
 
     icon_position = on
     max_icon_size = 128
-    icon_folders = /usr/share/icons/breath2-dark/status/16/:/usr/share/icons/breath2-dark/devices/16/
+    icon_folders = /usr/share/icons/Flatery-dark/status/48/:/usr/share/icons/Flatery2-dark/devices/16/:/usr/share/icons/Papirus-Dark/32x32/devices:/usr/share/icons/Papirus-Dark/32x32/status
 
     sticky_history = yes
     history_length = 20

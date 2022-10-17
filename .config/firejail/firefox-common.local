@@ -1,0 +1,2 @@
+# Add the next line to your firefox-common.local to allow access to common programs/addons/plugins.
+include firefox-common-addons.profile

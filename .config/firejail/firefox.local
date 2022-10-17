@@ -1,0 +1,16 @@
+# Add one of the following whitelist options to your firefox.local to enable KeePassXC Plugin
+#whitelist ${RUNUSER}/kpxc_server
+#whitelist ${RUNUSER}/org.keepassxc.KeePassXC.BrowserServer
+
+# firefox requires a shell to launch on Arch. add the following to enable a private-bin
+#private-bin bash,dbus-launch,dbus-send,env,firefox,sh,which
+
+# Add the next line to your firefox.local to enable native notifications.
+dbus-user.talk org.freedesktop.Notifications
+# Add the next line to your firefox.local to allow inhibiting screensavers.
+dbus-user.talk org.freedesktop.ScreenSaver
+# Add the next lines to your firefox.local for plasma browser integration.
+#dbus-user.own org.mpris.MediaPlayer2.plasma-browser-integration
+
+# no audio bug fix: https://github.com/netblue30/firejail/issues/4512
+ignore whitelist ${RUNUSER}/*firefox*

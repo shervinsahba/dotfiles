@@ -2,6 +2,7 @@ set clipboard=unnamedplus  " clipboard set to system clipboard
 set belloff=all            " no pc speaker bell
 
 "" file settings
+set termencoding=utf-8
 set encoding=utf-8     " encoding used for displaying file
 set fileencoding=utf-8 " encoding used when saving file
 filetype on            " enable file type detection

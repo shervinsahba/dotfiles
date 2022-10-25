@@ -1,22 +1,23 @@
 # ~/.bashrc
-[[ $- != *i* ]] && return  # if not running interactively, then return and do nothing below
+# read by interactive non-login bash shells
 
-xhost +local:root > /dev/null 2>&1	# allow local X connections from root
+## if not running interactively, then return and do nothing below
+[[ $- != *i* ]] && return
+
+## allow local X connections from root
+xhost +local:root > /dev/null 2>&1
 
 ## shell options
 shopt -s cdspell		# minor errors during cd command are corrected
 shopt -s expand_aliases # expand aliases
 shopt -s histappend		# history appending instead of overwriting
 
-## option specified by sudo may not be followed by a filename
-complete -cf sudo
+## tab size in spaces
+tabs 4
 
 ## bash auto-completion
 [ -r /usr/share/bash-completion/bash_completion ] && source /usr/share/bash-completion/bash_completion
-
-## editor
-export EDITOR=vim
-export VISUAL="$EDITOR"
+complete -cf sudo # sudo completion may not include filenames
 
 ## PS1 prompt
 if command -v starship &>/dev/null; then
@@ -30,8 +31,10 @@ fi
 ## aliases
 [[ -f ~/.aliases ]] && source "$HOME"/.aliases
 
-## colors for less, man, etc.
-[[ -f ~/.config/LESS_TERMCAP ]] && source ~/.config/LESS_TERMCAP
+## stderrred-git (https://github.com/sickill/stderred)
+if [ -f /usr/lib/libstderred.so"${LD_PRELOAD:+:$LD_PRELOAD}" ]; then
+  export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
+fi
 
 ## fzf settings
 [[ -f ~/.config/fzf/config ]] && source ~/.config/fzf/config
@@ -40,11 +43,6 @@ fi
 if [[ -f /usr/share/z.lua/z.lua ]]; then
   eval "$(lua /usr/share/z.lua/z.lua --init bash enhanced once fzf)"
   export _Z_DATA=$HOME/.zlua
-fi
-
-## stderrred-git (https://github.com/sickill/stderred)
-if [[ -f /usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD} ]]; then
-  export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
 fi
 
 ## ruby rbenv

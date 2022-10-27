@@ -17,6 +17,7 @@ gdu
 geoip
 geoip-database
 github-cli
+glow
 gpick
 grub-btrfs
 gvfs
@@ -28,7 +29,6 @@ krita
 libreoffice-fresh
 lsd
 lutris
-mdcat
 mpc
 mpd
 ncmpcpp

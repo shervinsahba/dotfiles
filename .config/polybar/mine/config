@@ -1,7 +1,8 @@
 ; polybar https://github.com/polybar/polybar
 
-include-file = ~/.config/polybar/mine/module_definitions.ini
 include-file = ~/.config/polybar/mine/colors.ini
+include-file = ~/.config/polybar/mine/module_definitions.ini
+include-file = ~/.config/polybar/mine/module_decorations.ini
 
 [global/wm]
 margin-top = 0

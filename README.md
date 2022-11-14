@@ -13,6 +13,12 @@ Mount anything you need to mount. Refer to `blkid` and `lsblk -f`.
 - For removeable or optional media, add options `nofail,x-systemd.device-timeout=100ms` to prevent a missing device error from locking the system on startup.
 - To get non-root filesystem devices to show up in thunar, add the option `x-gvfs-show`.
 
+For mounting filesystems on other devices via sshfs, consider adding something like the following to your fstab. Replace <username> with the desired user, and doublecheck that the uid and gid are correct with `id -u` and `id -g`.
+```
+<username>@<host>:/path/to/target /path/to/mount  fuse.sshfs  noauto,x-systemd.automount,_netdev,user,idmap=user,follow_symlinks,identityfile=/home/<username>/.ssh/id_rsa,allow_other,default_permissions,uid=1000,gid=1000 0 0
+```
+You can then mount the directory rapidly with `mount /path/to/mount/`.
+
 
 ## mute PC speaker bell
 Edit `/etc/inputrc` and uncomment or append `set bell-style none`. Also maybe

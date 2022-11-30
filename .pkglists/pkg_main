@@ -37,6 +37,7 @@ ncmpcpp
 nftables
 obs-studio
 obsidian
+okular
 peek
 perl-image-exiftool
 qbittorrent 
@@ -51,3 +52,5 @@ xclip
 xdg-user-dirs-gtk
 xournalpp
 zathura-cb
+zathura-djvu
+tealdeer

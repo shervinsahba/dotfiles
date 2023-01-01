@@ -1,6 +1,6 @@
 #!/bin/sh
 
-COLOR_POWERED=#62d6e8  #blue
+COLOR_POWERED=#96cdfb  #blue
 COLOR_UNPOWERED=#4d4f68  #gray
 COLOR_INACTIVE=#BD6A95  #red
 

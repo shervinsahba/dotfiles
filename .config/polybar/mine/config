@@ -1,48 +1,48 @@
 ; polybar https://github.com/polybar/polybar
 
 include-file = ~/.config/polybar/mine/colors.ini
-include-file = ~/.config/polybar/mine/module_definitions.ini
-include-file = ~/.config/polybar/mine/module_decorations.ini
+include-file = ~/.config/polybar/mine/modules/_decorations.ini
+include-file = ~/.config/polybar/mine/modules/battery.ini
+include-file = ~/.config/polybar/mine/modules/cpu.ini
+include-file = ~/.config/polybar/mine/modules/date.ini
+include-file = ~/.config/polybar/mine/modules/i3.ini
+include-file = ~/.config/polybar/mine/modules/memory.ini
+include-file = ~/.config/polybar/mine/modules/pavucontrol.ini
+include-file = ~/.config/polybar/mine/modules/powermenu.ini
+include-file = ~/.config/polybar/mine/modules/pulseaudio.ini
+include-file = ~/.config/polybar/mine/modules/system-bluetooth-bluetoothctl.ini
+include-file = ~/.config/polybar/mine/modules/temperature.ini
+include-file = ~/.config/polybar/mine/modules/updates-pacman-aurhelper.ini
+include-file = ~/.config/polybar/mine/modules/vpn.ini
+include-file = ~/.config/polybar/mine/modules/xbacklight.ini
+include-file = ~/.config/polybar/mine/modules/xwindow.ini
 
-[global/wm]
-margin-top = 0
-margin-bottom = 0
 
 [bar/top]
-monitor =
-monitor-fallback =
 monitor-strict = false
 bottom = false
 fixed-center = true
 width = 100%
-height = 24
+height = 34
 radius = 5.0
-padding-left = 0
-padding-right = 0
 background = ${colors.background}
 foreground = ${colors.foreground}
+border-color = ${colors.transparency}
+border-left-size = 0.6%
+border-right-size = 0.6%
+border-top-size = 0.5%
+border-bottom-size = 0%
 underline-size = 2
 overline-size = 2
-border-color = ${colors.background}
-border-top-size = 5
-border-bottom-size = 5
-border-left-size = 5
-border-right-size = 5
 include-file = ~/.config/polybar/mine/fonts.ini
 include-file = ~/.config/polybar/mine/cursor.ini
 include-file = ~/.config/polybar/mine/modules.ini
-module-margin-left = 0
-module-margin-right = 0
 include-file = ~/.config/polybar/mine/tray.ini
-offset-x = 0%
-offset-y = 0%
-
-;; inter-process messaging support
-enable-ipc = true
 
 ;; window manager settings
 override-redirect = false
 wm-restack = i3
+enable-ipc = true
 
 [settings]
 ; Reload upon receiving XCB_RANDR_SCREEN_CHANGE_NOTIFY events

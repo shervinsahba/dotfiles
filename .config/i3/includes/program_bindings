@@ -12,8 +12,10 @@ bindsym $super+z exec --no-startup-id tdrops zotero
 bindsym $mod+Shift+Ctrl+Delete exec --no-startup-id xsecurelock
 
 # rofi launchers
-bindsym $mod+d exec --no-startup-id "rofi -show drun"
-bindsym $mod+Shift+d exec --no-startup-id "rofi -show window"
+#bindsym $mod+d exec --no-startup-id "rofi -show drun"
+#bindsym $mod+Shift+d exec --no-startup-id "rofi -show window"
+bindsym $mod+d exec --no-startup-id "~/.config/rofi/launcher.sh"
+bindsym $mod+Shift+d exec --no-startup-id "~/.config/rofi/launcher.sh -show window"
 bindsym $super+v exec --no-startup-id ~/src/polybar-vpn-controller/vpn_module menu
 
 # terminal

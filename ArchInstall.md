@@ -235,6 +235,7 @@ chmod 600 /crypto_keyfile.bin
 chmod 600 /boot/initramfs-linux*  
 cryptsetup luksAddKey /dev/sdX2 /crypto_keyfile.bin  
 ```
+As an optional parameter to `luksAddKey`, consider setting `--iter-time` to tradeoff processing time versus security. For example, `luksAddKey --iter-time 1000` corresponds to a second. Use `lukDump <device>` and `luksKillSlot <device> <slot>` to view and delete keys if needed.
 
 
 ## modules

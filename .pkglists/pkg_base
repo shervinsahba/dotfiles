@@ -14,6 +14,7 @@ fzf
 gparted
 gufw
 htop
+i3-wm
 inkscape
 jq
 kitty
@@ -25,8 +26,8 @@ man-db
 man-pages
 mpv
 neofetch
-networkmanager
 network-manager-applet
+networkmanager
 nmap
 noto-fonts
 noto-fonts-cjk

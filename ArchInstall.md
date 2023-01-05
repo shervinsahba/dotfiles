@@ -324,7 +324,7 @@ pacman -S git wget curl htop plocate ripgrep fzf neofetch grub-btrfs lshw udiski
 ```
 
 ```Desktop-Environment
-pacman -S i3-gaps xorg xorg-xdm dmenu lightdm lightdm-slick-greeter polybar dunst picom python-pywal starship lxappearance feh rofi
+pacman -S i3-wm xorg xorg-xdm dmenu lightdm lightdm-slick-greeter polybar dunst picom python-pywal starship lxappearance feh rofi
 
 pacman -S kitty firefox ranger thunar yadm
 ```

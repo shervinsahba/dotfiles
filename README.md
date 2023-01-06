@@ -367,6 +367,81 @@ mamba env create -f <env>.yml
 ```
 
 
+## Usenet
+You need at least three things to use usenet: a usenet provider (e.g. Frugal), an NZB indexer (e.g. Geek), and a usenet client (e.g. NZBGet). Then supplementary programs like sonarr can automate the usenet client's processes.
+
+### provider and indexer
+These are typically subscription services. See the wiki on reddit.com/r/usenet for examples. I have used subscriptions for frugalusenet.com and nzbgeek.info for my provider and indexer respectively.
+
+### usenet client (nzbget)
+You'll need a usenet client. I use `nzbget`. As a preliminary step, I like to create a system user with no login shell access to run the service:
+```
+useradd -r -s /usr/bin/nologin -U nzbget
+mkdir /var/lib/nzbget
+chown -R nzbget:nzbget /var/lib/nzbget
+usermod -d /var/lib/nzbget -m nzbget
+```
+And add your own user to the nzbget group.
+```
+useradd -a -G nzbget <username>
+```
+Back to nzbget config, first copy its config to edit it.
+```
+cp /usr/share/nzbget/nzbget.conf /var/lib/nzbget/.nzbget
+chown -R nzbget:nzbget /var/lib/nzbget
+```
+Then edit it with
+```
+MainDir=/home/<username>/Downloads/NZBGet
+DestDir=${MainDir}/complete
+InterDir=${MainDir}/intermediate
+ScriptDir=/usr/share/nzbget/scripts
+LockFile=/var/lib/nzbget/nzbget.lock
+DaemonUsername=nzbget
+UMask=0002
+```
+Create a download directory and set permissions.
+```
+mkdir /home/<username>/Downloads/NZBGet
+chown -R nzbget:nzbget /home/<username>/Downloads/NZBGet
+chmod 775 /home/<username/Downloads/NZBGet
+```
+Note that you'll need at least 711 permissions on `/home/<username/` for the nzbget user to traverse the directory You can now launch the daemon.
+```
+sudo -u nzbget /usr/bin/nzbget -c /var/lib/nzbget/.nzbget -D
+```
+You can now log into the nzbget web UI at `localhost:6789`. Make sure the settings look alright (update the paths and password if needed). Then add a category for sonarr. Add your usenet provider servers under settings->news-servers.
+
+Consider getting the `nzbget-systemd` AUR package to setup the daemon with `systemctl enable --now nzbget`.
+
+
+### automation (sonarr, lidarr, radarr)
+Reference: https://wiki.servarr.com/
+
+Install `sonarr` and start the service with
+```
+systemctl enable --now sonarr
+```
+You can log into the web UI at `localhost:8989`. Note that sonarr is probably running as its own user with group sonarr. Add a root folder (under settings->media management), you'll need a folder with appropriate permissions. Here is one way to handle that:
+```
+mkdir /path/to/sonarr_root
+chown -R sonarr:sonarr /path/to/sonarr_root
+```
+Adding your own user and the nzbget user to the the sonarr group and giving priviledges to access the directory is a good move too. Note that your groups may not load until a restart, unless you force them to reload in the shell with something like `su <user>` (check your groups with `id`).
+```
+usermod -a -G sonarr <user>
+usermod -a -G sonarr nzbget
+chmod 775 /path/to/sonarr_root
+```
+Adding sonarr to nzbget's group may be needed to access the nzbget download directory too.
+```
+usermod -a -G nzbget sonarr
+```
+
+After finishing adding the root folder, set up the indexer under settings->indexer (e.g. NZBGeek) with your subscribed API key. Then establish the client under settings->download clients, adding NZBGet as a client using your nzbget user and control password along with the sonarr category you just set.
+
+Repeat the process for `lidarr`, `radarr`, etc. These are served on `localhost:XXXX` ports `8686` and `7878` respectively.
+
 
 # Old ideas 
 

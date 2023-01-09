@@ -26,11 +26,13 @@ Edit `/etc/inputrc` and uncomment or append `set bell-style none`. Also maybe
 echo blacklist pcspkr > /etc/modprobe.d/nobell.conf
 ```
 
-## multilib
-Enable the multilib repo in `/etc/pacman/conf` if you want packages from there (e.g. steam).
+## pacman.conf (multilib, parallel downloads)
+Enable the multilib repo in `/etc/pacman/conf` if you want packages from there (e.g. steam). Also enable and set the number of parallel downloads you want.
 ```
 sed -i 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
+sed -i '/ParallelDownloads/s/^#//g' /etc/pacman.conf
 ```
+
 
 
 ## kernels

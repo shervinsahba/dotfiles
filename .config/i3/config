@@ -219,7 +219,7 @@ bindsym $mod+Shift+m move workspace to output next
 ## i3-gaps settings
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-smart_gaps off
+smart_gaps on
 gaps inner 20
 gaps outer 0
 

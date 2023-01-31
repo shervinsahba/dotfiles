@@ -27,16 +27,33 @@ echo blacklist pcspkr > /etc/modprobe.d/nobell.conf
 ```
 
 ## pacman.conf (multilib, parallel downloads)
-Enable the multilib repo in `/etc/pacman/conf` if you want packages from there (e.g. steam). Also enable and set the number of parallel downloads you want.
+Enable the multilib repo in `/etc/pacman/conf` if you want packages from there (e.g. steam).
 ```
 sed -i 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
+```
+
+Enable parallel downloads (and if desired, manually set the number to something other than 5).
+```
 sed -i '/ParallelDownloads/s/^#//g' /etc/pacman.conf
 ```
 
+Add pacman candy :)
+```
+sed -i 's/#Color/Color\nILoveCandy/g' /etc/pacman.conf
+```
+
+This is also where to list packages to be ignored. This may be useful to fix packages or for AUR packages that involve manual builds like matlab.
+```
+IgnorePkg = foundryvtt matlab
+```
 
 
 ## kernels
 Install packages for other kernels besides `linux` like `linux-zen` or `linux-lts` if desired. You may want to edit `/etc/default/grub` to set `GRUB_DEFAULT=saved`, `GRUB_SAVEDEFAULT=true`. Then `sudo grub-mkconfig -o /boot/grub/grub.cfg` and `reboot`.
+
+```
+pacman -S linux-zen linuz-lts
+```
 
 
 ## systemd timers
@@ -367,6 +384,14 @@ or
 ```
 mamba env create -f <env>.yml
 ```
+
+### Printing
+Install `cups` and `nss-mdns` for Avahi local hostname resolution, then
+```
+systemctl enable --now cups
+systemctl enable --now avahi-daemon
+```
+Edit `/etc/nsswitch.conf` and put `mdns_minimal [NOTFOUND=return]` before `resolve` under `hosts`. Then `systemctl restart cups`.
 
 
 ## Usenet

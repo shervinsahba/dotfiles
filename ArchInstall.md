@@ -426,6 +426,14 @@ reboot
 
 If all goes according to plan, you should be prompted for the luks passphrase. After it decrypts, you'll end up in GRUB if that's the bootloader that was chosen. Log in.
 
+
+# backup luks headers
+Backup your luks headers somewhere secure that is outside your encrypted drive. Perhaps /efi on /dev/sdX1.
+```
+cryptsetup luksHeaderBackup /dev/sdX2 --header-backup-file luksHeaderBackup-$HOSTNAME-sdX2
+```
+
+
 ## setup plocate
 For `plocate`, edit `/etc/updatedb.conf` to  add the following. Chiefly, you don't want to prune bind mounts for btrfs. You probably do want to prune paths used for backups like /.snapshots or /timeshift as well as directories like ipynb_checkpoints and pycache.
 ```

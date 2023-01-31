@@ -102,3 +102,5 @@ fi
 # 	screen*)
 # 		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'	;;
 # esac
+
+[ -s ~/.guild/bash_completion ] && . ~/.guild/bash_completion  # Enable completion for guild

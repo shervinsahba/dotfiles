@@ -22,3 +22,4 @@ gnome-disk-utility
 signal-desktop
 memtest86+
 memtest86+-efi
+nvtop

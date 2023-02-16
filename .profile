@@ -13,3 +13,6 @@ export VISUAL="$EDITOR"
 ## colors for less, man, etc.
 [ -f ~/.config/LESS_TERMCAP ] && source ~/.config/LESS_TERMCAP
 
+## history settings
+export HISTSIZE = 10000
+export HISTFILESIZE = 100000

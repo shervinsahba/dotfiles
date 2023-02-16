@@ -13,6 +13,7 @@ for_window [class="kitty" instance="updates"] floating enable, resize set 600 40
 for_window [class="Lxappearance"] floating enable
 for_window [class="mpv"] floating enable
 for_window [class="Manjaro Settings Manager"] floating enable
+for_window [class="Mathpix Snipping Tool"] floating enable
 for_window [class="MATLAB*" title="Add-On Explorer"] floating enable
 for_window [class="MATLAB*" title="Figure *"] floating enable
 for_window [class="MATLAB*" title="Preferences"] floating enable

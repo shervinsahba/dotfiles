@@ -235,10 +235,10 @@ exec        --no-startup-id startup on-boot
 exec_always --no-startup-id startup on-restart
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## program bindings
+## program bindsym shortcuts
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
-include $dir/program_bindings
+include $dir/shortcuts
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## audio control

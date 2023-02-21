@@ -31,6 +31,7 @@ bindsym $mod+Print exec flameshot screen -p ~/Downloads/Screenshots
 
 # file manager
 bindsym $super+r exec kitty ranger --name ranger
+bindsym $super+t exec thunar
 
 # internet browser
 bindsym $super+f exec firefox --new-window

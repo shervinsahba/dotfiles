@@ -110,7 +110,7 @@ Comment[wa]=Asspougnî des fitchîs tecses
 Comment[zh_TW]=編輯文字檔
 TryExec=vim
 Exec=kitty vim %F
-Terminal=true
+Terminal=false
 Type=Application
 # Translators: Search terms to find this application. Do NOT change the semicolons! The list MUST also end with a semicolon!
 Keywords[ca]=Text;editor;

@@ -1,36 +1,44 @@
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## newsboat config
 
-## reloads every 60m
-auto-reload yes
+## scheming
+include /usr/share/doc/newsboat/contrib/colorschemes/solarized-dark
+datetime-format "%Y %b %m"
 
-## bookmarking
-#bookmark-cmd <cmd>
-#bookmark-autopilot
+## reloads feeds on startup and also every given number of minutes
+auto-reload yes
+reload-time 120
+reload-threads 10
+
+## bookmarking. 
+# uses the provided script (newsboat-bookmark here)
+# autopilot prevents bookmarking from asking input values
+bookmark-cmd newsboat-bookmark
+bookmark-autopilot no
 
 ## browser
-browser "browsh %u"
+browser "firefox %u"
+
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## macros and binds
 
 ## open via various browsers
-macro m set browser "mpv %u" ; open-in-browser ; set browser "browsh %u"
-macro f set browser "firefox %u"; open-in-browser ; set browser "browsh %u"
-macro w set browser "w3m %u"; open-in-browser ; set browser "browsh %u"
+macro m set browser "mpv %u" ; open-in-browser ; set browser "firefox %u"
+macro w set browser "w3m %u"; open-in-browser ; set browser "firefox %u"
 
 ## mark read after opening
 macro o open-in-browser ; toggle-article-read "read"
 
-## enqueue podcast from url view
-# broken?
-#macro e set browser "echo %u >> ~/.newsboat/queue" ; open-in-browser ; set browser "browsh %u"
+## add to queue
+macro E set browser "echo %u >> ~/.newsboat/queue"; open-in-browser; set browser "firefox %u"
 
-## open podboat
-macro p set browser "podboat" ; open-in-browser ; set browser "browsh %u"
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## podcasts
+
+## open podboat
+macro p set browser "podboat" ; open-in-browser ; set browser "firefox %u"
 
 podcast-auto-enqueue no
 
@@ -42,9 +50,9 @@ podcast-auto-enqueue no
 
 podlist-format "%3i [%5d/%5dMB] [%-8S] %b"
 
-download-path ~/Music/Podcasts
+download-path ~/Podcasts
 download-filename-format "%F-%n-%t.%e"
 max-downloads 3
 #player "mpv --no-video"
-player ncmpcpp
-
+#player ncmpcpp
+player tauon

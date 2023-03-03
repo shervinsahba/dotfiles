@@ -11,13 +11,12 @@ launch_bar() {
 	done
 
 	# launch the bar
-	polybar -q top -c "$dir/$style/config" &
-	polybar -q bottom -c "$dir/$style/config" &	
+	polybar -q "$1" -c "$dir/$style/config" &
 }
 
 case "$style" in
 	mine)
-		launch_bar 
+		launch_bar top
 	;;
 
 	help|*)

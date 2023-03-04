@@ -42,16 +42,10 @@ macro p set browser "podboat" ; open-in-browser ; set browser "firefox %u"
 
 podcast-auto-enqueue no
 
-#macro d pb-download
-#macro c pb-cancel
-#macro p pb-play
-#macro D pb-delete
-#macro P pb-purge
-
-podlist-format "%3i [%5d/%5dMB] [%-8S] %b"
+podlist-format "%3i [%5d/%5tMB] [%-8S] %b"
 
 download-path ~/Podcasts
-download-filename-format "%F-%n-%t.%e"
+download-filename-format "%N %F %t.%e"
 max-downloads 3
 #player "mpv --no-video"
 #player ncmpcpp

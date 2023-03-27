@@ -428,7 +428,7 @@ If all goes according to plan, you should be prompted for the luks passphrase. A
 
 
 # backup luks headers
-Backup your luks headers somewhere secure that is outside your encrypted drive. Perhaps /efi on /dev/sdX1.
+Backup your luks headers somewhere secure that is outside your encrypted drive.
 ```
 cryptsetup luksHeaderBackup /dev/sdX2 --header-backup-file luksHeaderBackup-$HOSTNAME-sdX2
 ```

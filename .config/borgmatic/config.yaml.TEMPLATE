@@ -14,7 +14,10 @@ location:
     # is used, then add local repository paths in the systemd
     # service file to the ReadWritePaths list.
     repositories:
-        - ssh://<REPO>.repo.borgbase.com/./repo
+        ## borgbase
+        - ssh://<repo>.repo.borgbase.com/./repo
+		## local repo
+        - /path/to/local/repo
 
     # Working directory for the "borg create" command. Tildes are
     # expanded. Useful for backing up using relative paths. See
@@ -90,7 +93,6 @@ location:
         - '/home/*/.local/share/Trash/'
         - '/home/*/.local/share/torbrowser/'
         - '/home/*/pCloudDrive'
-        - '/home/*/Encrypted'
         - '*/.Trash-1000/'
         - '*/.thumbnails/'
 
@@ -285,9 +287,13 @@ consistency:
     # archives, and "extract" does an extraction dry-run of the
     # most recent archive. Note that "data" implies "archives".
     checks:
-        # - repository
-        # - archives
-        - disabled
+        - name: repository
+          frequency: 1 week
+        - name: archives
+          frequency: 1 month
+        - name: extract
+          frequency: 2 months
+        # - disabled
 
     # Paths to a subset of the repositories in the location
     # section on which to run consistency checks. Handy in case
@@ -301,7 +307,7 @@ consistency:
     # Restrict the number of checked archives to the last n.
     # Applies only to the "archives" check. Defaults to checking
     # all archives.
-    check_last: 1
+    #check_last: 1
 
     # When performing the "archives" check, only consider archive
     # names starting with this prefix. Borg placeholders can be
@@ -324,34 +330,34 @@ consistency:
 # prevent potential shell injection or privilege escalation.
 hooks:
     before_backup:
-        - echo $(date --iso=seconds) "-> Starting a backup."
+        - echo $(date --iso=seconds) "-> STARTING A BACKUP."
     before_prune:
-        - echo $(date --iso=seconds) "-> Starting pruning."
+        - echo $(date --iso=seconds) "-> starting pruning"
     before_compact:
-        - echo $(date --iso=seconds) "-> Starting compaction."
+        - echo $(date --iso=seconds) "-> starting compaction"
     before_check:
-        - echo $(date --iso=seconds) "-> Starting checks."
+        - echo $(date --iso=seconds) "-> starting checks"
     before_extract:
-        - echo $(date --iso=seconds) "-> Starting extracting."
+        - echo $(date --iso=seconds) "-> starting extracting"
     after_backup:
-        - echo $(date --iso=seconds) "<- Finished a backup."
+        - echo $(date --iso=seconds) "<- backup done!"
     after_compact:
-        - echo $(date --iso=seconds) "<- Finished compaction."
+        - echo $(date --iso=seconds) "<- finished compaction"
     after_prune:
-        - echo $(date --iso=seconds) "<- Finished pruning."
+        - echo $(date --iso=seconds) "<- finished pruning"
     after_check:
-        - echo $(date --iso=seconds) "<- Finished checks."
+        - echo $(date --iso=seconds) "<- finished checks"
     after_extract:
-        - echo $(date --iso=seconds) "<- Finished extracting."
+        - echo $(date --iso=seconds) "<- finished extracting"
     on_error:
         - echo $(date --iso=seconds) "-- Error during prune/compact/create/check."
 
     # These are collected from all configuration files and then
     # run once before all of them (prior to all actions).
     before_everything:
-        - echo $(date --iso=seconds) "-- Starting actions."
+        - echo $(date --iso=seconds) "-- Borgmatic start."
     after_everything:
-        - echo $(date --iso=seconds) "-- Completed actions."
+        - echo $(date --iso=seconds) "-- Borgmatic end."
 
     # List of one or more PostgreSQL databases to dump before
     # creating a backup, run once per configuration file. The

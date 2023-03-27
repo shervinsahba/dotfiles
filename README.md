@@ -200,12 +200,12 @@ secret-tool store --label='borg' borg-repo <repo-name>
 ```
 Use `borgmatic` and its config to initialize and process the borg backup. For the first run, use `borgmatic create` and not just `borgmatic` to specify that there is nothing to prune:
 ```
-borgmatic init -e repokey-blake2
+borg init -e repokey-blake2 <path/to/repo>
 borgmatic create
 ```
 After creating the repo, copy the repokey (it is stored within the repo, but do it in case of an issue).
 ```
-borg key export <path/to/borg/repo>
+borg key export <path/to/repo>
 ```
 
 Setup a borgmatic.service and borgmatic.timer to automate. [See the docs](https://torsion.org/borgmatic/docs/how-to/set-up-backups/#systemd) for example scripts, or see if you have a template saved as a dotfile.  If running the timer as a user, you may need to disable the security features from the template on torsion.org and change the last line to something simple like ExecStart=borgmatic. Copy files to `~/.config/systemd/user` and run 

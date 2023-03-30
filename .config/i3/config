@@ -245,9 +245,9 @@ include $dir/shortcuts
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 # volume. Use custom script for pulseaudio and dunst messages, else fallback to pactl.
-bindsym XF86AudioRaiseVolume exec "~/src/scripts/change-volume up   || pactl set-sink-volume $(pacmd list-sinks | awk '/\* index:/{print $3}') +5%"
-bindsym XF86AudioLowerVolume exec "~/src/scripts/change-volume down || pactl set-sink-volume $(pacmd list-sinks | awk '/\* index:/{print $3}') -5%"
-bindsym XF86AudioMute        exec "~/src/scripts/change-volume mute || pactl set-sink-mute $(pacmd list-sinks | awk '/\* index:/{print $3}') toggle"
+bindsym XF86AudioRaiseVolume exec "~/src/scripts/volume_brightness volume_up   || pactl set-sink-volume $(pacmd list-sinks | awk '/\* index:/{print $3}') +5%"
+bindsym XF86AudioLowerVolume exec "~/src/scripts/volume_brightness volume_down || pactl set-sink-volume $(pacmd list-sinks | awk '/\* index:/{print $3}') -5%"
+bindsym XF86AudioMute        exec "~/src/scripts/volume_brightness volume_mute || pactl set-sink-mute $(pacmd list-sinks | awk '/\* index:/{print $3}') toggle"
 
 # music player control
 bindsym XF86AudioStop exec mpc stop
@@ -258,9 +258,12 @@ bindsym XF86AudioNext exec mpc next
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## brightness control
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/src/scripts/volume_brightness brightness_up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/src/scripts/volume_brightness brightness_down
 
-bindsym XF86MonBrightnessUp         exec "brightnessctl -d intel_backlight s +5%"
-bindsym XF86MonBrightnessDown       exec "brightnessctl -d intel_backlight s 5%-"
-bindsym Shift+XF86MonBrightnessUp   exec "brightnessctl -d intel_backlight s +1%"
-bindsym Shift+XF86MonBrightnessDown exec "brightnessctl -d intel_backlight s 1%-"
+
+#bindsym XF86MonBrightnessUp         exec "brightnessctl -d intel_backlight s +5%"
+#bindsym XF86MonBrightnessDown       exec "brightnessctl -d intel_backlight s 5%-"
+#bindsym Shift+XF86MonBrightnessUp   exec "brightnessctl -d intel_backlight s +1%"
+#bindsym Shift+XF86MonBrightnessDown exec "brightnessctl -d intel_backlight s 1%-"
 

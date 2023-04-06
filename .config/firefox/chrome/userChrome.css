@@ -2,7 +2,7 @@
 #tabbrowser-tabpanels {
   background-color: #404040 !important;
 }
-browser {
+#browser {
   background-color: #404040 !important;
 }
 
@@ -13,20 +13,6 @@ browser {
 }
 /* Provide space for min,max,close buttons */
 /* #nav-bar{ margin-right: 38px;} */
-
-
-/*AUTO-HIDE TOP TABS WHEN USING SIDEBERY*/
-/*#main-window #TabsToolbar {
-  height: 29px !important;
-  overflow: hidden;
-  transition: height .3s .3s !important;
-}
-#main-window[titlepreface*="⧌"] #TabsToolbar {
-  height: 0 !important;
-}
-#main-window[titlepreface*="⧌"] #tabbrowser-tabs {
-  z-index: 0 !important;
-}*/
 
 
  /*HIDE TOP FIREFOX TABS (For Tree Style Tabs and/or Sidebery)*/
@@ -96,121 +82,84 @@ browser {
   margin-right: calc((var(--sidebar-visible-width) - var(--sidebar-min-width)) * -1) !important;
 }
 
-/* SIDE BAR AUTO-HIDE TREE STYLE TABS */
-/*
-#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] {
-  overflow: hidden !important;
-  position: relative !important;
-  min-width: var(--sidebar-min-width) !important;
-  max-width: var(--sidebar-min-width) !important;
-  transition: 150ms ease 150ms;
-}
-#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]:hover,
-#sidebar-box[sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"] #sidebar {
-  position: relative !important;
-  min-width: var(--sidebar-visible-width) !important;
-  max-width: var(--sidebar-visible-width) !important;
-  transition: 150ms ease 150ms;
-} 
-*/
-
 
 /* URL BAR */
 #urlbar-background {
   border: none !important;
-}
-#identity-box {
-  display: none;
-}
-#urlbar-background {
   animation: none !important;
 }
 
+/* URL BAR - no drm icon */
+#identity-box[pageproxystate="valid"].certUserOverridden > #identity-icon,
+  .drm-icon {
+    display: none !important;
+}
 
-/* URL BAR ANIMATIONS - Open on hover, then collapse. */
-/*  See https://github.com/ChiD12/firefox/blob/master/userChrome.css */
-
-/* Library, Sidebar, Back, Forward, Reload */
+/* URL BAR ICONS - Open on hover, then collapse. */
 #library-button .toolbarbutton-icon,
 #sidebar-button .toolbarbutton-icon,
 #back-button .toolbarbutton-icon,
 #forward-button .toolbarbutton-icon,
-#reload-button .toolbarbutton-icon{
+#reload-button .toolbarbutton-icon,
+#pocket-button,
+#pageActionButton,
+#star-button,
+#personal-bookmarks .toolbarbutton-icon,
+#fxa-avatar-image,
+.toolbarbutton-badge-stack .toolbarbutton-icon,
+#identity-icon-box,
+#identity-icon,
+#tracking-protection-icon-container,
+#tracking-protection-icon {
   width: 0px !important;
-  height: 28px !important;
-  transition: all 1.0s;
+  height: 0px !important;
+  transition: all 1.0s ease 0.35s;
 }
 #navigator-toolbox:hover #library-button .toolbarbutton-icon,
 #navigator-toolbox:hover #sidebar-button .toolbarbutton-icon,
 #navigator-toolbox:hover #back-button .toolbarbutton-icon,
 #navigator-toolbox:hover #forward-button .toolbarbutton-icon,
 #navigator-toolbox:hover #reload-button .toolbarbutton-icon{
-  transform: rotate(360deg);
+  transform: rotate(0deg);
   width: 28px !important;
-  transition: all 0.12s;
-}
-/* Pocket, PageActions (Icons to right of URL), Star */
-#pocket-button,
-#pageActionButton,
-#star-button{
-  width: 0px !important;
-  height: 24px !important;
-  transition: all 1.0s;
+  height: 28px !important;
+  transition: all 0.1s;
 }
 #navigator-toolbox:hover #pocket-button,
 #navigator-toolbox:hover #pageActionButton,
-#navigator-toolbox:hover #star-button{
-  transform: rotate(360deg);
-  width: 24px !important;
-  transition: all 0.12s;
+#navigator-toolbox:hover #star-button,
+#navigator-toolbox:hover #personal-bookmarks .toolbarbutton-icon,
+#navigator-toolbox:hover #fxa-avatar-image,
+#navigator-toolbox:hover .toolbarbutton-badge-stack .toolbarbutton-icon,
+#navigator-toolbox:hover #tracking-protection-icon,
+#navigator-toolbox:hover #identity-icon {
+  width: 16px !important;
+  height: 16px !important;
+  transition: all 0.1s;
 }
-/* Badges - the little notices on toolbar button icons */
+#navigator-toolbox:hover #tracking-protection-icon-container,
+#navigator-toolbox:hover #identity-icon-box {
+  width: 22px !important;
+  height: 24px !important;
+  transition: all 0.1s;
+}
+
+/* URL BAR ICON Badges - the little notices on toolbar button icons */
 .toolbarbutton-badge {
-  margin-top: -10px !important;
+  margin-top: -20px !important;
   width: 0px !important;
   height: 0px !important;
   min-height: 0px !important;
   min-width: 0px !important;
-  transition: all 1.0s;
+  transition: all 1.0s ease 0.35s;
 }
 #navigator-toolbox:hover .toolbarbutton-badge {
   margin-top: -5px !important;
-  transform: rotate(-360deg);
+  transform: rotate(0deg);
   width: 18px !important;
   height: 9px !important;
   min-height: 0px !important;
   min-width: 0px !important;
-  transition: all 0.12s;
-}
-/* Bookmarks, Tracking Protection Shield, Avatar, Hamburger */
-#personal-bookmarks .toolbarbutton-icon,
-#tracking-protection-icon-box,
-#fxa-avatar-image,
-.toolbarbutton-badge-stack .toolbarbutton-icon {
-  width: 0px !important;
-  min-height: 0px !important;
-  min-width: 0px !important;
-  height: 16px !important;
-  transition: all 1.0s;
-}
-#navigator-toolbox:hover #personal-bookmarks .toolbarbutton-icon,
-#navigator-toolbox:hover #tracking-protection-icon-box,
-#navigator-toolbox:hover #fxa-avatar-image,
-#navigator-toolbox:hover .toolbarbutton-badge-stack .toolbarbutton-icon {
-  transform: rotate(-360deg);
-  width: 16px !important;
-  min-height: 0px !important;
-  min-width: 0px !important;
-  transition: all 0.12s;
-}
-/* Tracking shield icon animation */
-#tracking-protection-icon-animatable-image{
-  width: 0px !important;
-  transition: all 1.0s;
-}
-#navigator-toolbox:hover #tracking-protection-icon-animatable-image{
-  transform: rotate(-360deg);
-  width: 272px !important;
-  transition: all 0.12s;
+  transition: all 0.1s;
 }
 

@@ -103,14 +103,17 @@
 #reload-button .toolbarbutton-icon,
 #pocket-button,
 #pageActionButton,
+#star-button-box,
 #star-button,
+.urlbar-icon,
 #personal-bookmarks .toolbarbutton-icon,
 #fxa-avatar-image,
 .toolbarbutton-badge-stack .toolbarbutton-icon,
 #identity-icon-box,
 #identity-icon,
 #tracking-protection-icon-container,
-#tracking-protection-icon {
+#tracking-protection-icon,
+#unified-extensions-button .toolbarbutton-icon {
   width: 0px !important;
   height: 0px !important;
   transition: all 1.0s ease 0.35s;
@@ -119,15 +122,24 @@
 #navigator-toolbox:hover #sidebar-button .toolbarbutton-icon,
 #navigator-toolbox:hover #back-button .toolbarbutton-icon,
 #navigator-toolbox:hover #forward-button .toolbarbutton-icon,
-#navigator-toolbox:hover #reload-button .toolbarbutton-icon{
+#navigator-toolbox:hover #reload-button .toolbarbutton-icon,
+#navigator-toolbox:hover #unified-extensions-button .toolbarbutton-icon {
   transform: rotate(0deg);
   width: 28px !important;
   height: 28px !important;
   transition: all 0.1s;
 }
+#navigator-toolbox:hover #star-button-box,
+#navigator-toolbox:hover #tracking-protection-icon-container,
+#navigator-toolbox:hover #identity-icon-box {
+  width: 22px !important;
+  height: 24px !important;
+  transition: all 0.1s;
+}
 #navigator-toolbox:hover #pocket-button,
 #navigator-toolbox:hover #pageActionButton,
 #navigator-toolbox:hover #star-button,
+#navigator-toolbox:hover .urlbar-icon,
 #navigator-toolbox:hover #personal-bookmarks .toolbarbutton-icon,
 #navigator-toolbox:hover #fxa-avatar-image,
 #navigator-toolbox:hover .toolbarbutton-badge-stack .toolbarbutton-icon,
@@ -135,12 +147,6 @@
 #navigator-toolbox:hover #identity-icon {
   width: 16px !important;
   height: 16px !important;
-  transition: all 0.1s;
-}
-#navigator-toolbox:hover #tracking-protection-icon-container,
-#navigator-toolbox:hover #identity-icon-box {
-  width: 22px !important;
-  height: 24px !important;
   transition: all 0.1s;
 }
 

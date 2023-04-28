@@ -19,8 +19,8 @@ bindsym $mod+Shift+d exec --no-startup-id "~/.config/rofi/launcher.sh -show wind
 bindsym $super+v exec --no-startup-id ~/src/polybar-vpn-controller/vpn_module menu
 
 # terminal
-bindsym $mod+Return exec kitty --name tile || alacritty || urxvt || xterm
-bindsym $super+Return exec kitty --name float || alacritty || urxvt || xterm
+bindsym $mod+Return exec kitty --name tile || i3-sensible-terminal
+bindsym $super+Return exec kitty --name float || i3-sensible-terminal
 
 # screenshots (via maim/flameshot)
 #set $maimsavelocation "$HOME/Downloads/Screenshots/maim/$(date -Iseconds).png"

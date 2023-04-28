@@ -25,3 +25,4 @@ git-lfs
 newsboat
 rustup
 compsize
+nfs-utils

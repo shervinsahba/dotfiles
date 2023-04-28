@@ -26,16 +26,16 @@ then
     #loginctl terminate-user `whoami`
 elif [ "$selected_option" == "$shutdown" ]
 then
-    loginctl poweroff
+    systemctl poweroff
 elif [ "$selected_option" == "$reboot" ]
 then
-    loginctl reboot
+    systemctl reboot
 elif [ "$selected_option" == "$sleep" ]
 then
-    loginctl suspend
+    systemctl suspend
 elif [ "$selected_option" == "$hibernate" ]
 then
-    loginctl hibernate
+    systemctl hibernate
 else
     echo "No match"
 fi

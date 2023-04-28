@@ -198,10 +198,16 @@ If using borgbase or online repo, create a dedicated ssh key for automation. Go 
 ```
 secret-tool store --label='borg' borg-repo <repo-name>
 ```
-Use `borgmatic` and its config to initialize and process the borg backup. For the first run, use `borgmatic create` and not just `borgmatic` to specify that there is nothing to prune:
+Use `borgmatic` and its config to initialize and process the borg backup. 
+
+Before you can use borgmatic, you need to initialize a repository.
 ```
 borg init -e repokey-blake2 <path/to/repo>
 borgmatic create
+```
+Or with borgmatic, a config file, and a provided encryption pass, you can try
+```
+borgmatic rcreate --encryption repokey-blake2
 ```
 After creating the repo, copy the repokey (it is stored within the repo, but do it in case of an issue).
 ```

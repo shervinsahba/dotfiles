@@ -39,10 +39,10 @@ location:
     # atime: false
 
     # Store ctime into archive. Defaults to true.
-    ctime: true
+    # ctime: true
 
     # Store birthtime (creation date) into archive. Defaults to true.
-    birthtime: true
+    # birthtime: true
 
     # Use Borg's --read-special flag to allow backup of block and
     # other special devices. Use with caution, as it will lead to

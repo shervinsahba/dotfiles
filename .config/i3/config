@@ -203,17 +203,10 @@ bindsym $mod+Alt+Left focus output left
 bindsym $mod+Alt+Down focus output down
 bindsym $mod+Alt+Up focus output up
 bindsym $mod+Alt+Right focus output right
+bindsym $mod+m focus output next
 
 # move workspaces between monitors
 bindsym $mod+Shift+m move workspace to output next
-#bindsym $mod+Alt+Shift+h move workspace to output left
-#bindsym $mod+Alt+Shift+j move workspace to output down
-#bindsym $mod+Alt+Shift+k move workspace to output up
-#bindsym $mod+Alt+Shift+l move workspace to output right
-#bindsym $mod+Alt+Shift+Left move workspace to output left
-#bindsym $mod+Alt+Shift+Down move workspace to output down
-#bindsym $mod+Alt+Shift+Up move workspace to output up
-#bindsym $mod+Alt+Shift+Right move workspace to output right
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## i3-gaps settings
@@ -250,20 +243,14 @@ bindsym XF86AudioLowerVolume exec "~/src/scripts/volume_brightness volume_down |
 bindsym XF86AudioMute        exec "~/src/scripts/volume_brightness volume_mute || pactl set-sink-mute $(pacmd list-sinks | awk '/\* index:/{print $3}') toggle"
 
 # music player control
-bindsym XF86AudioStop exec mpc stop
-bindsym XF86AudioPlay exec mpc toggle
-bindsym XF86AudioPrev exec mpc prev
-bindsym XF86AudioNext exec mpc next
+#bindsym XF86AudioStop exec mpc stop
+#bindsym XF86AudioPlay exec mpc toggle
+#bindsym XF86AudioPrev exec mpc prev
+#bindsym XF86AudioNext exec mpc next
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## brightness control
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 bindsym XF86MonBrightnessUp exec --no-startup-id ~/src/scripts/volume_brightness brightness_up
 bindsym XF86MonBrightnessDown exec --no-startup-id ~/src/scripts/volume_brightness brightness_down
-
-
-#bindsym XF86MonBrightnessUp         exec "brightnessctl -d intel_backlight s +5%"
-#bindsym XF86MonBrightnessDown       exec "brightnessctl -d intel_backlight s 5%-"
-#bindsym Shift+XF86MonBrightnessUp   exec "brightnessctl -d intel_backlight s +1%"
-#bindsym Shift+XF86MonBrightnessDown exec "brightnessctl -d intel_backlight s 1%-"
 

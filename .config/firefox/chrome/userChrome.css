@@ -6,27 +6,18 @@
   background-color: #404040 !important;
 }
 
-
 /* Hide min,max,close buttons */
 .titlebar-buttonbox-container{
   display: none
 }
-/* Provide space for min,max,close buttons */
-/* #nav-bar{ margin-right: 38px;} */
 
-
- /*HIDE TOP FIREFOX TABS (For Tree Style Tabs and/or Sidebery)*/
-#TabsToolbar {
+/* HIDE TOP FIREFOX TABS (For Tree Style Tabs and/or Sidebery) */
+#titlebar {
   height: 0px !important;
 }
-#tabbrowser-tabs {
-  z-index: 0 !important;
-}
-
 
 /* SIDE BAR SETTINGS */
 #sidebar-box #sidebar-header {
-  /*display: none !important;*/
   overflow: hidden !important;
   border: 0px solid black !important;
 }
@@ -96,6 +87,11 @@
 }
 
 /* URL BAR ICONS - Open on hover, then collapse. */
+#back-button,
+#forward-button,
+#reload-button {
+  min-width: 0px !important;
+}
 #library-button .toolbarbutton-icon,
 #sidebar-button .toolbarbutton-icon,
 #back-button .toolbarbutton-icon,

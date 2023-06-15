@@ -28,7 +28,7 @@ for_window [class="Steam" title="Steam Library Folders"] floating enable
 for_window [class="Steam" title="Create or select new Steam library folder:"] floating enable
 for_window [class="Steam" title="Steam - News"] floating enable
 for_window [class="Tauon Music Box"] floating enable
-for_window [class="Thunar" title="File Operation Progress"] floating enable
+for_window [class="Thunar" title="File Operation Progress"] floating enable, move position 50 70
 for_window [class="Tor Browser"] floating enable
 for_window [class="tutanota-desktop"] floating enable
 for_window [class="(?i)viewnior"] floating enable

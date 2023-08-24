@@ -12,6 +12,7 @@ include-file = ~/.config/polybar/mine/modules/powermenu-rofi.ini
 include-file = ~/.config/polybar/mine/modules/pulseaudio.ini
 include-file = ~/.config/polybar/mine/modules/system-bluetooth-bluetoothctl.ini
 include-file = ~/.config/polybar/mine/modules/temperature.ini
+include-file = ~/.config/polybar/mine/modules/temperature_fractal.ini
 include-file = ~/.config/polybar/mine/modules/terminal.ini
 include-file = ~/.config/polybar/mine/modules/package-updates.ini
 include-file = ~/.config/polybar/mine/modules/vpn.ini

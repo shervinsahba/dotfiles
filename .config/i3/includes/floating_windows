@@ -3,6 +3,7 @@ for_window [class="AQEMU"] floating enable
 for_window [class="ark"] floating enable
 #for_window [class="Bitwarden"] floating enable
 for_window [class="(?i)blueman-manager"] floating enable, move position mouse, move down 30, move left 30, sticky enable
+for_window [class="Dragon-drop"] floating enable, sticky enable
 for_window [class="feh"] floating enable
 for_window [class="Gpick"] floating enable
 for_window [class="imv"] floating enable

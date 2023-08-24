@@ -30,10 +30,10 @@ krita
 libreoffice-fresh
 lsd
 lutris
-mpc
-mpd
+#mpc
+#mpd
 ncdu
-ncmpcpp
+#ncmpcpp
 nftables
 obs-studio
 obsidian
@@ -58,3 +58,4 @@ zathura-djvu
 hugo
 cups
 gvfs-smb
+cameractrls

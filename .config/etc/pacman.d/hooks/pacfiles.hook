@@ -1,0 +1,11 @@
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Checking for .pacnew and .pacsave files...
+When = PostTransaction
+Exec = /usr/bin/bash -c 'pacfiles=$(pacdiff -o); if [[ -n "$pacfiles" ]]; then echo -e ":: $(echo $pacfiles | wc -w) files found. See pacdiff -o."; fi'

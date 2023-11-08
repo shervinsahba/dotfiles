@@ -1,0 +1,13 @@
+#/etc/pacman.d/hooks/orphans.hook
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Checking for orphans...
+When = PostTransaction
+Exec = /usr/bin/bash -c 'orphans=$(pacman -Qtdq); if [[ -n "$orphans" ]]; then echo -e ":: $(echo $orphans | wc -w) orphan packages found. See pacman -Qtdq."; fi'

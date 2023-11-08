@@ -1,0 +1,13 @@
+#/etc/pacman.d/hooks/orphans.hook
+
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Killing capslock (i3 super key)...
+When = PostTransaction
+Exec = xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'

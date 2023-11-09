@@ -151,9 +151,13 @@ gh auth login
 ```
 
 ## antivirus (clamav)
-Install clamav to use `clamscan` on files. Setup checks to update virus database automatically and edit `/etc/clamav/freshclam.conf` to change the frequency from 12 a day to something else if desired.
+Install clamav to use `clamscan` on files. First run `freshclam` to update database, even if the systemd service is setup later. Setup checks to update virus database automatically and edit `/etc/clamav/freshclam.conf` to change the frequency from 12 a day to something else if desired.
 ```
 systemctl enable --now clamav-freshclam.service
+```
+When running the daemon, use `clamdscan` instead to scan using the config file parameters. You can also use the daemonized version to run with multiple threads with
+```
+clamdscan --multiscan --fdpass /dir/to/scan
 ```
 
 ## VPNs (mullvad, tailscale)

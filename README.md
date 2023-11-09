@@ -150,6 +150,11 @@ Use Type the following and follow through to the browser prompts. Type the follo
 gh auth login
 ```
 
+## antivirus (clamav)
+Install clamav to use `clamscan` on files. Setup checks to update virus database automatically and edit `/etc/clamav/freshclam.conf` to change the frequency from 12 a day to something else if desired.
+```
+systemctl enable --now clamav-freshclam.service
+```
 
 ## VPNs (mullvad, tailscale)
 

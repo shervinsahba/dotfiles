@@ -26,3 +26,6 @@ newsboat
 rustup
 compsize
 nfs-utils
+trippy
+gamemode
+lib32-gamemode

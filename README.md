@@ -316,6 +316,15 @@ Then right-click the tray icon and try to auto-detect the local instance's setti
 
 
 ## gaming (steam, lutris)
+
+### nvidia
+[See the wiki.](https://wiki.archlinux.org/title/NVIDIA#Installation)
+Something like these will probably be what you want.
+```
+pacman -S nvidia nvidia-settings nvidia-utils lib32-nvidia-utils lib32-opencl-nvidia opencl-nvidia libvdpau libxnvctrl vulkan-icd-loader lib32-vulkan-icd-loader
+```
+
+
 ### steam
 Can't find it? Steam requires the multilib repo. See the section on multilib in this doc. When installing, be mindful of selecting the appropriate graphics package.
 
@@ -328,6 +337,15 @@ lib32-libgpg-error alsa-plugins lib32-alsa-plugins alsa-lib lib32-alsa-lib libjp
 sqlite lib32-sqlite libxcomposite lib32-libxcomposite libxinerama lib32-libgcrypt libgcrypt lib32-libxinerama \
 ncurses lib32-ncurses opencl-icd-loader lib32-opencl-icd-loader libxslt lib32-libxslt libva lib32-libva gtk3 \
 lib32-gtk3 gst-plugins-base-libs lib32-gst-plugins-base-libs vulkan-icd-loader lib32-vulkan-icd-loader
+```
+
+### gamemode
+For a nice optimized gaming on Linux reference, see [this guide](https://steamcommunity.com/sharedfiles/filedetails/?id=1787799592). Otherwise, continue reading.
+
+Install `gamemode` and `lib32-gamemode`. Then activate the daemon with
+
+```
+systemctl --user enable gamemoded && systemctl --user start gamemoded
 ```
 
 

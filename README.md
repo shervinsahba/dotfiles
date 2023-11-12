@@ -347,6 +347,11 @@ Install `gamemode` and `lib32-gamemode`. Then activate the daemon with
 ```
 systemctl --user enable gamemoded && systemctl --user start gamemoded
 ```
+Now you can use `gamemoderun <command>` from command line or `gamemoderun %command%` as a Steam launch option.
+
+## mangohud
+
+Mangohud can be used to track in-game performance. Launch with `mangohud <command>` or `mangohud %command%` with Steam. When used with gamemode, run `gamemoderun mangohud <command>`.
 
 
 ## thinkorswim

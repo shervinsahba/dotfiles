@@ -347,11 +347,20 @@ Install `gamemode` and `lib32-gamemode`. Then activate the daemon with
 ```
 systemctl --user enable gamemoded && systemctl --user start gamemoded
 ```
-Now you can use `gamemoderun <command>` from command line or `gamemoderun %command%` as a Steam launch option.
+Now you can use `gamemoderun <command>` from command line or `gamemoderun %command%` as a Steam launch option. You may also want to run `gamemoded -t` on a new system to see if all aspects of gamemode are operational.
 
-## mangohud
+### libstrangle
+
+`libstrangle` lets you control framerates and vsync settings. It may be worth setting up, too.
+
+### vkbasalt and reshade
+
+The `vkbasalt` and `reshade-shaders-git` packages can be used to sharpen textures (e.g. Contrast Adaptive Sharpening) and alter shaders to enhance graphics. Use with `ENABLE_VKBASALT=1 <command>` or `ENABLE_VKBASALT=1 %command%` in Steam. The environment parameter can be entered before `gamemoderun` to use them together.
+
+### mangohud
 
 Mangohud can be used to track in-game performance. Launch with `mangohud <command>` or `mangohud %command%` with Steam. When used with gamemode, run `gamemoderun mangohud <command>`.
+
 
 
 ## thinkorswim

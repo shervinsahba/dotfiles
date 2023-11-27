@@ -279,7 +279,8 @@ pacman -S wayland sway waybar
 ```
 or X11?
 ```
-pacman -S xorg-server xorg-xinit i3-wm polybar picom lxappearance python-pywal
+pacman -S xorg-server xorg-xinit xorg-xrandr autorandr i3-wm polybar picom lxappearance python-pywal
+echo -e "# for dunst\nsystemctl --user import-environment DISPLAY XAUTHORITY"> ~/.xinitrc
 echo "exec i3" > ~/.xinitrc
 ```
 In either case, you need packages.
@@ -333,13 +334,26 @@ PRUNEPATHS = "... /.snapshots /timeshift /swap"
 
 ## systemd timers
 ```
-systemctl enable --now plocate-updatedb.timer reflector.timer fstrim.timer btrfs-scrub@-.timer
+systemctl enable --now plocate-updatedb.timer reflector.timer fstrim.timer btrfs-scrub@-.timer paccache.timer
 ```
 Note: For the btrfs (monthly) scrub timer, you can check on it with `journalctl -u btrfs-scrub@-.service` and `btrfs scrub status /`. This is for a mountpoint at `/` by the way. For other mount points, replace the `@-` with the volume name.
 
+## power management
+```
+pacman -S tlp
+systemctl enable tlp
+systemctl mask systemd-rfkill.service systemd-rfkill.socket
+```
+ - Deactivate USB_AUTOSUSPEND by setting it to 0 in `/etc/tlp.conf`.
+ - Run `tlp-stat` and read through to see if any warnings or recommendations
 
+```
+systemctl --user enable batsignal --now
+```
 
-
+```
+pacman -S brightnessctl
+```
 
 
 

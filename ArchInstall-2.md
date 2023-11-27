@@ -275,11 +275,11 @@ pacman -S xf86-video-amdgpu
 ```
 Wayland?
 ```
-pacman -S wayland sway waybar
+pacman -S wayland sway waybar xdg-desktop-portal-wlr
 ```
 or X11?
 ```
-pacman -S xorg-server xorg-xinit xorg-xrandr autorandr i3-wm polybar picom lxappearance python-pywal
+pacman -S xorg-server xorg-xinit xorg-xrandr autorandr i3-wm polybar picom lxappearance python-pywal xdg-desktop-portal-gtk
 echo -e "# for dunst\nsystemctl --user import-environment DISPLAY XAUTHORITY"> ~/.xinitrc
 echo "exec i3" > ~/.xinitrc
 ```

@@ -5,7 +5,7 @@ References
 - https://wiki.archlinux.org/title/General_recommendations
 
 ## update firmware
-After installing the `fwupd` package, run `sudo fwupdmgr refresh`. Then survey your system's updateable devices with `fwupdmgr get-devices`. To actually update, run `fwupdmgr update`. Reboot and wait for the updates to finish. NOTE! Some UEFI systems may result in a screwed up bootloader from this process. Check Arch Wiki for details!
+You can check your BIOS version with `dmidecode`. In general, for updating firmware, the `fwupd` package should be the job. First run `fwupdmgr refresh`. Then survey your system's updateable devices with `fwupdmgr get-devices`. To actually update, run `fwupdmgr update`. Reboot and wait for the updates to finish. NOTE! Some UEFI systems may result in a screwed up bootloader from this process. Check Arch Wiki for details!
 
 
 ## /etc/fstab
@@ -27,32 +27,23 @@ echo blacklist pcspkr > /etc/modprobe.d/nobell.conf
 ```
 
 ## pacman.conf (multilib, parallel downloads)
-Enable the multilib repo in `/etc/pacman/conf` if you want packages from there (e.g. steam).
+Enable the multilib repo in `/etc/pacman/conf` if you want packages from there (e.g. steam). Also enable parallel downloads and add pacman candy :)
 ```
-sed -i 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf
-```
-
-Enable parallel downloads (and if desired, manually set the number to something other than 5).
-```
-sed -i '/ParallelDownloads/s/^#//g' /etc/pacman.conf
-```
-
-Add pacman candy :)
-```
-sed -i 's/#Color/Color\nILoveCandy/g' /etc/pacman.conf
+sed -i 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' /etc/pacman.conf ;
+sed -i '/ParallelDownloads/s/^#//g' /etc/pacman.conf ;
+sed -i 's/#Color/Color\nILoveCandy/g' /etc/pacman.conf ;
 ```
 
 This is also where to list packages to be ignored. This may be useful to fix packages or for AUR packages that involve manual builds like matlab.
 ```
-IgnorePkg = foundryvtt matlab
+IgnorePkg = matlab foundryvtt
 ```
-
 
 ## kernels
-Install packages for other kernels besides `linux` like `linux-zen` or `linux-lts` if desired. You may want to edit `/etc/default/grub` to set `GRUB_DEFAULT=saved`, `GRUB_SAVEDEFAULT=true`. Then `sudo grub-mkconfig -o /boot/grub/grub.cfg` and `reboot`.
-
+Install a backup kernel like `linux-lts`
 ```
-pacman -S linux-zen linuz-lts
+pacman -S linux-lts linux-lts-headers 
+pacman -S nvidia-lts
 ```
 
 
@@ -161,12 +152,11 @@ clamdscan --multiscan --fdpass /dir/to/scan
 ```
 
 ## VPNs (mullvad, tailscale)
-
 Caution: VPN setup is straightforward if using only one. But if you're combining VPNs for simultaneous (or even toggled) use, it can get tricky. Here is information about `tailscale` and `mullvad` as well as a script with guidance on how to use them together using `nftables`.
 
 ### tailscale
 ```
-systemctl enable tailscaled
+systemctl enable tailscaled --now
 sudo tailscale up
 ```
 Follow the authentication prompt to login to Tailscale on the browser. After authenticating, consider setting the machine settings to "No expiry" so the key doesn't need to be reauthenticated after the default 180 days. You may need to open firewall ports. See the section on `ufw`.

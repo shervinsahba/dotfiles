@@ -269,7 +269,7 @@ systemctl reboot --firmware-setup
 # system setup
 Graphics? Choose one.
 ```
-pacman -S nvidia nvidia-utils 
+pacman -S nvidia nvidia-utils lib32-nvidia-utils linux-headers
 pacman -S xf86-video-intel
 pacman -S xf86-video-amdgpu
 ```
@@ -285,8 +285,8 @@ echo "exec i3" > ~/.xinitrc
 ```
 In either case, you need packages.
 ```
-pacman -S rofi dunst feh starship batsignal
-pacman -S noto-sans otf-firamono-nerd ttf-iosevka-nerd ttf-roboto-mono-nerd
+pacman -S rofi dunst feh starship batsignal pacman-contrib
+pacman -S noto-sans ttf-noto-nerd tf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common ttf-nerd-fonts-symbols-mono ttf-iosevka-nerd ttf-firacode-nerd otf-firamono-nerd ttf-mplus-nerd
 pacman -S pipewire pipewire-jack wireplumber
 pacman -S bluez bluez-utils blueman
 pacman -S kitty firefox ranger thunar yadm bitwarden tealdeer
@@ -299,7 +299,7 @@ xdg-user-dirs-update
 systemctl enable bluetooth
 ```
 
-Get AUR acess with `yay`.
+Get AUR acess with `yay` or `paru`.
 ```
 cd $(mktemp -d)
 git clone https://aur.archlinux.org/yay-bin
@@ -355,6 +355,17 @@ systemctl --user enable batsignal --now
 pacman -S brightnessctl
 ```
 
+## backup luks headers
+Store these headers outside of the luks device itself in case of header corruption.
+```
+cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file luksHeaderBackup-$HOSTNAME-nvme0n1p2
+```
+
+
+
+
+
+
 
 
 # old
@@ -363,7 +374,7 @@ pacman -S pipewire-pulse
 pacman -S terminus-font ttf-dejavu 
 pacman -S noto-fonts-cjk noto-fonts-emoji papirus-icon-theme
 pacman -S grub-btrfs
-pacman -S xorg-xdm dmenu lightdm lightdm-slick-greeter picom
+pacman -S xorg-xdm dmenu lightdm lightdm-slick-greeter
 ```
 Security
 ```
@@ -383,9 +394,3 @@ logind-check-graphical=true
 greeter-session=lightdm-slick-greeter
 ```
 The former ensures lightdm starts after the graphics have had time to boot. Be sure you set these in the appropriate location (i.e. not under the instructional portion of the config file).
-
-# backup luks headers
-Backup your luks headers somewhere secure that is outside your encrypted drive.
-```
-cryptsetup luksHeaderBackup /dev/sdX2 --header-backup-file luksHeaderBackup-$HOSTNAME-sdX2
-```

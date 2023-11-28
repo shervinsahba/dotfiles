@@ -2,7 +2,9 @@
 
 include-file = ~/.config/polybar/mine/colors.ini
 include-file = ~/.config/polybar/mine/modules/_decorations.ini
+include-file = ~/.config/polybar/mine/modules/backlight.ini
 include-file = ~/.config/polybar/mine/modules/battery.ini
+include-file = ~/.config/polybar/mine/modules/battery1.ini
 include-file = ~/.config/polybar/mine/modules/cpu.ini
 include-file = ~/.config/polybar/mine/modules/date.ini
 include-file = ~/.config/polybar/mine/modules/i3.ini

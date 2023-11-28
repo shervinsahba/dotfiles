@@ -314,6 +314,25 @@ Something like these will probably be what you want.
 pacman -S nvidia nvidia-settings nvidia-utils lib32-nvidia-utils lib32-opencl-nvidia opencl-nvidia libvdpau libxnvctrl vulkan-icd-loader lib32-vulkan-icd-loader
 ```
 
+Add a pacman hook to make sure initramfs is rebuilt after a nvidia update. Create `/etc/pacman.d/hooks/nvidia.hook` with
+```
+[Trigger]
+Operation=Install
+Operation=Upgrade
+Operation=Remove
+Type=Package
+Target=nvidia
+Target=linux
+# Change the linux part above if a different kernel is used
+
+[Action]
+Description=Update NVIDIA module in initcpio
+Depends=mkinitcpio
+When=PostTransaction
+NeedsTargets
+Exec=/bin/sh -c 'while read -r trg; do case $trg in linux*) exit 0; esac; done; /usr/bin/mkinitcpio -P'
+```
+
 
 ### steam
 Can't find it? Steam requires the multilib repo. See the section on multilib in this doc. When installing, be mindful of selecting the appropriate graphics package.

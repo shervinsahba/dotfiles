@@ -267,29 +267,33 @@ systemctl reboot --firmware-setup
 ```
 
 # system setup
-Graphics? Choose one.
+## graphics 
+Choose one.
 ```
 pacman -S nvidia nvidia-utils lib32-nvidia-utils linux-headers
 pacman -S xf86-video-intel
 pacman -S xf86-video-amdgpu
 ```
-Wayland?
+Wayland...?
 ```
-pacman -S wayland sway waybar xdg-desktop-portal-wlr
+pacman -S wayland xorg-xwayland sway waybar xdg-desktop-portal-wlr
 ```
-or X11?
+...or X11?
 ```
-pacman -S xorg-server xorg-xinit xorg-xrandr autorandr i3-wm polybar picom lxappearance python-pywal xdg-desktop-portal-gtk
+pacman -S xorg-server xorg-xinit xorg-xrandr autorandr i3-wm polybar picom lxappearance python-pywal xdg-desktop-portal-gtk xorg-xev
+pacman -S nvidia-settings
 echo -e "# for dunst\nsystemctl --user import-environment DISPLAY XAUTHORITY"> ~/.xinitrc
 echo "exec i3" > ~/.xinitrc
 ```
-In either case, you need packages.
+## packages
+See the section on dotfiles for how to import packages from a file.
 ```
 pacman -S rofi dunst feh starship batsignal pacman-contrib
 pacman -S noto-sans ttf-noto-nerd tf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common ttf-nerd-fonts-symbols-mono ttf-iosevka-nerd ttf-firacode-nerd otf-firamono-nerd ttf-mplus-nerd
 pacman -S pipewire pipewire-jack wireplumber
 pacman -S bluez bluez-utils blueman
-pacman -S kitty firefox ranger thunar yadm bitwarden tealdeer
+pacman -S kitty firefox yadm bitwarden tealdeer
+pacman -S thunar gvfs gvfs-mtp thunar-volman tumbler ffmpegthumbnailer ranger
 pacman -S bat wget curl htop plocate ripgrep fzf neofetch lshw
 pacman -S network-manager-applet udiskie
 pacamn -S fail2ban ufw gufw
@@ -297,31 +301,6 @@ pacman -S github-cli
 pacman -S xdg-utils xdg-user-dirs
 xdg-user-dirs-update
 systemctl enable bluetooth
-```
-
-Get AUR acess with `yay` or `paru`.
-```
-cd $(mktemp -d)
-git clone https://aur.archlinux.org/yay-bin
-cd yay-bin
-makepkg -si PKGBUILD
-```
-Dotfiles and my favored packages
-```
-yadm clone https://github.com/<user>/dotfiles
-yadm pull
-pacman --needed -S $(<~/.pkglists/pkg_base)
-pacman --needed -S $(<~/.pkglists/pkg_main)
-pacman --needed -S $(<~/.pkglists/aur_main)
-```
-My scripts. Notably, this includes a `startup` script to launch startup programs.
-```
-git clone https://github.com/shervinsahba/scripts src/scripts
-src/scripts/startup theme
-```
-Github authentication
-```
-gh auth login
 ```
 
 ## setup plocate
@@ -347,10 +326,8 @@ systemctl mask systemd-rfkill.service systemd-rfkill.socket
  - Deactivate USB_AUTOSUSPEND by setting it to 0 in `/etc/tlp.conf`.
  - Run `tlp-stat` and read through to see if any warnings or recommendations
 
-```
-systemctl --user enable batsignal --now
-```
 
+## laptop stuff
 ```
 pacman -S brightnessctl
 ```
@@ -361,8 +338,43 @@ Store these headers outside of the luks device itself in case of header corrupti
 cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file luksHeaderBackup-$HOSTNAME-nvme0n1p2
 ```
 
+## AUR
+Get AUR acess with `yay` or `paru`.
+```
+cd $(mktemp -d)
+git clone https://aur.archlinux.org/yay-bin
+cd yay-bin
+makepkg -si PKGBUILD
+```
 
 
+# user setup
+## dotfiles and packages
+```
+yadm clone https://github.com/<user>/dotfiles
+yadm pull
+pacman --needed -S $(<~/.pkglists/pkg_base)
+pacman --needed -S $(<~/.pkglists/pkg_main)
+pacman --needed -S $(<~/.pkglists/aur_main)
+```
+My scripts. Notably, this includes a `startup` script to launch startup programs.
+```
+git clone https://github.com/shervinsahba/scripts src/scripts
+src/scripts/startup theme
+```
+
+## Github authentication
+```
+gh auth login
+```
+## battery notification (batsignal)
+```
+systemctl --user enable batsignal --now
+```
+## syncing and cloud (syncthing)
+```
+systemctl --user enable syncthing --now
+```
 
 
 

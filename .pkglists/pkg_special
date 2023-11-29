@@ -3,15 +3,12 @@ archiso
 chromium
 clamav
 figlet
-firejail
 gnome-font-viewer
 iperf3
 jre11-openjdk
 kdeconnect
 nzbget
-okular
 pinta
-redshift
 sox
 speedtest-cli
 stress
@@ -27,6 +24,3 @@ rustup
 compsize
 nfs-utils
 trippy
-gamemode
-lib32-gamemode
-mangohud

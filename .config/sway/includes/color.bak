@@ -1,0 +1,30 @@
+set $transp       #00000000
+
+# Set colors from Xresources (pywal wal --theme)
+# NOTE: The secondary rgb color in the lines below is the fallback if
+# i3 fails to get colors from Xresources.
+set_from_resource $colorf  i3wm.foreground #f8f8f2
+set_from_resource $colorb  i3wm.background #181a26
+set_from_resource $color0  i3wm.color0  #282936
+set_from_resource $color8  i3wm.color8  #4d4f68
+set_from_resource $color1  i3wm.color1  #f087bd
+set_from_resource $color9  i3wm.color9  #bd6a95
+set_from_resource $color2  i3wm.color2  #a5fb8f
+set_from_resource $color10 i3wm.color10 #83c771
+set_from_resource $color3  i3wm.color3  #fae3b0
+set_from_resource $color11 i3wm.color11 #c7b58c
+set_from_resource $color4  i3wm.color4  #96cdfb
+set_from_resource $color12 i3wm.color12 #77a2c7
+set_from_resource $color5  i3wm.color5  #9183f7
+set_from_resource $color13 i3wm.color13 #7368c4
+set_from_resource $color6  i3wm.color6  #89dceb
+set_from_resource $color14 i3wm.color14 #6bacb8
+set_from_resource $color7  i3wm.color7  #e9e9f4
+set_from_resource $color15 i3wm.color15 #f7f7fb
+
+# class                 border   backgr.  text     indicator  child_border
+client.focused          $color13 $color13 $color2  $color1    $color8
+client.focused_inactive $color13 $color8  $color3  $color1    $transp
+client.unfocused        $color8  $color8  $color7  $color1    $transp
+client.urgent           $color5  $color1  $color0  $color1    $transp
+client.background       $transp

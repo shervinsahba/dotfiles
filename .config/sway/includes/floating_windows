@@ -1,0 +1,45 @@
+# Run xprop and click on window to find out WM class or title.
+for_window [class="AQEMU"] floating enable
+for_window [class="ark"] floating enable
+#for_window [class="Bitwarden"] floating enable
+for_window [class="(?i)blueman-manager"] floating enable, move position mouse, move down 30, move left 30, sticky enable
+for_window [class="Dragon-drop"] floating enable, sticky enable
+for_window [class="feh"] floating enable
+for_window [class="Gpick"] floating enable
+for_window [class="imv"] floating enable
+for_window [class="(?i)keepassxc"] floating enable, move position mouse
+for_window [class="kitty" instance="kittydrop"] floating enable
+for_window [class="kitty" instance="float"] floating enable
+for_window [class="kitty" instance="updates"] floating enable, resize set 600 400, move position 50 50
+for_window [class="Lxappearance"] floating enable
+for_window [class="mpv"] floating enable
+for_window [class="Manjaro Settings Manager"] floating enable
+for_window [class="Mathpix Snipping Tool"] floating enable
+for_window [class="MATLAB*" title="Add-On Explorer"] floating enable
+for_window [class="MATLAB*" title="Figure *"] floating enable
+for_window [class="MATLAB*" title="Preferences"] floating enable
+for_window [class="matplotlib"] floating enable
+for_window [class="(?i)nvidia-settings"] floating enable
+for_window [class="(?i)pavucontrol"] floating enable, move position mouse, move down 30, move left 30, sticky enable
+for_window [class="(?i)pulseeffects"] floating enable, sticky enable
+for_window [class="(?i)qbittorrent"] floating enable
+for_window [class="(?i)ringcentral"] floating enable, sticky enable
+#for_window [class="Slack"] floating enable
+for_window [class="Steam" title="Steam Library Folders"] floating enable
+for_window [class="Steam" title="Create or select new Steam library folder:"] floating enable
+for_window [class="Steam" title="Steam - News"] floating enable
+for_window [class="Tauon Music Box"] floating enable
+for_window [class="Thunar" title="File Operation Progress"] floating enable, move position 50 70
+for_window [class="Tor Browser"] floating enable
+for_window [class="tutanota-desktop"] floating enable
+for_window [class="(?i)viewnior"] floating enable
+for_window [class="zoom"] floating enable, sticky enable
+for_window [class="zoom" title="Zoom Meeting"] resize set 1600 900
+for_window [class="zoom" title="Chat"] move position mouse
+for_window [class="Zotero" title="ZotFile Preferences"] floating enable
+
+for_window [title="Explain Margin"] floating enable             #thinkorswim
+for_window [class="java-lang-Thread" title="SymbolSelector.2"] floating enable  #thinkorswim
+for_window [title="glxgears"] floating enable
+for_window [title="MetaMask Notification"] floating enable
+for_window [title="Oracle VM VirtualBox Manager"] floating enable

@@ -1,0 +1,9 @@
+xkb_symbols "basic" {
+	include "us"
+	name[Group1]= "English (US Custom)";
+    # make Caps_Lock Mod4 and Super Mod5
+	key <CAPS> { [ Hyper_L ] };
+	modifier_map Mod4 { Hyper_L };
+	key <LWIN> { [ Super_L ] };
+	modifier_map Mod5 { Super_L };
+};

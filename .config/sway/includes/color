@@ -1,0 +1,30 @@
+set $transp       #00000000
+
+# Set colors from Xresources (pywal wal --theme)
+# NOTE: The secondary rgb color in the lines below is the fallback if
+# i3 fails to get colors from Xresources.
+set $colorf   #f8f8f2
+set $colorb   #181a26
+set $color0   #282936
+set $color8   #4d4f68
+set $color1   #f087bd
+set $color9   #bd6a95
+set $color2   #a5fb8f
+set $color10  #83c771
+set $color3   #fae3b0
+set $color11  #c7b58c
+set $color4   #96cdfb
+set $color12  #77a2c7
+set $color5   #9183f7
+set $color13  #7368c4
+set $color6   #89dceb
+set $color14  #6bacb8
+set $color7   #e9e9f4
+set $color15  #f7f7fb
+
+# class                 border   backgr.  text     indicator  child_border
+client.focused          $color13 $color13 $color2  $color1    $color8
+client.focused_inactive $color13 $color8  $color3  $color1    $transp
+client.unfocused        $color8  $color8  $color7  $color1    $transp
+client.urgent           $color5  $color1  $color0  $color1    $transp
+client.background       $transp

@@ -1,0 +1,266 @@
+## i3 config file
+## Shervin Sahba
+
+## sway settings
+#input type:keyboard {
+#  xkb_layout us
+#  xkb_options caps:super
+#}
+set $mod Mod4
+input * xkb_layout en-custom
+set $super Mod3
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## i3 settings
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# mod key. Caps_Lock is my i3 modifier of choice.
+# Here I set Caps_Lock via .Xmodmap to register as [Hyper_R NoSymbol ...]
+# and set Hyper_R as Mod3. See key assignments with xmodmap / xmodmap -pke.
+#exec_always --no-startup-id xmodmap "~/.Xmodmap"
+#set $mod Mod3
+#set $super Mod4
+
+# include directory
+set $dir ~/.config/i3/includes
+
+# restart i3
+bindsym $mod+Shift+r restart
+
+# lightdm user switch
+bindsym $mod+Shift+Escape exec dm-tool switch-to-greeter
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## colors and fonts
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# load color config
+include $dir/color
+
+# font for window titles and i3 bar
+font pango:FiraCode Nerd Font 8
+
+# window title and icon
+####for_window [all] title_format "<b>%title</b>"
+####for_window [all] title_window_icon padding px
+
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## workspaces
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# set workspace names
+# set $ws1   1:Ⅰ
+# set $ws2   2:Ⅱ
+# set $ws3   3:Ⅲ
+# set $ws4   4:Ⅳ
+# set $ws5   5:Ⅴ
+# set $ws6   6:Ⅵ
+# set $ws7   7:Ⅶ
+# set $ws8   8:Ⅷ
+# set $ws9   9:Ⅸ
+# set $ws10 10:Ⅹ
+
+set $ws1   1
+set $ws2   2
+set $ws3   3
+set $ws4   4
+set $ws5   5
+set $ws6   6
+set $ws7   7
+set $ws8   8
+set $ws9   9
+set $ws10 10
+
+# swap or cycle between workspace
+bindsym $mod+Tab workspace back_and_forth
+bindsym $mod+Shift+Tab workspace next_on_output
+
+# switch to workspace
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
+
+# banish to and recover from shadow realm (i.e. scratchpad workspace)
+bindsym $mod+z move scratchpad
+bindsym $mod+Shift+z exec ~/src/scripts/rofi-i3scratch || i3-msg scratchpad show
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## window focus bindings
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+focus_wrapping no
+
+# change focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# parent/child focus
+bindsym $mod+a focus parent
+bindsym $mod+Shift+a focus child
+
+# toggle focus to floats / tiles
+bindsym $mod+space focus mode_toggle
+
+# move focused window
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## window layout bindings
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# kill
+bindsym $mod+Shift+q kill
+
+# ready container for vertical and horizontal splits
+bindsym $mod+v split v
+bindsym $mod+Shift+v split h
+
+# ready container for tabbed layout
+bindsym $mod+t split h, layout tabbed
+
+# fullscreen
+bindsym $mod+f fullscreen toggle
+
+# float/unfloat
+bindsym $mod+Shift+space floating toggle
+
+# sticky float
+bindsym $mod+Shift+p sticky toggle
+
+# resize windows
+include $dir/mode_resize
+bindsym $mod+r mode "resize"
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## floating windows
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+####floating_minimum_size 200x200
+# floating_maximum_size 3440x1440
+
+bindsym $mod+c move position 50 50
+bindsym $mod+p resize set 1920 1080
+bindsym $mod+$super+p resize set 2560 1440
+
+# force floating for all new windows
+# for_window [class="[.]*"] floating enable
+
+# settings for specific programs
+include $dir/floating_windows
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## mouse control
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# use $mod and left_click/right_click to move/resize floating windows
+floating_modifier $mod
+
+# mouse focus
+focus_follows_mouse no
+mouse_warping none
+
+# mouse middle button on titlebar kills the window
+bindsym --release button2 kill
+
+# mouse right button on titlebar toggles floating
+# bindsym --release button3 floating toggle
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## multimonitor
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# move focus between monitors
+bindsym $mod+Alt+h focus output left
+bindsym $mod+Alt+j focus output down
+bindsym $mod+Alt+k focus output up
+bindsym $mod+Alt+l focus output right
+bindsym $mod+Alt+Left focus output left
+bindsym $mod+Alt+Down focus output down
+bindsym $mod+Alt+Up focus output up
+bindsym $mod+Alt+Right focus output right
+bindsym $mod+m focus output next
+
+# move workspaces between monitors
+bindsym $mod+Shift+m move workspace to output next
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## i3-gaps settings
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+smart_gaps on
+gaps inner 20
+gaps outer 0
+
+smart_borders on
+default_border pixel 4
+default_floating_border pixel 4
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## startup programs
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+exec        --no-startup-id startup on-boot
+exec_always --no-startup-id startup on-restart
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## program bindsym shortcuts
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+include $dir/shortcuts
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## audio control
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+
+# volume. Use custom script for pulseaudio and dunst messages, else fallback to pactl.
+bindsym XF86AudioRaiseVolume exec "~/src/scripts/volume_brightness volume_up   || pactl set-sink-volume $(pacmd list-sinks | awk '/\* index:/{print $3}') +5%"
+bindsym XF86AudioLowerVolume exec "~/src/scripts/volume_brightness volume_down || pactl set-sink-volume $(pacmd list-sinks | awk '/\* index:/{print $3}') -5%"
+bindsym XF86AudioMute        exec "~/src/scripts/volume_brightness volume_mute || pactl set-sink-mute $(pacmd list-sinks | awk '/\* index:/{print $3}') toggle"
+
+# music player control
+#bindsym XF86AudioStop exec mpc stop
+#bindsym XF86AudioPlay exec mpc toggle
+#bindsym XF86AudioPrev exec mpc prev
+#bindsym XF86AudioNext exec mpc next
+
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+## brightness control
+## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+bindsym XF86MonBrightnessUp exec --no-startup-id ~/src/scripts/volume_brightness brightness_up
+bindsym XF86MonBrightnessDown exec --no-startup-id ~/src/scripts/volume_brightness brightness_down
+
+

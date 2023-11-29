@@ -46,14 +46,7 @@ pacman -S linux-lts linux-lts-headers
 pacman -S nvidia-lts
 ```
 
-
-## systemd timers
-Setup a system timer with `systemctl enable <timer> --now`. For user-scoped timers, add the `--user` flag. Here are some timers to use, some of which are discussed in their own sections elsewhere in this document:
-- `fstrim.timer`
-- `paccache.timer`
-- `plocate-updatedb.timer`
-- `reflector.timer`
-- `man-db.timer` (should be active if `man-db` is installed.)
+## btrfs scrub timer
 - `btrfs-scrub@-.timer` (for mountpoint at /. Repeat for other mounts)
 
 
@@ -81,22 +74,6 @@ For a desktop that should keep its uptime going, consider
 HandlePowerKey=ignore
 HandlePowerKeyLongpress=poweroff
 ```
-
-### tlp
-For advanced power managment, install `tlp`. Then run
-```
-systemctl enable tlp.service
-systemctl mask systemd-rfkill.service
-systemctl mask systemd-rfkill.socket
-```
-Consider deactivating the USB_AUTOSUSPEND by setting it to 0 in `/etc/tlp.conf`. Run `tlp-stat` and read through to see if any warnings or recommendations pop up. The AUR package `tlpui` is a nice GUI to set options too. Optionally, if you want to control radio devices (wifi, bluetooth, etc...) on certain triggers, install `tlp-rdw` and make sure `NetworkManager-dispatcher.service` is enabled.
-
-
-### battery notifications
-Use `batsignal` to send out notifications for battery status. Turn on the daemon with
-`systemctl --user enable batsignal.service --now`
-and (customize a config file)[https://github.com/electrickite/batsignal] if you want.
-
 
 ## firewall
 Use `ufw` and its GUI `gufw`. Activate with `systemctl enable ufw --now`. Then run `gufw` as a superuser and toggle on. It should persist after reboot. By default ufw denies incoming for home/office profiles. Add any ufw rules you want (i.e. `ufw allow <whatever>`) or use the GUI log to append rules. VPNs may need some config changes in ufw - see the ufw arch wiki. Notably, running `ufw app list` shows preset profiles you may want to use. For example,
@@ -134,12 +111,6 @@ maxretry = 3
 3.) Login via `ssh -p <username>:<remotehost>` and provide passphrase.
 4.) Disable password authentication on host device in `/etc/ssh/sshd_config`.
 
-
-## git and github
-Use Type the following and follow through to the browser prompts. Type the following and follow through to the browser prompts.
-```
-gh auth login
-```
 
 ## antivirus (clamav)
 Install clamav to use `clamscan` on files. First run `freshclam` to update database, even if the systemd service is setup later. Setup checks to update virus database automatically and edit `/etc/clamav/freshclam.conf` to change the frequency from 12 a day to something else if desired.

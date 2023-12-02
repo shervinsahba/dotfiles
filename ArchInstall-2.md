@@ -313,9 +313,9 @@ PRUNEPATHS = "... /.snapshots /timeshift /swap"
 
 ## systemd timers
 ```
-systemctl enable --now plocate-updatedb.timer reflector.timer fstrim.timer btrfs-scrub@-.timer paccache.timer
+systemctl enable --now plocate-updatedb.timer reflector.timer fstrim.timer paccache.timer btrfs-scrub@-.timer btrfs-scrub@home.timer 
 ```
-Note: For the btrfs (monthly) scrub timer, you can check on it with `journalctl -u btrfs-scrub@-.service` and `btrfs scrub status /`. This is for a mountpoint at `/` by the way. For other mount points, replace the `@-` with the volume name.
+Note: For the btrfs (monthly) scrub timer, you can check on it with `journalctl -u btrfs-scrub@-.service` and `btrfs scrub status /`. This is for a mountpoint at `/` by the way. For other mount points, replace the `@-` with the volume name, like @home for /home.
 
 ## power management
 ```

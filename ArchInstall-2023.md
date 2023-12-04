@@ -405,7 +405,12 @@ git clone https://github.com/shervinsahba/scripts src/scripts
 src/scripts/startup theme
 ```
 
-
+## btrfs subvolumes
+Consider making more subvolumes, especially for directories you do not want to snapshot that are listed under subvolumes you do want to snapshot. Examples:
+- /home/$USER/.cache
+- /home/$USER/.local/share/Steam/
+- /var/lib/docker
+- /var/lib/flatpak
 
 
 # old

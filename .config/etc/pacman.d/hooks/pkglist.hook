@@ -1,0 +1,10 @@
+[Trigger]
+Operation = Install
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Saving list of packages to /etc/pkglist...
+When = PostTransaction
+Exec = /bin/sh -c '/usr/bin/pacman -Qqe > /etc/pkglist'

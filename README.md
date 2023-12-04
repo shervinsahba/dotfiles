@@ -1,12 +1,14 @@
 # README
-These are my Linux dotfiles. They get my system running the way I like.
+These are my Linux dotfiles. They get my system running the way I like. Below are some notes on my Arch installation as well as some setup and maintenance tips.
 
 References
-- https://wiki.archlinux.org/title/General_recommendations
+https://wiki.archlinux.org/title/General_recommendations
+https://wiki.archlinux.org/title/System_maintenance
+
+# Arch Installation
+See the files ArchInstall-*.md
 
 # System maintenance
-See https://wiki.archlinux.org/title/System_maintenance
-
 Check for failed services and look for errors.
 ```
 systemctl --failed

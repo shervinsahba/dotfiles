@@ -202,23 +202,16 @@ default_options="--splash /usr/share/systemd/bootctl/splash-arch.bmp"
 fallback_uki="/efi/EFI/Linux/arch-linux-fallback.efi"
 fallback_options="-S autodetect"
 ```
-
-
 Finish by recreating the initram images.
 ```
 mkinitcpio -P
 ```
 
 ## bootloader
-
+Install systemd boot.
+TODO clarify which path I used.
 ```
 bootctl install --esp-path=/efi
-```
-
-
-
-Install systemd boot:
-```
 bootctl --path=/boot install
 ```
 If bootctl complains about a world-accessible EFI location, edit `/etc/fstab` and change the EFI partition fmask and umask to the strictor `fmask=0077,dmask=0077` settings.
@@ -266,6 +259,7 @@ exit ;
 systemctl reboot --firmware-setup
 ```
 
+
 # system setup
 ## graphics 
 Choose one.
@@ -303,6 +297,20 @@ xdg-user-dirs-update
 systemctl enable bluetooth
 ```
 
+## optional: display manager
+### lightdm (not wayland compatible. maybe?)
+```
+pacman -S lightdm lightdm-slick-greeter
+systemctl enable lightdm
+```
+In `/etc/lightdm/lightdm.conf`, set
+```
+logind-check-graphical=true
+greeter-session=lightdm-slick-greeter
+```
+The former ensures lightdm starts after the graphics have had time to boot. Be sure you set these in the appropriate location (i.e. not under the instructional portion of the config file).
+
+
 ## setup plocate
 For `plocate`, edit `/etc/updatedb.conf` to  add the following. Chiefly, you don't want to prune bind mounts for btrfs. You probably do want to prune paths used for backups like /.snapshots or /timeshift as well as directories like ipynb_checkpoints and pycache.
 ```
@@ -326,10 +334,32 @@ systemctl mask systemd-rfkill.service systemd-rfkill.socket
  - Deactivate USB_AUTOSUSPEND by setting it to 0 in `/etc/tlp.conf`.
  - Run `tlp-stat` and read through to see if any warnings or recommendations
 
-
-## laptop stuff
+### backlight
+(See my scripts for using brightnessctl efficiently with i3/sway)
 ```
 pacman -S brightnessctl
+```
+
+### powerkey, lid, and idle actions
+Edit `/etc/systemd/logind.conf` and `/etc/systemd/sleep.conf`. For a laptop consider something like.
+```
+[Login]
+HandlePowerKey=hibernate
+HandlePowerKeyLongPress=poweroff
+HandleLidSwitch=suspend-then-hibernate
+HandleLidSwitchExternalPower=suspend
+IdleAction=suspend-then-hibernate
+```
+and
+```
+[Sleep]
+HibernateDelaySec=30min
+```
+For a desktop, if you want to prevent accidental power key bumps consider:
+```
+[Login]
+HandlePowerKey=ignore
+HandlePowerKeyLongpress=poweroff
 ```
 
 ## backup luks headers
@@ -337,6 +367,14 @@ Store these headers outside of the luks device itself in case of header corrupti
 ```
 cryptsetup luksHeaderBackup /dev/nvme0n1p2 --header-backup-file luksHeaderBackup-$HOSTNAME-nvme0n1p2
 ```
+
+## optional: mount btrfs root
+You can edit `/etc/fstab` to also add a mount for the btrfs filesystem root itself. To mount it once, 
+```
+mkdir /mnt/btrfs-root/ ;
+mount -o noatime,ssd,compress=zstd,subvol=/ /dev/mapper/cryptroot /mnt/btrfs-root/
+```
+This just lets you access the filesystem at the highest level if you need.
 
 ## AUR
 Get AUR acess with `yay` or `paru`.
@@ -347,6 +385,10 @@ cd yay-bin
 makepkg -si PKGBUILD
 ```
 
+## battery notification (batsignal)
+```
+systemctl --user enable batsignal --now
+```
 
 # user setup
 ## dotfiles and packages
@@ -363,46 +405,12 @@ git clone https://github.com/shervinsahba/scripts src/scripts
 src/scripts/startup theme
 ```
 
-## Github authentication
-```
-gh auth login
-```
-## battery notification (batsignal)
-```
-systemctl --user enable batsignal --now
-```
-## syncing and cloud (syncthing)
-```
-systemctl --user enable syncthing --now
-```
-
-
 
 
 
 # old
 ```
 pacman -S pipewire-pulse
-pacman -S terminus-font ttf-dejavu 
 pacman -S noto-fonts-cjk noto-fonts-emoji papirus-icon-theme
 pacman -S grub-btrfs
-pacman -S xorg-xdm dmenu lightdm lightdm-slick-greeter
 ```
-Security
-```
-echo -e "[sshd]\nenabled = true\nmaxretry = 3" > /etc/fail2ban/jail.local
-systemctl enable --now fail2ban
-```
-```
-systemctl enable lightdm
-```
-## bluetooth
-Edit `/etc/bluetooth/main.conf` and set `AutoEnable=true` to have bluetooth on at startup.
-
-## display manager
-In `/etc/lightdm/lightdm.conf`, set
-```
-logind-check-graphical=true
-greeter-session=lightdm-slick-greeter
-```
-The former ensures lightdm starts after the graphics have had time to boot. Be sure you set these in the appropriate location (i.e. not under the instructional portion of the config file).

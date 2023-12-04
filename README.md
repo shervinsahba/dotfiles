@@ -4,9 +4,67 @@ These are my Linux dotfiles. They get my system running the way I like.
 References
 - https://wiki.archlinux.org/title/General_recommendations
 
+# System maintenance
+See https://wiki.archlinux.org/title/System_maintenance
+
+Check for failed services and look for errors.
+```
+systemctl --failed
+journalctl -b --priority=3
+```
+
+## clean journal
+```
+journalctl --rotate --vacuum-size=200M
+```
+or set a maximum size using a drop-in file with `systemctl edit systemd-journald`, adding the contents
+```
+[Journal]
+SystemMaxUse=250M
+```
+
 ## update firmware
 You can check your BIOS version with `dmidecode`. In general, for updating firmware, the `fwupd` package should be the job. First run `fwupdmgr refresh`. Then survey your system's updateable devices with `fwupdmgr get-devices`. To actually update, run `fwupdmgr update`. Reboot and wait for the updates to finish. NOTE! Some UEFI systems may result in a screwed up bootloader from this process. Check Arch Wiki for details!
 
+## manage pacnew and pacsave files
+Check them out with `pacdiff -o`. Consider creating a pacman hook to notify you with `vim /etc/pacman.d/hooks/pacfiles.hook` and
+```
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Checking for .pacnew and .pacsave files...
+When = PostTransaction
+Exec = /usr/bin/bash -c 'pacfiles=$(pacdiff -o); if [[ -n "$pacfiles" ]]; then echo -e ":: $(echo $pacfiles | wc -w) files found. See pacdiff -o."; fi'
+```
+
+## manage orphans
+Check them out with `pacman -Qtdq`. Consider creating a pacman hook to notify you with `vim /etc/pacman.d/hooks/orphans.hook` and
+```
+[Trigger]
+Operation = Install
+Operation = Upgrade
+Operation = Remove
+Type = Package
+Target = *
+
+[Action]
+Description = Checking for orphans...
+When = PostTransaction
+Exec = /usr/bin/bash -c 'orphans=$(pacman -Qtdq); if [[ -n "$orphans" ]]; then echo -e ":: $(echo $orphans | wc -w) orphan packages found. See pacman -Qtdq."; fi'
+```
+
+
+# More setup
+
+## Github authentication
+```
+gh auth login
+```
 
 ## /etc/fstab
 Mount anything you need to mount. Refer to `blkid` and `lsblk -f`. 
@@ -19,11 +77,13 @@ For mounting filesystems on other devices via sshfs, consider adding something l
 ```
 You can then mount the directory rapidly with `mount /path/to/mount/`.
 
+## bluetooth, automatic startup
+If bluetooth doesn't start up on its own, edit `/etc/bluetooth/main.conf` and set `AutoEnable=true`.
 
 ## mute PC speaker bell
-Edit `/etc/inputrc` and uncomment or append `set bell-style none`. Also maybe
+To globally disable the speaker bell, try the following. Otherwise see the [wiki](https://wiki.archlinux.org/title/PC_speaker).
 ```
-echo blacklist pcspkr > /etc/modprobe.d/nobell.conf
+echo -e "blacklist pcspkr\nblacklist snd_pcsp" > /etc/modprobe.d/nobell.conf
 ```
 
 ## pacman.conf (multilib, parallel downloads)
@@ -33,7 +93,6 @@ sed -i 's/#\[multilib\]/\[multilib\]\nInclude = \/etc\/pacman.d\/mirrorlist/g' /
 sed -i '/ParallelDownloads/s/^#//g' /etc/pacman.conf ;
 sed -i 's/#Color/Color\nILoveCandy/g' /etc/pacman.conf ;
 ```
-
 This is also where to list packages to be ignored. This may be useful to fix packages or for AUR packages that involve manual builds like matlab.
 ```
 IgnorePkg = matlab foundryvtt
@@ -44,35 +103,6 @@ Install a backup kernel like `linux-lts`
 ```
 pacman -S linux-lts linux-lts-headers 
 pacman -S nvidia-lts
-```
-
-## btrfs scrub timer
-- `btrfs-scrub@-.timer` (for mountpoint at /. Repeat for other mounts)
-
-
-## power management
-systemd handles power management pretty well. For a laptop, consider these changes. Edit `/etc/systemd/logind.conf` and 
-`/etc/systemd/sleep.conf` to respectively set
-```
-[Login]
-HandlePowerKey=hibernate
-HandlePowerKeyLongPress=poweroff
-HandleLidSwitch=suspend-then-hibernate
-HandleLidSwitchExternalPower=suspend
-IdleAction=suspend-then-hibernate
-```
-and
-```
-[Sleep]
-HibernateDelaySec=30min
-```
-Note that without a DE, the system may not be able to handle the IdleAction appropriately. So consider this before setting the above.
-
-For a desktop that should keep its uptime going, consider
-```
-[Login]
-HandlePowerKey=ignore
-HandlePowerKeyLongpress=poweroff
 ```
 
 ## firewall
@@ -96,15 +126,11 @@ Added these rules after `# End required lines` in `/etc/ufw/before.rules`:
 1.) `systemctl enable --now sshd`
 2.) Set `PasswordAuthentication no` on host device in `/etc/ssh/sshd_config`.
 3.) `ufw allow ssh` 
-4.) Create or edit `/etc/fail2ban/jail.local` and add ssh jail:
+4.) Add ssh jail to fail2ban and enable the service.
 ```
-[sshd]
-enabled = true
-maxretry = 3
+echo -e "[sshd]\nenabled = true\nmaxretry = 3" > /etc/fail2ban/jail.local
+systemctl enable --now fail2ban
 ```
-3.) `systemctl enable --now fail2ban`
-
-
 ### Client-side:
 1.) Run `ssh-keygen` on new local device. Choose a passphrase and save for later.
 2.) Install public key on remote device with `ssh-copy-id -p <port> <username>@<remotehost>`. Remember, you'll need to briefly reconfigure `/etc/ssh/sshd_config` on the host device to accept password authentication. Provide the username and password of remote user.
@@ -145,15 +171,12 @@ Setup [DNS over Https with the instructions here](https://mullvad.net/en/help/dn
 ```
 mullvad dns set default --block-ads --block-malware --block-trackers
 ```
-
 ### mullvad AND tailscale
 If you want to use Mullvad contemporaneously with Tailscale, see this [mullvad-tailscale](https://github.com/r3nor/mullvad-tailscale) script. I have a private fork that I maintain with my devices on a separate branch.
 
 
 ## backups and system recovery
-
 ### netboot
-
 Download the [UEFI netboot image](https://archlinux.org/releng/netboot/). It's unnecessary to update this by the way, since it pulls updates from the net. Now move the file over to the EFI partition, and create a boot entry.
 ```
 mkdir /efi/EFI/arch_netboot
@@ -161,7 +184,7 @@ mv ~/Downloads/ipxe-arch.*.efi /efi/EFI/arch_netboot/arch_netboot.efi
 efibootmgr --create --disk /dev/<EFI partition> --part 1 --loader /EFI/arch_netboot/arch_netboot.efi --label "Arch Linux Netboot" --verbose
 ```
 
-### borg backups
+### borg
 For borgmatic, consider optional dependency `pacman -S --asdeps python-llfuse`.
 
 If using borgbase or online repo, create a dedicated ssh key for automation. Go online and create a new repo. Add this ssh key (and any others) to the repo. On the machine, store the borg repo passphrase for automated backups to access with `secret-tool`,
@@ -183,19 +206,16 @@ After creating the repo, copy the repokey (it is stored within the repo, but do 
 ```
 borg key export <path/to/repo>
 ```
-
 Setup a borgmatic.service and borgmatic.timer to automate. [See the docs](https://torsion.org/borgmatic/docs/how-to/set-up-backups/#systemd) for example scripts, or see if you have a template saved as a dotfile.  If running the timer as a user, you may need to disable the security features from the template on torsion.org and change the last line to something simple like ExecStart=borgmatic. Copy files to `~/.config/systemd/user` and run 
 ```
 systemctl --user enable borgmatic.timer --now
 ```
 
-
-### snapper backup
+### snapper
 Create snapper configs with
 ```
 snapper -c <config name> create-config /path/to/subvolume
 ```
-
 Note: You may need to `umount /.snapshots && rmdir /.snapshots` before running the above. This may  also create a superfluous subvolume `.snapshots` that you can delete with `btrfs sub del /.snapshots`.
 
 Consider editting each snapper config in `/etc/snapper/configs/<config>` to have TIMELINE parameters that differ from the default that keeps 10 hourly, 10 daily, 0 weekly, 10 monthly, and 10 yearly snapshots. Consider something like 5,7,4,3,1.
@@ -205,7 +225,6 @@ Setup hourly snapshot timers and cleanup. Note that if you have an active cron d
 systemctl enable --now snapper-timeline.timer
 systemctl enable --now snapper-cleanup.timer
 ```
-
 To change the timer from hourly to every 4 hours, run
 ```
 sudo systemctl edit --full snapper-timeline.timer
@@ -221,7 +240,6 @@ RandomizedDelaySec=120
 ## file browsers (ranger, thunar)
 ### ranger
 Get some [Ranger plugins](https://github.com/ranger/ranger/wiki/Plugins).
-
 ```
 mkdir -p ~/.config/ranger/plugins
 cd ~/.config/ranger/plugins
@@ -231,34 +249,20 @@ git clone https://github.com/ask1234560/ranger-zjumper.git
 ```
 Click through the links and add their instructions to ranger's config files if your dotfiles don't already contain said instructions.
 
-
 ### thunar
-While ranger is my favorite file browser to date, thunar is favorite GUI file browser and a great backup. There are several plugins worth looking at, but I particularly think `gvfs` with `thunar-volman` is a must to mount removeable devices simply. Mounting your phone or mobile device is typically done with the MTP protocol, which would need `gvfs-mtp` as well. For thumbnails of pictures and video, you need `tumbler` and `ffmpegthumbnailer` respectively. Note that there is `raw-thumbnailer` if RAW files are in your portfolio as well.
+A great browser with a GUI. There are several plugins worth looking at, but I particularly think `gvfs` with `thunar-volman` is a must to mount removeable devices simply. Mounting your phone or mobile device is typically done with the MTP protocol, which would need `gvfs-mtp` as well. For thumbnails of pictures and video, you need `tumbler` and `ffmpegthumbnailer` respectively. Note that there is `raw-thumbnailer` if RAW files are in your portfolio as well.
+
+### yazi
+Looks promising.
 
 
-## music (mpd)
-```
-systemctl enable --user mpd.service --now
-systemctl enable --user mpd-notification.service --now
-```
-Now edit the service to set the Music directory for album art:
-```
-systemctl --user edit --full mpd-notification.service
-```
-making this change to the ExecStart line
-```
-ExecStart=/usr/bin/mpd-notification --music-dir %h/Music
-```
-
-
-## firefox
+## web browser (firefox)
 You can copy over the `.mozilla` profiles folder from a previous installation to clone your setup. Reauthenticate (log off and back on) Firefox account on both devices so sync is properly setup. Rename device in Firefox sync settings.
 
 If Firefox CSS stylesheets are not in place already done, symbolic link `userChrome.css` and `userContent.css` by copying over `.config/firefox/chrome/chrome` to the `.mozilla/<profile>` directory. Enable css in `about:config` by toggling `toolkit.legacyUserProfileCustomization.stylesheets = true`.
 
 
-## sync, cloud
-### syncthing
+## sync and cloud (syncthing)
 For a user service that runs on login:
 ```
 systemctl --user enable --now syncthing
@@ -267,24 +271,24 @@ For a system-wide server, start the service inserting the actual syncthing usern
 ```
 systemctl enable --now syncthing@<username>.service
 ```
+Consider installing `syncthingtray` from the AUR to get a tray icon with info. Check the AUR to install the dependencies first! When installed, right-click the tray icon and try to auto-detect the local instance's settings. Turn on all notifications, disable Web View, and set Qt settings (importing a palette if you have one. See dotfiles.)
 
-Consider installing `syncthingtray` from the AUR to get a very nice tray icon for monitoring your syncs. Check the AUR to install the dependencies first! You should be able to install dependencies with
+
+## printing (cups)
+Install `cups` and `nss-mdns` for Avahi local hostname resolution, then
 ```
-yay -S --asdeps c++utilities qtutilities qtforkawesome
-yay -S syncthingtray
+systemctl enable --now cups
+systemctl enable --now avahi-daemon
 ```
-Then right-click the tray icon and try to auto-detect the local instance's settings. Turn on all notifications, disable Web View, and set Qt settings (importing a palette if you have one. See dotfiles.)
+Edit `/etc/nsswitch.conf` and put `mdns_minimal [NOTFOUND=return]` before `resolve` under `hosts`. Then `systemctl restart cups`.
 
 
-## gaming (steam, lutris)
-
-### nvidia
+## nvidia
 [See the wiki.](https://wiki.archlinux.org/title/NVIDIA#Installation)
 Something like these will probably be what you want.
 ```
 pacman -S nvidia nvidia-settings nvidia-utils lib32-nvidia-utils lib32-opencl-nvidia opencl-nvidia libvdpau libxnvctrl vulkan-icd-loader lib32-vulkan-icd-loader
 ```
-
 Add a pacman hook to make sure initramfs is rebuilt after a nvidia update. Create `/etc/pacman.d/hooks/nvidia.hook` with
 ```
 [Trigger]
@@ -304,7 +308,7 @@ NeedsTargets
 Exec=/bin/sh -c 'while read -r trg; do case $trg in linux*) exit 0; esac; done; /usr/bin/mkinitcpio -P'
 ```
 
-
+## gaming (steam, lutris)
 ### steam
 Can't find it? Steam requires the multilib repo. See the section on multilib in this doc. When installing, be mindful of selecting the appropriate graphics package.
 
@@ -330,32 +334,25 @@ systemctl --user enable gamemoded && systemctl --user start gamemoded
 Now you can use `gamemoderun <command>` from command line or `gamemoderun %command%` as a Steam launch option. You may also want to run `gamemoded -t` on a new system to see if all aspects of gamemode are operational.
 
 ### libstrangle
-
 `libstrangle` lets you control framerates and vsync settings. It may be worth setting up, too.
 
 ### vkbasalt and reshade
-
 The `vkbasalt` and `reshade-shaders-git` packages can be used to sharpen textures (e.g. Contrast Adaptive Sharpening) and alter shaders to enhance graphics. Use with `ENABLE_VKBASALT=1 <command>` or `ENABLE_VKBASALT=1 %command%` in Steam. The environment parameter can be entered before `gamemoderun` to use them together.
 
 ### mangohud
-
 Mangohud can be used to track in-game performance. Launch with `mangohud <command>` or `mangohud %command%` with Steam. When used with gamemode, run `gamemoderun mangohud <command>`.
-
 
 
 ## thinkorswim
 Get the [desktop installer from the TDAmeritrade website](https://www.tdameritrade.com/tools-and-platforms/thinkorswim/desktop.html). For the Java dependency, `pacman -S jre11-openjdk` works fine.
 
-
 ## matlab
-Consider using the [AUR package](https://aur.archlinux.org/packages/matlab), but note that MATLAB requires a manual package installation for EULA reasons. Refer to the README file in the package's git repository for installation instructions.
-
-You may need to add the libcrypt.so.1 library as well as remove MATLAB's included freetype library so that you rely on your system libraries: 
+Use the [AUR package](https://aur.archlinux.org/packages/matlab) but note that MATLAB requires a manual package installation for EULA reasons. Refer to the README file in the package's git repository for installation instructions. You may need to add the libcrypt.so.1 library as well as remove MATLAB's included freetype library so that you rely on your system libraries: 
 ```
 pacman -S --asdeps libxcrypt-compat
 rm ./matlab/bin/glnxa64/libfreetype.so.6*
 ```
-In the `PKGBUILD` set your desired modules in the product array. I chose these:
+In the `PKGBUILD` set your desired modules in the product array. For example:
 ```
 _products=(
   "MATLAB"
@@ -381,9 +378,8 @@ yay -S --asdeps matlab-meta
 makepkg -sri
 ```
 
-
 ## Python / Conda / Mamba
-First, install [mambaforge](https://mamba.readthedocs.io/en/latest/installation.html). You can also use [miniconda](https://docs.conda.io/en/latest/miniconda.html#installing), but mamba is a much nicer package manager and comes coupled with conda.
+Install [mambaforge](https://mamba.readthedocs.io/en/latest/installation.html). You can also use [miniconda](https://docs.conda.io/en/latest/miniconda.html#installing), but mamba is a much nicer package manager and comes coupled with conda. Here is some basic setup, as well as a reminder to get running with jupyter notebooks and a machine learning environment:
 
 Deactivate auto-base.
 ```
@@ -393,7 +389,7 @@ Prioritize conda-forge.
 ```
 conda config --add channel conda-forge
 ```
-In base, setup Jupyter stuff:
+In base, setup Jupyter stuff.
 ```
 mamba install jupyterlab nb_conda_kernels ipykernel ipywidgets
 ```
@@ -401,25 +397,25 @@ Create a ML environment
 ```
 mamba create -n ml numpy scipy matplotlib pandas scikit-learn seaborn ipykernel ipywidgets hdf5 tqdm
 ```
-Add torch using the command off [PyTorch's site](https://pytorch.org/). Just replace the `conda` part of the command with `mamba`.
+Add torch using the command off [PyTorch's site](https://pytorch.org/).
 
-Alternatively, if you have a yaml file to generate a conda environment, you can update or create your environment using one of the below:
-```
-mamba env update -f <env>.yml --prune
-```
-or
+Alternatively, if you have a yaml file to generate a conda environment, you can update or create your environment using
 ```
 mamba env create -f <env>.yml
 ```
 
-### Printing
-Install `cups` and `nss-mdns` for Avahi local hostname resolution, then
-```
-systemctl enable --now cups
-systemctl enable --now avahi-daemon
-```
-Edit `/etc/nsswitch.conf` and put `mdns_minimal [NOTFOUND=return]` before `resolve` under `hosts`. Then `systemctl restart cups`.
 
+
+
+# Old ideas 
+
+## prevent systemd from clearing boot messages on tty1
+Create a drop-in file to prevent systemd getty service from clearing boot messages.
+```
+mkdir -p /etc/systemd/system/getty@tty1.service.d/
+echo '[Service]
+TTYVTDisallocate=no' > /etc/systemd/system/getty@tty1.service.d/noclear.conf
+```
 
 ## Usenet
 You need at least three things to use usenet: a usenet provider (e.g. Frugal), an NZB indexer (e.g. Geek), and a usenet client (e.g. NZBGet). Then supplementary programs like sonarr can automate the usenet client's processes.
@@ -468,8 +464,7 @@ You can now log into the nzbget web UI at `localhost:6789`. Make sure the settin
 
 Consider getting the `nzbget-systemd` AUR package to setup the daemon with `systemctl enable --now nzbget`.
 
-
-### automation (sonarr, lidarr, radarr)
+### sonarr, lidarr, radarr
 Reference: https://wiki.servarr.com/
 
 Install `sonarr` and start the service with
@@ -491,19 +486,6 @@ Adding sonarr to nzbget's group may be needed to access the nzbget download dire
 ```
 usermod -a -G nzbget sonarr
 ```
-
 After finishing adding the root folder, set up the indexer under settings->indexer (e.g. NZBGeek) with your subscribed API key. Then establish the client under settings->download clients, adding NZBGet as a client using your nzbget user and control password along with the sonarr category you just set.
 
 Repeat the process for `lidarr`, `radarr`, etc. These are served on `localhost:XXXX` ports `8686` and `7878` respectively.
-
-
-# Old ideas 
-
-## prevent systemd from clearing boot messages on tty1
-Create a drop-in file to prevent systemd getty service from clearing boot messages.
-```
-mkdir -p /etc/systemd/system/getty@tty1.service.d/
-echo '[Service]
-TTYVTDisallocate=no' > /etc/systemd/system/getty@tty1.service.d/noclear.conf
-```
-

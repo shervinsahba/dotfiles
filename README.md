@@ -263,6 +263,8 @@ You can copy over the `.mozilla` profiles folder from a previous installation to
 
 If Firefox CSS stylesheets are not in place already done, symbolic link `userChrome.css` and `userContent.css` by copying over `.config/firefox/chrome/chrome` to the `.mozilla/<profile>` directory. Enable css in `about:config` by toggling `toolkit.legacyUserProfileCustomization.stylesheets = true`.
 
+If using css to auto-collapse Sidebery, set the add-on's prefix/preface symbol to the one chosen in userChrome.css (e.g. ⧌).
+
 ## HiDPI Issues 
 Refer to https://wiki.archlinux.org/title/HiDPI.
 ### firefox

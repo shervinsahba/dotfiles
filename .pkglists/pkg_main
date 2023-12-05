@@ -12,7 +12,6 @@ gdu
 geoip
 geoip-database
 github-cli
-glow
 gpick
 grub-btrfs
 gvfs
@@ -42,3 +41,4 @@ xdg-user-dirs-gtk
 hugo
 cups
 cameractrls
+yazi

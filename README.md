@@ -388,13 +388,13 @@ makepkg -sri
 ```
 
 ## Python / Conda / Mamba
-Install [mambaforge](https://mamba.readthedocs.io/en/latest/installation.html). You can also use [miniconda](https://docs.conda.io/en/latest/miniconda.html#installing), but mamba is a much nicer package manager and comes coupled with conda. Here is some basic setup, as well as a reminder to get running with jupyter notebooks and a machine learning environment:
+Install [miniforge](https://mamba.readthedocs.io), the newest iteration of mambaforge. You can also use [miniconda](https://docs.conda.io/en/latest/miniconda.html#installing), but mamba is a much nicer package manager and comes coupled with conda. Here is some basic setup, as well as a reminder to get running with jupyter notebooks and a machine learning environment:
 
 Deactivate auto-base.
 ```
 conda config --set auto_activate_base false
 ```
-Prioritize conda-forge.
+Prioritize conda-forge (this is set by default on miniforge).
 ```
 conda config --add channel conda-forge
 ```

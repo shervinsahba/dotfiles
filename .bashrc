@@ -89,18 +89,5 @@ if [ -f "/home/shervin/mambaforge/etc/profile.d/mamba.sh" ]; then
 fi
 # <<< conda initialize <<<
 
-
-## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-## old
-
-# export QT_QPA_PLATFORMTHEME=gtk2 #e.g. gtk2, qt5ct
-
-# window title of X terminals
-# case ${TERM} in
-# 	xterm*|rxvt*|Eterm*|aterm|alacritty|kterm|gnome*|interix|konsole*)
-# 		PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\007"'	;;
-# 	screen*)
-# 		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/\~}\033\\"'	;;
-# esac
-
+## guild.ai
 [ -s ~/.guild/bash_completion ] && . ~/.guild/bash_completion  # Enable completion for guild

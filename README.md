@@ -263,6 +263,11 @@ You can copy over the `.mozilla` profiles folder from a previous installation to
 
 If Firefox CSS stylesheets are not in place already done, symbolic link `userChrome.css` and `userContent.css` by copying over `.config/firefox/chrome/chrome` to the `.mozilla/<profile>` directory. Enable css in `about:config` by toggling `toolkit.legacyUserProfileCustomization.stylesheets = true`.
 
+## HiDPI Issues 
+Refer to https://wiki.archlinux.org/title/HiDPI.
+### firefox
+Enter `about:config` and set `ui.textScaleFactor` between 100 and 150. Possibly change the default zoom under Firefox settings as well.
+
 
 ## sync and cloud (syncthing)
 For a user service that runs on login:

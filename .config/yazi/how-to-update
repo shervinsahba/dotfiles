@@ -1,0 +1,10 @@
+The config advice on yazi's docs [1] says to copy the config files from github [2]. I don't seem to be able to find example configs under system directories, so I guess just check the github. There are three files
+
+- keymap.toml
+- theme.toml
+- yazi.toml
+
+The last time I pulled from the github was on 2023-12-04.
+
+[1] https://yazi-rs.github.io/docs/configuration/overview
+[2] https://github.com/sxyazi/yazi/tree/main/yazi-config/preset

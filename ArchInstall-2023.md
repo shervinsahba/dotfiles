@@ -341,7 +341,9 @@ pacman -S brightnessctl
 ```
 
 ### powerkey, lid, and idle actions
-Edit `/etc/systemd/logind.conf` and `/etc/systemd/sleep.conf`. For a laptop consider something like.
+Edit `/etc/systemd/logind.conf` and `/etc/systemd/sleep.conf`. (Or, more appropriately, create drop-in files at `/etc/systemd/logind.conf.d/override.conf` and `/etc/systemd/sleep.conf.d/override.conf`. See dotfiles.). 
+
+For a laptop that hibernates consider something like.
 ```
 [Login]
 HandlePowerKey=hibernate
@@ -353,7 +355,7 @@ IdleAction=suspend-then-hibernate
 and
 ```
 [Sleep]
-HibernateDelaySec=30min
+HibernateDelaySec=5min
 ```
 For a desktop, if you want to prevent accidental power key bumps consider:
 ```

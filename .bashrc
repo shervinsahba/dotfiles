@@ -58,6 +58,15 @@ fi
 #export PATH="$PATH:$NPM_PACKAGES/bin"
 #export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
+## yazi wrapper (cd after yazi)
+function ya() {
+	tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+	yazi --cwd-file="$tmp"
+	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## integrations handled by outside software
@@ -91,3 +100,4 @@ fi
 
 ## guild.ai
 [ -s ~/.guild/bash_completion ] && . ~/.guild/bash_completion  # Enable completion for guild
+

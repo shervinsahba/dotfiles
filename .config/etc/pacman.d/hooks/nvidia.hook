@@ -8,7 +8,7 @@ Target=linux
 # Change the linux part above if a different kernel is used
 
 [Action]
-Description=Update NVIDIA module in initcpio
+Description=Updating NVIDIA module in initcpio...
 Depends=mkinitcpio
 When=PostTransaction
 NeedsTargets

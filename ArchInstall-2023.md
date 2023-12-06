@@ -332,6 +332,7 @@ systemctl enable tlp
 systemctl mask systemd-rfkill.service systemd-rfkill.socket
 ```
  - Deactivate USB_AUTOSUSPEND by setting it to 0 in `/etc/tlp.conf`.
+ - Consider setting USB_EXCLUDE_<DEVICE> to 1 if not deactivating autosuspend.
  - Run `tlp-stat` and read through to see if any warnings or recommendations
 
 ### backlight

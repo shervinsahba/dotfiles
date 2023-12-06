@@ -413,7 +413,11 @@ Alternatively, if you have a yaml file to generate a conda environment, you can 
 mamba env create -f <env>.yml
 ```
 
-
+## Ambient light sensor
+If needed on the device, install and check with
+```
+pacman -S iio-sensor-proxy ; monitor-sensor
+```
 
 
 # Old ideas 

@@ -195,19 +195,22 @@ bindsym --release button2 kill
 ## multimonitor
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+workspace 1 output primary
+workspace 2 output primary
+workspace 3 output primary
+workspace 4 output primary
+workspace 5 output primary
+workspace 6 output primary
+workspace 7 output primary
+workspace 8 output primary
+workspace 9 output primary
+workspace 10 output DisplayPort-0 DisplayPort-1 DisplayPort-2 DisplayPort-3 primary
+
 # move focus between monitors
-bindsym $mod+Alt+h focus output left
-bindsym $mod+Alt+j focus output down
-bindsym $mod+Alt+k focus output up
-bindsym $mod+Alt+l focus output right
-bindsym $mod+Alt+Left focus output left
-bindsym $mod+Alt+Down focus output down
-bindsym $mod+Alt+Up focus output up
-bindsym $mod+Alt+Right focus output right
 bindsym $mod+m focus output next
 
 # move workspaces between monitors
-bindsym $mod+Shift+m move workspace to output next
+#bindsym $mod+Shift+m move workspace to output next
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## i3-gaps settings

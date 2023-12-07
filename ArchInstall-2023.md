@@ -325,6 +325,15 @@ systemctl enable --now plocate-updatedb.timer reflector.timer fstrim.timer pacca
 ```
 Note: For the btrfs (monthly) scrub timer, you can check on it with `journalctl -u btrfs-scrub@-.service` and `btrfs scrub status /`. This is for a mountpoint at `/` by the way. For other mount points, replace the `@-` with the volume name, like @home for /home.
 
+## mirrorlist
+Edit `/etc/xdg/reflector/reflector.conf` to use something like
+```
+--protocol https
+--country US
+--latest 15
+--sort rate
+```
+
 ## power management
 ```
 pacman -S tlp

@@ -15,6 +15,32 @@ systemctl --failed
 journalctl -b --priority=3
 ```
 
+## btrfs maintenance
+Here we'll assume the btrfs filesystem is mounted on /. If not, change below as appropriate.
+
+Check filesystem usage
+```
+btrfs fi usage /
+```
+Balance allocated space, if necessary, with various percentages for data and metadata usage as needed. If completely out of space to allocate, the balance will fail. You can add a device to the filesystem, balance, and then remove the device to fix this.
+```
+btrfs balance start -dusage=10 -musage=0 /
+```
+Check the filesystem stats for errors.
+```
+btrfs device stats /
+```
+Scrub and watch if errors appear. Get list of uncorrectable files if needed.
+```
+btrfs scrub start /
+watch -n 5 btrfs scrub status /
+dmesg | grep -e "BTRFS warning.*path:" | sed -e 's/^.*path\: //' | sort -u
+```
+Once corrected, reset the stats.
+```
+btrfs device stats --reset /
+```
+
 ## clean journal
 ```
 journalctl --rotate --vacuum-size=200M

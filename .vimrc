@@ -14,7 +14,7 @@ set whichwrap+=<,>,h,l,[,]  " wrap cursor left and right
 set ruler          " show the cursor position all the time
 set showmatch      " highlight matching braces
 set showmode       " show insert/replace/visual mode
-set number         " show line numbers
+"set number         " show line numbers
 "set textwidth=120  " wrap lines at given column
 
 set laststatus=2

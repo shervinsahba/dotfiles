@@ -167,8 +167,10 @@ echo KEYMAP=us > /etc/vconsole.conf
 Edit `/etc/hosts`. See the example in `man hosts`.
 ```
 127.0.0.1    localhost
-127.0.1.1    <hostname>.localdomain    <hostname>
+127.0.1.1    <hostname>.localdomain <hostname>
 ::1          localhost ip6-localhost ip6-loopback
+ff02::1      ip6-allnodes
+ff02::2      ip6-allrouters
 ```
 
 ## initramfs

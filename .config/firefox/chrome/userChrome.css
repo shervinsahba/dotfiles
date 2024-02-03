@@ -7,9 +7,10 @@
 }
 
 /* Hide min,max,close buttons */
-.titlebar-buttonbox-container{
+/*.titlebar-buttonbox-container{
   display: none
 }
+*/
 
 /* HIDE TOP FIREFOX TABS (For Tree Style Tabs and/or Sidebery) */
 #titlebar {

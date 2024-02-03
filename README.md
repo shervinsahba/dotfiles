@@ -52,7 +52,7 @@ SystemMaxUse=250M
 ```
 
 ## update firmware
-You can check your BIOS version with `dmidecode`. In general, for updating firmware, the `fwupd` package should be the job. First run `fwupdmgr refresh`. Then survey your system's updateable devices with `fwupdmgr get-devices`. To actually update, run `fwupdmgr update`. Reboot and wait for the updates to finish. NOTE! Some UEFI systems may result in a screwed up bootloader from this process. Check Arch Wiki for details!
+You can check your BIOS version with `dmidecode -s bios-version`. In general, for updating firmware, the `fwupd` package should be the job. First run `fwupdmgr refresh`. Then survey your system's updateable devices with `fwupdmgr get-devices`. To actually update, run `fwupdmgr update`. Reboot and wait for the updates to finish. NOTE! Some UEFI systems may result in a screwed up bootloader from this process. Check Arch Wiki for details!
 
 ## manage pacnew and pacsave files
 Check them out with `pacdiff -o`. Consider creating a pacman hook to notify you with `vim /etc/pacman.d/hooks/pacfiles.hook` and

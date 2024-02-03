@@ -13,11 +13,15 @@ set $super Mod5
 # include directory
 set $dir ~/.config/sway/includes
 
-# restart i3
+# restart i3/sway
 bindsym $mod+Shift+r restart
+bindsym $mod+Shift+c reload
 
 # lightdm user switch
 bindsym $mod+Shift+Escape exec dm-tool switch-to-greeter
+
+# wallpaper
+exec swaybg -i ~/.local/share/wallpapers/wood-background-1.jpg
 
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@

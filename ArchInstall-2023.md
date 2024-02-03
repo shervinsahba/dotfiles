@@ -342,9 +342,18 @@ pacman -S tlp
 systemctl enable tlp
 systemctl mask systemd-rfkill.service systemd-rfkill.socket
 ```
- - Deactivate USB_AUTOSUSPEND by setting it to 0 in `/etc/tlp.conf`.
- - Consider setting USB_EXCLUDE_<DEVICE> to 1 if not deactivating autosuspend.
+Now in `/etc/tlp.conf` consider these settings.
+ - WIFI_PWR_ON_BAT=off to prevent disconnects
+ - USB_AUTOSUSPEND=0 to prevent device disconnects
+ - USB_EXCLUDE_<DEVICE> to 1 for certain devices if not deactivating autosuspend
  - Run `tlp-stat` and read through to see if any warnings or recommendations
+
+If power profiles daemon (PPD) has been used instead of TLP for power management, you'll need to stop, disable, and mask PPD so it doesn't conflict with TLP.
+```
+systemctl stop power-profiles-daemon
+systemctl disable power-profiles-daemon
+systemctl mask power-profiles-daemon
+```
 
 ### backlight
 (See my scripts for using brightnessctl efficiently with i3/sway)

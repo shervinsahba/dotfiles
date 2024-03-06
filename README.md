@@ -152,7 +152,7 @@ Added these rules after `# End required lines` in `/etc/ufw/before.rules`:
 ## SSH
 ### Host-side:
 1.) `systemctl enable --now sshd`
-2.) Set `PasswordAuthentication no` on host device in `/etc/ssh/sshd_config`.
+2.) Set `PasswordAuthentication no` on host device in `/etc/ssh/sshd_config`. Also consider `KbdInteractiveAuthentication no` and `UsePAM yes`.
 3.) `ufw allow ssh` 
 4.) Add ssh jail to fail2ban and enable the service.
 ```

@@ -14,8 +14,38 @@
 
 /* HIDE TOP FIREFOX TABS (For Tree Style Tabs and/or Sidebery) */
 #titlebar {
-  height: 0px !important;
+  height: 4px !important;
 }
+#tabbrowser-tabs {
+  visibility: collapse !important;
+  min-height: 0 !important;
+}
+
+
+
+
+
+/* Adding empty space for buttons */
+#nav-bar {
+  margin-right:90px;
+}
+/* Fix for main menu calling by Alt button */
+#titlebar > #toolbar-menubar {
+  margin-top: 10px;
+}
+/* Move minimize/restore/close buttons to empty space */
+#TabsToolbar > .titlebar-buttonbox-container {
+  display: block;
+  position: absolute;
+  top: 4px;
+  right: 1px;
+}
+/* style titlebar buttons to have no bg on hover */
+.titlebar-button:hover {
+  background-color: transparent !important;
+}
+
+
 
 /* SIDE BAR SETTINGS */
 #sidebar-box #sidebar-header {

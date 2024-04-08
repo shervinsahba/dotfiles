@@ -25,8 +25,9 @@ for_window [class="(?i)pulseeffects"] floating enable, sticky enable
 for_window [class="(?i)qbittorrent"] floating enable
 for_window [class="(?i)ringcentral"] floating enable, sticky enable
 #for_window [class="Slack"] floating enable
-for_window [class="Steam" title="Steam Library Folders"] floating enable
+for_window [class="steam" title="Friends List"] floating enable
 for_window [class="Steam" title="Create or select new Steam library folder:"] floating enable
+for_window [class="Steam" title="Steam Library Folders"] floating enable
 for_window [class="Steam" title="Steam - News"] floating enable
 for_window [class="Tauon Music Box"] floating enable
 for_window [class="Thunar" title="File Operation Progress"] floating enable, move position 50 70

@@ -9,6 +9,7 @@ export PATH
 ## editor
 export EDITOR=vim
 export VISUAL="$EDITOR"
+export SYSTEMD_EDITOR=vim
 
 ## colors for less, man, etc.
 [ -f ~/.config/LESS_TERMCAP ] && source ~/.config/LESS_TERMCAP

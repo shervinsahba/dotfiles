@@ -266,6 +266,12 @@ RandomizedDelaySec=120
 
 
 ## file browsers (ranger, thunar)
+
+Note: if you need to reset MIME types for your file browser try, for example, something like
+```
+xdg-mime default thunar.desktop inode/directory
+```
+
 ### ranger
 Get some [Ranger plugins](https://github.com/ranger/ranger/wiki/Plugins).
 ```
@@ -342,6 +348,18 @@ When=PostTransaction
 NeedsTargets
 Exec=/bin/sh -c 'while read -r trg; do case $trg in linux*) exit 0; esac; done; /usr/bin/mkinitcpio -P'
 ```
+
+### Preserve video memory after suspend
+See https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Preserve_video_memory_after_suspend
+
+```
+echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >> /etc/modprobe.d/nvidia.conf
+systemctl enable nvidia-suspend.service
+systemctl enable nvidia-hibernate.service
+systemctl enable nvidia-resume.service
+mkinitcpio -P
+```
+
 
 ## gaming (steam, lutris)
 ### steam

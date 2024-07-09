@@ -546,3 +546,16 @@ usermod -a -G nzbget sonarr
 After finishing adding the root folder, set up the indexer under settings->indexer (e.g. NZBGeek) with your subscribed API key. Then establish the client under settings->download clients, adding NZBGet as a client using your nzbget user and control password along with the sonarr category you just set.
 
 Repeat the process for `lidarr`, `radarr`, etc. These are served on `localhost:XXXX` ports `8686` and `7878` respectively.
+
+
+# GNOME
+## Fractional scaling.
+Run the following and restart. New options appear under Settings>Displays>Scale.
+```
+gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffer']"
+```
+
+## disable camera shutter noise for screenshots
+```
+mv /usr/share/sounds/freedesktop/stereo/camera-shutter.oga /usr/share/sounds/freedesktop/stereo/camera-shutter.oga.bak
+```

@@ -425,7 +425,7 @@ _products=(
   "Wavelet_Toolbox"
 )
 ```
-You'll need the matlab-meta package to handle dependencies. After downloading it and following the steps in the README, you can build the matlab package.
+You'll need the matlab-meta packadoge to handle dependencies. After downloading it and following the steps in the README, you can build the matlab package.
 ```
 yay -S --asdeps matlab-meta
 makepkg -sri
@@ -461,6 +461,13 @@ mamba env create -f <env>.yml
 If needed on the device, install and check with
 ```
 pacman -S iio-sensor-proxy ; monitor-sensor
+```
+
+## docker
+```
+pacman -S docker
+systemctl enable --now docker
+usermod -aG docker $USER
 ```
 
 
@@ -546,7 +553,6 @@ usermod -a -G nzbget sonarr
 After finishing adding the root folder, set up the indexer under settings->indexer (e.g. NZBGeek) with your subscribed API key. Then establish the client under settings->download clients, adding NZBGet as a client using your nzbget user and control password along with the sonarr category you just set.
 
 Repeat the process for `lidarr`, `radarr`, etc. These are served on `localhost:XXXX` ports `8686` and `7878` respectively.
-
 
 # GNOME
 ## Fractional scaling.

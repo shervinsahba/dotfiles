@@ -565,3 +565,13 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 ```
 mv /usr/share/sounds/freedesktop/stereo/camera-shutter.oga /usr/share/sounds/freedesktop/stereo/camera-shutter.oga.bak
 ```
+
+# wayland and NVIDIA
+You may need [extra requirements with Wayland and NVIDIA](https://wiki.archlinux.org/title/Wayland#Requirements)
+
+Create `/etc/modprobe.d/nvidia.conf` with contents
+```
+options nvidia-drm modeset=1
+options nvidia-drm fbdev=1
+```
+and add `nvidia_modeset nvidia_uvm nvidia_drm` to `MODULES=()` in `/etc/mkinitcpio.conf`. Then `mkinitcpio -P`. 

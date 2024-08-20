@@ -11,9 +11,9 @@
 !!    ISO_Level3_Shift+Shift+Key
 !! Only the first four keysyms are really used by X servers.
 
-keycode 66 = Hyper_L NoSymbol NoSymbol NoSymbol
-clear lock
-clear mod4
-add mod4 = Hyper_L
-clear mod5
-add mod5 = Super_L
+!!keycode 66 = Hyper_L NoSymbol NoSymbol NoSymbol
+!!clear lock
+!!clear mod4
+!!add mod4 = Hyper_L
+!!clear mod5
+!!add mod5 = Super_L

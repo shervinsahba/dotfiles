@@ -44,7 +44,7 @@ alias cdR="cd ~/Research"
 
 # drop-in replacements for Linux standbys
 command -v vim >/dev/null 2>&1 && alias vi='vim'
-command -v rg >/dev/null 2>&1 && alias grep='rg'
+#command -v rg >/dev/null 2>&1 && alias grep='rg'
 command -v lsd > /dev/null 2>&1 && alias ls='lsd'
 #command -v fd >/dev/null 2>&1 && alias find='fd'
 #command -v bat >/dev/null 2>&1 && alias cat='bat'  ## too many clashes in practice

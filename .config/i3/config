@@ -5,12 +5,14 @@
 ## i3 settings
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
+# include any hostname.conf specific settings
+include ~/.config/i3/`hostname`.conf
+
 # mod key. Caps_Lock is my i3 modifier of choice.
 # Here I set Caps_Lock via .Xmodmap to register as [Hyper_R NoSymbol ...]
 # and set Hyper_R as Mod3. See key assignments with xmodmap / xmodmap -pke.
-exec_always --no-startup-id xmodmap "~/.Xmodmap"
+#exec_always --no-startup-id xmodmap "~/.Xmodmap"
 set $mod Mod4
-set $super Mod5
 
 # include directory
 set $dir ~/.config/i3/includes
@@ -166,7 +168,7 @@ floating_minimum_size 200x200
 bindsym $mod+c move position center
 bindsym $mod+Shift+c move position 50 50
 bindsym $mod+p resize set 1920 1080
-bindsym $mod+$super+p resize set 2560 1440
+#bindsym $super+Shift+p resize set 2560 1440
 
 # force floating for all new windows
 # for_window [class="[.]*"] floating enable

@@ -1,37 +1,29 @@
 # polybar toggle
-bindsym $mod+b exec --no-startup-id polybar-msg cmd toggle
+bindsym $mod+Shift+b exec --no-startup-id polybar-msg cmd toggle
 
 # tdrop - dropdown floating windows
 bindsym F12 exec --no-startup-id tdrops kitty
-bindsym $super+x exec --no-startup-id tdrops kitty
-bindsym $super+a exec --no-startup-id tdrops pavucontrol
-bindsym $super+b exec --no-startup-id tdrops blueman-manager
-bindsym $super+z exec --no-startup-id tdrops zotero
+bindsym $mod+Ctrl+a exec --no-startup-id tdrops pavucontrol
+bindsym $mod+Ctrl+b exec --no-startup-id tdrops blueman-manager
+bindsym $mod+Ctrl+z exec --no-startup-id tdrops zotero
 
 # lockscreen
 bindsym $mod+Shift+Ctrl+Delete exec --no-startup-id xsecurelock
 
 # rofi launchers
-#bindsym $mod+d exec --no-startup-id "rofi -show drun"
-#bindsym $mod+Shift+d exec --no-startup-id "rofi -show window"
 bindsym $mod+d exec --no-startup-id "~/.config/rofi/launcher.sh"
-bindsym $mod+Shift+d exec --no-startup-id "~/.config/rofi/launcher.sh -show window"
-bindsym $super+v exec --no-startup-id ~/src/polybar-vpn-controller/vpn_module menu
 
 # terminal
-bindsym $mod+Return exec kitty --name tile || i3-sensible-terminal
-bindsym $super+Return exec kitty --name float || i3-sensible-terminal
+bindsym $mod+Return exec kitty --name kitty-shortcut || i3-sensible-terminal
 
-# screenshots (via maim/flameshot)
-#set $maimsavelocation "$HOME/Downloads/Screenshots/maim/$(date -Iseconds).png"
-#bindsym --release Print exec maim -uBs $maimsavelocation | xclip -selection clipboard -t image/pngbindsym --release Ctrl+Print exec maim -uBsD $maimsavelocation | xclip -selection clipboard -t image/png
-#bindsym --release $super+Print exec maim -uBs | tee $maimsavelocation | feh - -x
+# screenshots
 bindsym Print exec flameshot gui
 bindsym $mod+Print exec flameshot screen -p ~/Downloads/Screenshots
 
 # file manager
-bindsym $super+r exec kitty ranger --name ranger
-bindsym $super+t exec thunar
+#bindsym $super+r exec kitty ranger --name ranger
+bindsym $mod+Ctrl+t exec thunar
+
 
 # internet browser
-bindsym $super+f exec firefox --new-window
+bindsym $mod+Ctrl+f exec firefox --new-window

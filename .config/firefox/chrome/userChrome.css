@@ -1,3 +1,8 @@
+@import url(theme/sidebar.css);
+@import url(theme/sidebery.css);
+@import url(theme/titlebar-buttonbox.css);
+@import url(theme/urlbar-icons.css);
+
 /* Prevent white new tab flash - see alternative solution in userContent */
 #tabbrowser-tabpanels {
   background-color: #404040 !important;
@@ -6,102 +11,9 @@
   background-color: #404040 !important;
 }
 
-/* Hide min,max,close buttons */
-/*.titlebar-buttonbox-container{
-  display: none
-}
-*/
-
-/* HIDE TOP FIREFOX TABS (For Tree Style Tabs and/or Sidebery) */
-#titlebar {
-  height: 4px !important;
-}
-#tabbrowser-tabs {
-  visibility: collapse !important;
-  min-height: 0 !important;
-}
-
-
-
-
-
-/* Adding empty space for buttons */
-#nav-bar {
-  margin-right:90px;
-}
-/* Fix for main menu calling by Alt button */
-#titlebar > #toolbar-menubar {
-  margin-top: 10px;
-}
-/* Move minimize/restore/close buttons to empty space */
-#TabsToolbar > .titlebar-buttonbox-container {
-  display: block;
-  position: absolute;
-  top: 4px;
-  right: 1px;
-}
 /* style titlebar buttons to have no bg on hover */
 .titlebar-button:hover {
   background-color: transparent !important;
-}
-
-
-
-/* SIDE BAR SETTINGS */
-#sidebar-box #sidebar-header {
-  overflow: hidden !important;
-  border: 0px solid black !important;
-}
-#sidebar-splitter {
-  display: none !important;
-}
-
-/* SIDE BAR AUTO-HIDE HEADER (except Bookmarks, History, Sync'd Tabs); appears normally on hover */
-#sidebar-box:not([sidebarcommand="viewBookmarksSidebar"]):not([sidebarcommand="viewHistorySidebar"]):not([sidebarcommand="viewTabsSidebar"])
-  #sidebar-header:not(:hover) {
-    max-height: 5px !important;
-    min-height: 5px !important;
-    padding: 0 !important;
-    background-color: rgb(53, 57, 86) !important;
-    opacity: 1.0 !important;
-}
-#sidebar-box:not([sidebarcommand="viewBookmarksSidebar"]):not([sidebarcommand="viewHistorySidebar"]):not([sidebarcommand="viewTabsSidebar"])
-  #sidebar-header:not(:hover) #sidebar-switcher-target {
-    opacity: 0 !important;
-}
-#sidebar-header {
-    -moz-transition: all 150ms ease-out 150ms !important;
-    background-color: rgb(40, 42, 54) !important;
-}
-
-/* SIDE BAR AUTO-HIDE PREVENTION */
-:root {
-  --sidebar-min-width: 33px;
-  --sidebar-visible-width: 300px;
-}
-#main-window:not([titlepreface*="⧌"]),
-#sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
-  min-width: var(--sidebar-visible-width) !important;
-  max-width: none !important;
-}
-
-/* SIDE BAR AUTO-HIDE SIDEBERY */
-#main-window[titlepreface*="⧌"] #sidebar,
-#main-window[titlepreface*="⧌"] #sidebar-header,
-#main-window[titlepreface*="⧌"] #sidebar-box{
-  position: relative !important;
-  min-width: var(--sidebar-min-width) !important;
-  max-width: var(--sidebar-min-width) !important;
-  transition: 150ms ease 150ms;
-  z-index:3;
-}
-#main-window[titlepreface*="⧌"] #sidebar-box:hover :-moz-any(#sidebar,#sidebar-header) {
-  position: relative !important;
-  min-width: var(--sidebar-visible-width) !important;
-  max-width: var(--sidebar-visible-width) !important;
-  transition: 150ms ease 150ms;
-  z-index:3;
-  margin-right: calc((var(--sidebar-visible-width) - var(--sidebar-min-width)) * -1) !important;
 }
 
 
@@ -111,88 +23,4 @@
   animation: none !important;
 }
 
-/* URL BAR - no drm icon */
-#identity-box[pageproxystate="valid"].certUserOverridden > #identity-icon,
-  .drm-icon {
-    display: none !important;
-}
-
-/* URL BAR ICONS - Open on hover, then collapse. */
-#back-button,
-#forward-button,
-#reload-button {
-  min-width: 0px !important;
-}
-#library-button .toolbarbutton-icon,
-#sidebar-button .toolbarbutton-icon,
-#back-button .toolbarbutton-icon,
-#forward-button .toolbarbutton-icon,
-#reload-button .toolbarbutton-icon,
-#pocket-button,
-#pageActionButton,
-#star-button-box,
-#star-button,
-.urlbar-icon,
-#personal-bookmarks .toolbarbutton-icon,
-#fxa-avatar-image,
-.toolbarbutton-badge-stack .toolbarbutton-icon,
-#identity-icon-box,
-#identity-icon,
-#tracking-protection-icon-container,
-#tracking-protection-icon,
-#unified-extensions-button .toolbarbutton-icon {
-  width: 0px !important;
-  height: 0px !important;
-  transition: all 1.0s ease 0.35s;
-}
-#navigator-toolbox:hover #library-button .toolbarbutton-icon,
-#navigator-toolbox:hover #sidebar-button .toolbarbutton-icon,
-#navigator-toolbox:hover #back-button .toolbarbutton-icon,
-#navigator-toolbox:hover #forward-button .toolbarbutton-icon,
-#navigator-toolbox:hover #reload-button .toolbarbutton-icon,
-#navigator-toolbox:hover #unified-extensions-button .toolbarbutton-icon {
-  transform: rotate(0deg);
-  width: 28px !important;
-  height: 28px !important;
-  transition: all 0.1s;
-}
-#navigator-toolbox:hover #star-button-box,
-#navigator-toolbox:hover #tracking-protection-icon-container,
-#navigator-toolbox:hover #identity-icon-box {
-  width: 22px !important;
-  height: 24px !important;
-  transition: all 0.1s;
-}
-#navigator-toolbox:hover #pocket-button,
-#navigator-toolbox:hover #pageActionButton,
-#navigator-toolbox:hover #star-button,
-#navigator-toolbox:hover .urlbar-icon,
-#navigator-toolbox:hover #personal-bookmarks .toolbarbutton-icon,
-#navigator-toolbox:hover #fxa-avatar-image,
-#navigator-toolbox:hover .toolbarbutton-badge-stack .toolbarbutton-icon,
-#navigator-toolbox:hover #tracking-protection-icon,
-#navigator-toolbox:hover #identity-icon {
-  width: 16px !important;
-  height: 16px !important;
-  transition: all 0.1s;
-}
-
-/* URL BAR ICON Badges - the little notices on toolbar button icons */
-.toolbarbutton-badge {
-  margin-top: -20px !important;
-  width: 0px !important;
-  height: 0px !important;
-  min-height: 0px !important;
-  min-width: 0px !important;
-  transition: all 1.0s ease 0.35s;
-}
-#navigator-toolbox:hover .toolbarbutton-badge {
-  margin-top: -5px !important;
-  transform: rotate(0deg);
-  width: 18px !important;
-  height: 9px !important;
-  min-height: 0px !important;
-  min-width: 0px !important;
-  transition: all 0.1s;
-}
 

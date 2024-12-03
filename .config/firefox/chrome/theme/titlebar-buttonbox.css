@@ -1,0 +1,24 @@
+/* this addresses the minimize/restore/close buttons */
+
+/* if urlbar is a single line, we want to create empty space to move buttons into */
+#nav-bar {
+  margin-right:90px;
+}
+/* move buttons to empty space */
+#TabsToolbar > .titlebar-buttonbox-container {
+  display: block;
+  position: absolute;
+  top: 4px;
+  right: 1px;
+}
+/* style buttons to have no bg on hover */
+/*.titlebar-button:hover {
+  background-color: transparent !important;
+}*/
+
+/* Hide minimize/restore/close buttons */
+/*
+.titlebar-buttonbox-container{
+  display: none
+}
+*/

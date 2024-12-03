@@ -1,0 +1,26 @@
+#sidebar-box #sidebar-header {
+  overflow: hidden !important;
+  border: 0px solid black !important;
+}
+#sidebar-splitter {
+  display: none !important;
+}
+
+/* SIDE BAR AUTO-HIDE HEADER (except Bookmarks, History, Sync'd Tabs); appears normally on hover */
+#sidebar-box:not([sidebarcommand="viewBookmarksSidebar"]):not([sidebarcommand="viewHistorySidebar"]):not([sidebarcommand="viewTabsSidebar"])
+  #sidebar-header:not(:hover) {
+    max-height: 5px !important;
+    min-height: 5px !important;
+    padding: 0 !important;
+    background-color: rgb(53, 57, 86) !important;
+    opacity: 1.0 !important;
+}
+#sidebar-box:not([sidebarcommand="viewBookmarksSidebar"]):not([sidebarcommand="viewHistorySidebar"]):not([sidebarcommand="viewTabsSidebar"])
+  #sidebar-header:not(:hover) #sidebar-switcher-target {
+    opacity: 0 !important;
+}
+#sidebar-header {
+    -moz-transition: all 150ms ease-out 150ms !important;
+    background-color: rgb(40, 42, 54) !important;
+}
+

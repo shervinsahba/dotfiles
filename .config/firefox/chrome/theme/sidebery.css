@@ -1,0 +1,35 @@
+/* Hide native top tabs */
+#tabbrowser-tabs {
+  visibility: collapse !important;
+  min-height: 0 !important;
+}
+
+/* Auto-hide sidebar for Sidebery */
+#main-window[titlepreface*="⧌"] #sidebar,
+#main-window[titlepreface*="⧌"] #sidebar-header,
+#main-window[titlepreface*="⧌"] #sidebar-box {
+  position: relative !important;
+  min-width: var(--sidebar-min-width) !important;
+  max-width: var(--sidebar-min-width) !important;
+  transition: 150ms ease 150ms;
+  z-index:999;
+}
+#main-window[titlepreface*="⧌"] #sidebar-box:hover :-moz-any(#sidebar,#sidebar-header) {
+  position: relative !important;
+  min-width: var(--sidebar-visible-width) !important;
+  max-width: var(--sidebar-visible-width) !important;
+  transition: 150ms ease 150ms;
+  z-index:99;
+  margin-right: calc((var(--sidebar-visible-width) - var(--sidebar-min-width)) * -1) !important;
+}
+
+/* Prevent sidebar auto-hide if side bar is used for other purposes */
+:root {
+  --sidebar-min-width: 33px;
+  --sidebar-visible-width: 300px;
+}
+#main-window:not([titlepreface*="⧌"]),
+#sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
+  min-width: var(--sidebar-visible-width) !important;
+  max-width: none !important;
+}

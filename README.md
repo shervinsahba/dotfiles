@@ -566,6 +566,9 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 mv /usr/share/sounds/freedesktop/stereo/camera-shutter.oga /usr/share/sounds/freedesktop/stereo/camera-shutter.oga.bak
 ```
 
+## diable blueman-applet
+gnome-bluetooth works well enough, but if you have blueman from a secondary DE, you'll want to append `NotShowIn=GNOME;` to `/etc/xdg/autostart/blueman.desktop`.
+
 # wayland and NVIDIA
 You may need [extra requirements with Wayland and NVIDIA](https://wiki.archlinux.org/title/Wayland#Requirements)
 

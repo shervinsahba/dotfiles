@@ -5,5 +5,5 @@ Name=thinkorswim
 Comment=Trading platform
 Path=/home/shervin/src/thinkorswim
 Icon=/home/shervin/.local/share/applications/thinkorswim_logo.png
-Exec=/home/shervin/src/thinkorswim/thinkorswim
+Exec=bash -c "INSTALL4J_JAVA_HOME_OVERRIDE=/usr/lib/jvm/zulu-21 $HOME/src/thinkorswim/thinkorswim"
 Terminal=False

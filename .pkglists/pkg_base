@@ -1,3 +1,8 @@
+#lightdm
+#lightdm-slick-greeter
+#noto-fonts-cjk
+#noto-fonts-emoji
+#seahorse
 arandr
 autorandr
 bash-completion
@@ -22,8 +27,6 @@ htop
 i3-wm
 jq
 kitty
-#lightdm
-#lightdm-slick-greeter
 lshw
 lxappearance
 man-db
@@ -33,8 +36,6 @@ network-manager-applet
 networkmanager
 nmap
 noto-fonts
-#noto-fonts-cjk
-#noto-fonts-emoji
 openssh
 pavucontrol
 picom
@@ -47,7 +48,7 @@ python-pywal
 ranger
 ripgrep
 rofi
-#seahorse
+seahorse
 snapper
 sshfs
 starship
@@ -63,11 +64,11 @@ ufw
 unarchiver
 vim
 wget
+wireplumber
 xdg-user-dirs
 xdg-utils
 xsecurelock
 xss-lock
-wireplumber
 yadm
 zip
 zsh

@@ -79,9 +79,12 @@ alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
 alias yay="if command -v conda >/dev/null; then conda deactivate; fi && yay"
 alias pacman-ls-native="pacman -Qqettn"
 alias pacman-ls-aur="pacman -Qqettm"
+alias pacman-fzf-local="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
+alias acman-fzf-remote="pacman -Slq | fzf --preview 'pacman -Si {}' --layout=reverse"
 alias zsh_activate="sudo chsh $USER -s /bin/zsh && echo 'User shell changed to zsh. Now log out.'"
 alias bash_activate="sudo chsh $USER -s /bin/bash && echo 'User shell changed to bash. Now log out.'"
 alias journalctl='journalctl --output=short-iso'	            # ISO timestamps
+alias journalctl-errors='journalctl -b -p err'
 alias restart-net="systemctl restart NetworkManager.service"    # restarts network and /etc/hosts
 
 # cleanup
@@ -105,3 +108,9 @@ alias ssh-keygen-1="ssh-keygen -t ed25519 -a 100"
 alias ssh-keygen-2="ssh-keygen -t rsa -b 4096 -o -a 100"
 
 alias yt-dlp="yt-dlp -o '%(uploader)s - %(title)s.%(ext)s'"
+
+alias udisks-mount='udisksctl mount -b'
+alias udisks-unmnt='udisksctl unmount -b'
+
+alias ipv4="ip addr show | grep 'inet ' | grep -v '127.0.0.1' | cut -d' ' -f6 | cut -d/ -f1"
+alias ipv6="ip addr show | grep 'inet6 ' | cut -d ' ' -f6 | sed -n '2p'"

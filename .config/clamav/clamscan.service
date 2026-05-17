@@ -1,0 +1,12 @@
+# /etc/systemd/system/clamscan.service
+
+[Unit]
+Description=ClamAV Automated Scan
+After=clamav-daemon.service
+Requires=clamav-daemon.service
+
+[Service]
+Type=oneshot
+#ExecStart=clamdscan --multiscan --fdpass /home
+# Exclude directories to speed it up a bit
+ExecStart=clamdscan --multiscan --fdpass --exclude-dir='^/home/[^/]+/\.cache' --exclude-dir='^/home/[^/]+/\.local/share/Trash' /home

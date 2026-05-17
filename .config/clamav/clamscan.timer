@@ -1,0 +1,13 @@
+# /etc/systemd/system/clamscan.timer
+
+[Unit]
+Description=Daily ClamAV Scan
+
+[Timer]
+#OnCalendar=daily
+OnCalendar=*-*-1/2 00:00:00
+Persistent=true
+RandomizedDelaySec=3600
+
+[Install]
+WantedBy=timers.target

@@ -179,7 +179,7 @@ clamdscan --multiscan --fdpass /dir/to/scan
 
 To create notifications, edit `/etc/clamav/clamd.conf` and enable the VirusEvent directive, pointing to your script:
 ```
-VirusEvent /usr/local/bin/clamav-alert.sh "%v"
+VirusEvent /usr/local/bin/clamav-alert.sh
 ```
 
 For the script itself, create `/usr/bin/local/clamav-alert.sh` and make it executable with `chmod +x`:
@@ -233,6 +233,36 @@ Restart daemons and enable the timer
 ```
 systemctl daemon-reload
 systemctl enable --now clamscan.timer
+```
+
+To automatically scan incoming files to ~/Downloads try making the script `/usr/local/bin/clamscan-watch.sh`:
+```
+#!/bin/bash
+WATCH_DIR="$1"
+
+inotifywait -m -r -e close_write -e moved_to "$WATCH_DIR" |
+while read dir event file; do
+    clamdscan --fdpass "$dir$file"
+done
+```
+with `clamscan-watch-downloads.service`
+```
+[Unit]
+Description=ClamAV Downloads Watcher
+After=clamav-daemon.service
+Requires=clamav-daemon.service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c '/usr/local/bin/clamscan-watch.sh /home/*/Downloads'
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then
+```
+systemctl enable --now clamscan-watch-downloads.service 
 ```
 
 

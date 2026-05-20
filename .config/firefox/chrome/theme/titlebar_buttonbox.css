@@ -2,7 +2,7 @@
 
 /* if urlbar is a single line, we want to create empty space to move buttons into */
 #nav-bar {
-  margin-right:90px;
+  margin-right:80px;
 }
 /* move buttons to empty space */
 #TabsToolbar > .titlebar-buttonbox-container {
@@ -17,7 +17,7 @@
 }
 
 .titlebar-buttonbox-container .titlebar-button {
-  padding: 0 6px !important; /* reduce space between buttons */
+  padding: 0 1px !important; /* reduce space between buttons */
 }
 
 /* style buttons to have no bg on hover */

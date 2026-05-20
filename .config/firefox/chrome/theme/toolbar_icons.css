@@ -1,0 +1,95 @@
+/* Hide DRM icon */
+#identity-box[pageproxystate="valid"].certUserOverridden > #identity-icon,
+  .drm-icon {
+    display: none !important;
+}
+
+/* Auto-hide urlbar buttons */
+/* Collapse urlbar buttons and icons to 0px */
+#back-button,
+#forward-button,
+#reload-button {
+  min-width: 0px !important;
+}
+#library-button .toolbarbutton-icon,
+#sidebar-button .toolbarbutton-icon,
+#back-button .toolbarbutton-icon,
+#forward-button .toolbarbutton-icon,
+#reload-button .toolbarbutton-icon,
+#unified-extensions-button .toolbarbutton-icon,
+#nav-bar-overflow-button .toolbarbutton-icon,
+#urlbar-zoom-button,
+#pocket-button,
+#pageActionButton,
+#star-button,
+.urlbar-icon,
+#personal-bookmarks .toolbarbutton-icon,
+#fxa-avatar-image,
+.toolbarbutton-badge-stack .toolbarbutton-icon,
+#identity-icon,
+#tracking-protection-icon,
+#star-button-box,
+#tracking-protection-icon-container,
+#identity-icon-box
+ {
+  width: 0px !important;
+  height: 0px !important;
+  transition: all 1.0s ease-in 0.7s;
+}
+
+/* Hover to transform and see urlbar icons */
+#navigator-toolbox:hover #library-button .toolbarbutton-icon,
+#navigator-toolbox:hover #sidebar-button .toolbarbutton-icon,
+#navigator-toolbox:hover #back-button .toolbarbutton-icon,
+#navigator-toolbox:hover #forward-button .toolbarbutton-icon,
+#navigator-toolbox:hover #reload-button .toolbarbutton-icon,
+#navigator-toolbox:hover #unified-extensions-button .toolbarbutton-icon,
+#navigator-toolbox:hover #nav-bar-overflow-button .toolbarbutton-icon {
+  width: 28px !important;
+  height: 28px !important;
+  transition: all 0.1s;
+}
+#navigator-toolbox:hover #pocket-button,
+#navigator-toolbox:hover #pageActionButton,
+#navigator-toolbox:hover #star-button,
+#navigator-toolbox:hover .urlbar-icon,
+#navigator-toolbox:hover #personal-bookmarks .toolbarbutton-icon,
+#navigator-toolbox:hover #fxa-avatar-image,
+#navigator-toolbox:hover .toolbarbutton-badge-stack .toolbarbutton-icon,
+#navigator-toolbox:hover #tracking-protection-icon,
+#navigator-toolbox:hover #identity-icon {
+  width: 16px !important;
+  height: 16px !important;
+  transition: all 0.1s;
+}
+#navigator-toolbox:hover #star-button-box,
+#navigator-toolbox:hover #tracking-protection-icon-container,
+#navigator-toolbox:hover #identity-icon-box {
+  width: 22px !important;
+  height: 24px !important;
+  transition: all 0.1s;
+}
+#navigator-toolbox:hover #urlbar-zoom-button {
+  width: 48px !important;
+  height: 22px !important;
+  transition: all 0.1s;
+}
+
+
+/* Auto-hide urlbar button badges */
+.toolbarbutton-badge {
+  margin-top: -20px !important;
+  width: 0px !important;
+  height: 0px !important;
+  min-height: 0px !important;
+  min-width: 0px !important;
+  transition: all 1.0s ease-in 0.7s;
+}
+#navigator-toolbox:hover .toolbarbutton-badge {
+  margin-top: -5px !important;
+  width: 18px !important;
+  height: 9px !important;
+  min-height: 0px !important;
+  min-width: 0px !important;
+  transition: all 0.1s;
+}

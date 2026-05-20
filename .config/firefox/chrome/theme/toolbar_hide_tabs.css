@@ -1,0 +1,5 @@
+/* Hide native top tabs */
+#tabbrowser-tabs {
+  visibility: collapse !important;
+  min-height: 0 !important;
+}

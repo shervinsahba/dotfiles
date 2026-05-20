@@ -1,0 +1,13 @@
+# /etc/systemd/system/clamscan-watch-downloads.service
+
+[Unit]
+Description=ClamAV Downloads Watcher
+After=clamav-daemon.service
+Requires=clamav-daemon.service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c '/usr/local/bin/clamscan-watch.sh /home/*/Downloads'
+
+[Install]
+WantedBy=multi-user.target

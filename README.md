@@ -169,12 +169,102 @@ systemctl enable --now fail2ban
 ## antivirus (clamav)
 Install clamav to use `clamscan` on files. First run `freshclam` to update database, even if the systemd service is setup later. Setup checks to update virus database automatically and edit `/etc/clamav/freshclam.conf` to change the frequency from 12 a day to something else if desired.
 ```
-systemctl enable --now clamav-freshclam.service
+systemctl enable --now clamav-freshclam
 ```
-When running the daemon, use `clamdscan` instead to scan using the config file parameters. You can also use the daemonized version to run with multiple threads with
+
+Make sure the daemon is running with `systemctl enable --now clamav-daemon`. With the daemon running, you can use `clamdscan` to scan using the config file parameters. You can also use the daemonized version to run with multiple threads:
 ```
 clamdscan --multiscan --fdpass /dir/to/scan
 ```
+
+To create notifications, edit `/etc/clamav/clamd.conf` and enable the VirusEvent directive, pointing to your script:
+```
+VirusEvent /usr/local/bin/clamav-alert.sh
+```
+
+For the script itself, create `/usr/bin/local/clamav-alert.sh` and make it executable with `chmod +x`:
+
+```
+#!/bin/bash
+PATH=/usr/bin
+ALERT_TITLE="Virus found!"
+ALERT="clamav detects: $CLAM_VIRUSEVENT_VIRUSNAME in $CLAM_VIRUSEVENT_FILENAME"
+
+
+# Send an alert to all graphical users.
+for ADDRESS in /run/user/*; do
+    USERID=${ADDRESS#/run/user/}
+    /usr/bin/sudo -u "#$USERID" DBUS_SESSION_BUS_ADDRESS="unix:path=$ADDRESS/bus" PATH=${PATH} \
+        /usr/bin/notify-send -u critical -i dialog-warning "$ALERT_TITLE" "$ALERT"
+done
+```
+
+In order for the clamav user to actually use `notify-send`, we need to set up some permissions. Create `/etc/sudoers.d/clamav` if it doesn't exist and add
+```
+clamav ALL = (ALL) NOPASSWD: SETENV: /usr/bin/notify-send
+```
+
+To run scans automatically, create `/etc/systemd/system/clamscan.service`
+```
+[Unit]
+Description=ClamAV Automated Scan
+After=clamav-daemon.service
+Requires=clamav-daemon.service
+
+[Service]
+Type=oneshot
+ExecStart=clamdscan --multiscan --fdpass --exclude-dir='^/home/[^/]+/\.cache' --exclude-dir='^/home/[^/]+/\.local/share/Trash' /home
+```
+and `/etc/systemd/system/clamscan.timer`
+```
+[Unit]
+Description=Daily ClamAV Scan
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+RandomizedDelaySec=1h
+
+[Install]
+WantedBy=timers.target
+```
+
+Restart daemons and enable the timer
+```
+systemctl daemon-reload
+systemctl enable --now clamscan.timer
+```
+
+To automatically scan incoming files to ~/Downloads try making the script `/usr/local/bin/clamscan-watch.sh`:
+```
+#!/bin/bash
+WATCH_DIR="$1"
+
+inotifywait -m -r -e close_write -e moved_to "$WATCH_DIR" |
+while read dir event file; do
+    clamdscan --fdpass "$dir$file"
+done
+```
+with `clamscan-watch-downloads.service`
+```
+[Unit]
+Description=ClamAV Downloads Watcher
+After=clamav-daemon.service
+Requires=clamav-daemon.service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash -c '/usr/local/bin/clamscan-watch.sh /home/*/Downloads'
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Then
+```
+systemctl enable --now clamscan-watch-downloads.service 
+```
+
 
 ## VPNs (mullvad, tailscale)
 Caution: VPN setup is straightforward if using only one. But if you're combining VPNs for simultaneous (or even toggled) use, it can get tricky. Here is information about `tailscale` and `mullvad` as well as a script with guidance on how to use them together using `nftables`.
@@ -565,6 +655,9 @@ gsettings set org.gnome.mutter experimental-features "['scale-monitor-framebuffe
 ```
 mv /usr/share/sounds/freedesktop/stereo/camera-shutter.oga /usr/share/sounds/freedesktop/stereo/camera-shutter.oga.bak
 ```
+
+## diable blueman-applet
+gnome-bluetooth works well enough, but if you have blueman from a secondary DE, you'll want to append `NotShowIn=GNOME;` to `/etc/xdg/autostart/blueman.desktop`.
 
 # wayland and NVIDIA
 You may need [extra requirements with Wayland and NVIDIA](https://wiki.archlinux.org/title/Wayland#Requirements)

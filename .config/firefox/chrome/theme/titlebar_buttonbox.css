@@ -6,11 +6,20 @@
 }
 /* move buttons to empty space */
 #TabsToolbar > .titlebar-buttonbox-container {
-  display: block;
-  position: absolute;
-  top: 4px;
-  right: 1px;
+  display: flex !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: auto !important;
+  height: 40px !important;
+  visibility: visible !important;
+  z-index: 999;
 }
+
+.titlebar-buttonbox-container .titlebar-button {
+  padding: 0 6px !important; /* reduce space between buttons */
+}
+
 /* style buttons to have no bg on hover */
 /*.titlebar-button:hover {
   background-color: transparent !important;

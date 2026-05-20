@@ -3,3 +3,8 @@
   visibility: collapse !important;
   min-height: 0 !important;
 }
+
+#TabsToolbar {
+  visibility: collapse !important;
+  min-height: 0 !important;
+}

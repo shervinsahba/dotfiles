@@ -182,7 +182,7 @@ To create notifications, edit `/etc/clamav/clamd.conf` and enable the VirusEvent
 VirusEvent /usr/local/bin/clamav-alert.sh
 ```
 
-For the script itself, create `/usr/bin/local/clamav-alert.sh` and make it executable with `chmod +x`:
+For the script itself, create `/usr/local/bin/clamav-alert.sh` and make it executable with `chmod +x` (or copy it from ~/.config/clamav from this repo):
 
 ```
 #!/bin/bash

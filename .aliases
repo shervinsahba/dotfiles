@@ -93,7 +93,7 @@ alias clean-paccache-keep3="paccache -rk 3"
 alias clean-orphan-list="pacman -Qdtq; echo; echo Choose packages to remove manually."
 alias clean-journal="journalctl --vacuum-size=100M"
 alias clean-trash="rm -rf $HOME/.local/share/Trash/*"
-alias clean-cache-1year="find -type f $HOME/.cache/ -type f -atime +365 -delete"
+alias clean-cache-1year="find $HOME/.cache/ -type f -atime +365 -delete"
 
 # kittens
 alias icat="kitty +kitten icat"

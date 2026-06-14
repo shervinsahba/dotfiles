@@ -1,0 +1,7 @@
+{
+    "uuid": "last-workspace@desertmouse",
+    "name": "Last Workspace",
+    "description": "Jump to the previously active workspace with a keyboard shortcut.",
+    "shell-version": ["45", "46", "47", "48", "49", "50"],
+    "version": 1
+}

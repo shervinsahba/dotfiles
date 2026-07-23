@@ -9,4 +9,4 @@ Requires=clamav-daemon.service
 Type=oneshot
 #ExecStart=clamdscan --multiscan --fdpass /home
 # Exclude directories to speed it up a bit
-ExecStart=clamdscan --multiscan --fdpass --exclude-dir='^/home/[^/]+/\.cache' --exclude-dir='^/home/[^/]+/\.local/share/Trash' /home
+ExecStart=clamdscan --multiscan --fdpass --exclude-dir='^/home/[^/]+/\\.cache' --exclude-dir='^/home/[^/]+/\\.local/share/Trash' /home

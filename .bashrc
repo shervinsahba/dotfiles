@@ -100,6 +100,3 @@ fi
 
 ## guild.ai
 [ -s ~/.guild/bash_completion ] && . ~/.guild/bash_completion  # Enable completion for guild
-
-
-eval "$(thefuck --alias)"

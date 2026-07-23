@@ -45,7 +45,7 @@ btrfs device stats --reset /
 ```
 journalctl --rotate --vacuum-size=200M
 ```
-or set a maximum size using a drop-in file with `systemctl edit systemd-journald`, adding the contents
+To create a max capacity for the journal you can create a drop-in file `/etc/systemd/journald.conf.d/maxuse.conf` with contents:
 ```
 [Journal]
 SystemMaxUse=250M
@@ -443,11 +443,15 @@ Exec=/bin/sh -c 'while read -r trg; do case $trg in linux*) exit 0; esac; done; 
 See https://wiki.archlinux.org/title/NVIDIA/Tips_and_tricks#Preserve_video_memory_after_suspend
 
 ```
+sudo systemctl enable nvidia-suspend nvidia-resume nvidia-hibernate
+```
+```
 echo "options nvidia NVreg_PreserveVideoMemoryAllocations=1" >> /etc/modprobe.d/nvidia.conf
-systemctl enable nvidia-suspend.service
-systemctl enable nvidia-hibernate.service
-systemctl enable nvidia-resume.service
 mkinitcpio -P
+```
+### Consider using the persistence daemon
+```
+systemctl enable nvidia-persistenced
 ```
 
 

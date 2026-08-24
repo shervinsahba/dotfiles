@@ -20,6 +20,7 @@ gvfs-smb
 hunspell
 hunspell-en_us
 inkscape
+inotify-tools
 krita
 libreoffice-fresh
 lsd
@@ -34,6 +35,7 @@ qbittorrent
 redshift
 thunar-volman
 tree
+ttf-0xproto-nerd
 tumbler
 viewnior
 xclip

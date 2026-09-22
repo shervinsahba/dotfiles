@@ -336,12 +336,15 @@ snapper -c <config name> create-config /path/to/subvolume
 ```
 Note: You may need to `umount /.snapshots && rmdir /.snapshots` before running the above. This may  also create a superfluous subvolume `.snapshots` that you can delete with `btrfs sub del /.snapshots`.
 
-Consider editting each snapper config in `/etc/snapper/configs/<config>` to have TIMELINE parameters that differ from the default that keeps 10 hourly, 10 daily, 0 weekly, 10 monthly, and 10 yearly snapshots. Consider something like 5,7,4,3,1.
+Set up snapshots to fire pre/post a pacman upgrade by installing `snap-pac`. That's it. Consider editting snapper config in `/etc/snapper/configs/<config>` to have NUMBER retention parameters that differ from the default. If you also set up timer based snapshots, edit the TIMELINE retention parameters. Start the cleanup timer.
 
-Setup hourly snapshot timers and cleanup. Note that if you have an active cron daemon, like cronie, then snapper will automatically run through it. This may lead to double the snapshots if you also use systemd!
+```
+systemctl enable --now snapper-cleanup.timer
+```
+
+Let's consider how to set up hourly snapshots if needed. Note that if you have an active cron daemon, like cronie, then snapper will automatically run through it. This may lead to double the snapshots in some cases.
 ```
 systemctl enable --now snapper-timeline.timer
-systemctl enable --now snapper-cleanup.timer
 ```
 To change the timer from hourly to every 4 hours, run
 ```

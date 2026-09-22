@@ -1,6 +1,7 @@
 # read by the login shell
 
 # set PATH so it includes user's bin and src dirs
+if [ -d "$HOME/.local/bin" ]; then PATH="$PATH:$HOME/.local/bin"; fi
 if [ -d "$HOME/bin" ]; then PATH="$PATH:$HOME/bin"; fi
 if [ -d "$HOME/src" ]; then PATH="$PATH:$HOME/src"; fi
 if [ -d "$HOME/src/scripts/" ]; then PATH="$PATH:$HOME/src/scripts"; fi

@@ -5,7 +5,7 @@
   --sidebar-transition-t2: 150ms;
 }
 
-/* Auto-hide sidebar for Sidebery */
+/* Auto-hide sidebar for Sidebery (collapsed state) */
 #main-window[titlepreface*="⧌"] #sidebar,
 #main-window[titlepreface*="⧌"] #sidebar-header,
 #main-window[titlepreface*="⧌"] #sidebar-box {
@@ -13,20 +13,55 @@
   min-width: var(--sidebar-min-width) !important;
   max-width: var(--sidebar-min-width) !important;
   transition: var(--sidebar-transition-t1) ease var(--sidebar-transition-t2);
-  z-index:999;
+  z-index:999 !important;
 }
-#main-window[titlepreface*="⧌"] #sidebar-box:hover :-moz-any(#sidebar,#sidebar-header) {
+
+/* Expand on hover */
+#main-window[titlepreface*="⧌"] #sidebar-box:hover :is(#sidebar,#sidebar-header) {
   position: relative !important;
   min-width: var(--sidebar-visible-width) !important;
   max-width: var(--sidebar-visible-width) !important;
   transition: var(--sidebar-transition-t1) ease var(--sidebar-transition-t2);
-  z-index:999;
+  z-index:999 !important;
   margin-right: calc((var(--sidebar-visible-width) - var(--sidebar-min-width)) * -1) !important;
 }
 
-/* Prevent sidebar auto-hide if side bar is used for other purposes */
-#main-window:not([titlepreface*="⧌"]),
-#sidebar-box:not([sidebarcommand="treestyletab_piro_sakura_ne_jp-sidebar-action"]) {
+/* Keep the box above page content while expanded */
+#main-window[titlepreface*="⧌"] #sidebar-box:hover {
+  z-index: 999 !important;
+}
+
+/* Don't auto-hide when the sidebar hosts something other than Sidebery */
+#main-window:not([titlepreface*="⧌"]) #sidebar-box {
   min-width: var(--sidebar-visible-width) !important;
   max-width: none !important;
+}
+
+
+
+/* styling: Compact the Firefox sidebar header (legacy + revamp ids) */
+/*#main-window[titlepreface*="⧌"] :is(#sidebar-header, #sidebar-panel-header) {
+  min-height: 0 !important;
+  max-height: 5px !important;
+  height: 5px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  border: none !important;
+}
+*/
+
+/* styling: Hide the contents (title, switcher, close button) in the thin strip */
+/*#main-window[titlepreface*="⧌"] :is(#sidebar-header, #sidebar-panel-header) > * {
+  opacity: 0 !important;
+}
+*/
+
+/* styling: Square corners on the sidebar */
+#main-window[titlepreface*="⧌"] #sidebar-box {
+  --border-radius-medium: 0 !important;
+  border-radius: 0 !important;
+}
+#main-window[titlepreface*="⧌"] :is(#sidebar-box, #sidebar, #sidebar-header, #sidebar-panel-header, #sidebar-main) {
+  border-radius: 0 !important;
 }

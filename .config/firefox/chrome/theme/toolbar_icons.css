@@ -34,7 +34,7 @@
  {
   width: 0px !important;
   height: 0px !important;
-  transition: all 1.0s ease-in 0.7s;
+  transition: all 0.6s ease-in 0.3s;
 }
 
 /* Hover to transform and see urlbar icons */
@@ -64,6 +64,7 @@
 }
 #navigator-toolbox:hover #star-button-box,
 #navigator-toolbox:hover #tracking-protection-icon-container,
+#navigator-toolbox:hover #identity-permission-box, 
 #navigator-toolbox:hover #identity-icon-box {
   width: 22px !important;
   height: 24px !important;
@@ -83,7 +84,7 @@
   height: 0px !important;
   min-height: 0px !important;
   min-width: 0px !important;
-  transition: all 1.0s ease-in 0.7s;
+  transition: all 0.6s ease-in 0.3s;
 }
 #navigator-toolbox:hover .toolbarbutton-badge {
   margin-top: -5px !important;

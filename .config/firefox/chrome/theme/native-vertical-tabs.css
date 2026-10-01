@@ -1,0 +1,73 @@
+/* tweaks for Firefox's native vertical tabs */
+
+/* TAB SIZE */
+/* shrink the tabs */
+:root {
+  --tab-min-height: 30px !important;        /* default is roughly 36-40px */
+  --tab-block-margin: 2px !important;       /* gap above/below each tab */
+  --tab-inner-inline-margin: 2px !important;
+}
+
+/* Tighter vertical padding and font inside each tab */
+#tabbrowser-tabs[orient="vertical"] .tabbrowser-tab {
+  min-height: var(--tab-min-height) !important;
+  padding-block: 0 !important;
+}
+#tabbrowser-tabs[orient="vertical"] .tab-content {
+  padding-block: 0 !important;
+  font-size: 14px;
+}
+#tabbrowser-tabs[orient="vertical"] .tab-background {
+  margin-block: 0 !important;
+  border-radius: 0 !important;   /* square, to match your earlier request */
+}
+
+
+/* GROUP HEADINGS */
+/* Group header row: shorter, tighter */
+#tabbrowser-tabs[orient="vertical"] tab-group .tab-group-label-container {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-block: 0 !important;
+  margin-block: 1px !important;
+}
+
+/* The label pill itself: smaller font, less padding, square */
+#tabbrowser-tabs[orient="vertical"] tab-group .tab-group-label {
+  font-size: 14px !important;
+  line-height: 1.2 !important;
+  min-height: 0 !important;
+  padding: 1px 6px !important;
+  margin: 0 !important;
+  /*border-radius: 0 !important;*/
+  width: 100% !important;
+  max-width: none !important;
+}
+
+/* Thinner vertical colour line beside grouped tabs (if present) */
+#tabbrowser-tabs[orient="vertical"] tab-group .tab-group-line {
+  width: 2px !important;
+}
+
+
+/* TAB HIGHLIGHTING */
+/* Square corners: override the variable and the property */
+:root {
+  --tab-border-radius: 0 !important;
+  --border-radius-medium: 0 !important;
+}
+/* Highlight fills the whole tab row edge to edge */
+#tabbrowser-tabs[orient="vertical"] .tab-background {
+  border-radius: 0 !important;
+  margin: 0 !important;
+  outline-offset: 0 !important;
+}
+/* Remove the side insets so the highlight reaches the sidebar edges */
+#tabbrowser-tabs[orient="vertical"] .tabbrowser-tab {
+  padding-inline: 0 !important;
+  margin-inline: 0 !important;
+}
+#tabbrowser-tabs[orient="vertical"],
+#tabbrowser-arrowscrollbox[orient="vertical"] {
+  padding-inline: 0 !important;
+}

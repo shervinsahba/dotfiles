@@ -1,8 +1,10 @@
-@import url(theme/toolbar_hide_tabs.css);
+/* @import url(theme/toolbar_hide_tabs.css);
 @import url(theme/titlebar_buttonbox.css);
 @import url(theme/sidebar.css);
 @import url(theme/sidebery.css);
-@import url(theme/toolbar_icons.css);
+*/
+/* @import url(theme/toolbar_icons.css);*/
+@import url(theme/native-vertical-tabs.css);
 
 /* Prevent white new tab flash - see alternative solution in userContent */
 #tabbrowser-tabpanels {

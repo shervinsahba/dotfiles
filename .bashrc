@@ -31,11 +31,6 @@ fi
 ## aliases
 [[ -f ~/.aliases ]] && source "$HOME"/.aliases
 
-## stderrred-git (https://github.com/sickill/stderred)
-if [ -f /usr/lib/libstderred.so"${LD_PRELOAD:+:$LD_PRELOAD}" ]; then
-  export LD_PRELOAD="/usr/lib/libstderred.so${LD_PRELOAD:+:$LD_PRELOAD}"
-fi
-
 ## fzf settings
 [[ -f ~/.config/fzf/config ]] && source ~/.config/fzf/config
 

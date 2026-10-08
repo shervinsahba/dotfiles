@@ -1,116 +1,120 @@
 alias sudo='sudo '        # permits using sudo with aliased commands
 alias cp='cp -i'          # confirm before overwriting something
-# alias rm='rm -i'         # confirm before removing something
-alias mkdir='mkdir -p'	  # makes parent directory if it doesn't exist
-alias less='less -R'	  # allow colorized pipes to less
-alias more='less'
-alias h='head'
-alias t='tail'
+
+# drop-in replacements for Linux standbys
+command -v less > /dev/null 2>&1 && alias more='less'
+command -v lsd > /dev/null 2>&1 && alias ls='lsd'
+command -v bat >/dev/null 2>&1 && alias cat='bat --paging=never --style=plain'
+command -v dfc >/dev/null 2>&1 && alias df='dfc'
+command -v vim >/dev/null 2>&1 && alias vi='vim'
+#command -v rg >/dev/null 2>&1 && alias grep='rg'
+#command -v fd >/dev/null 2>&1 && alias find='fd'
+
+# color and style for command line utilities
+alias less='less -R'	           # allow colorized pipes to less
+alias tree='tree --dirsfirst -FC'  # human readable, folder /, color
+alias diff='diff --color'
+alias ip='ip -color=auto'
+
+# grep
 alias grep='grep --color=auto'
 alias egrep='grep -E'	  # extended grep
 alias fgrep='grep -F'	  # fixed grep
-alias ls='ls --color=auto'
+
+# ls
 alias l='ls'
 alias ll='ls -Flh'
 alias lll='ls -Flha'
-alias lh='ll -d .[^.]*'			   # long list hidden files only
-alias tree='tree --dirsfirst -FC'  # human readable, folder /, color
-alias locate='locate -e'		   # only shows files that still exist
-alias diff='diff --color'
-alias ip='ip -color'
-alias cat='/bin/bat --paging=never --style=plain'
-
-alias c='xclip -selection clipboard'	  # xclip copy
-alias p='xclip -selection clipboard -o'   # xclip paste
-
-alias df='dfc || df -h'    				# use color verion or at least human-readable sizes
-alias free='free -m'      				# shows free memory in MB
-alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
-alias paths='echo -e ${PATH//:/\\n}'	# pretty print paths
-
-alias date-iso='date +"%Y%m%dT%H%M%S"'
+llh() { ls -Flhd .[^.]* 2>/dev/null; } # long list hidden files only
 
 # cd
 alias ..='cd ..'
 alias ...='cd ../..'
+alias cdd='cd ~/Downloads'
 alias cdm='cd /mnt'
-alias cdX='cd /etc/X11/xorg.conf.d/'
 alias cdtrash='cd ~/.local/share/Trash/files'
+
+# cd personal
 alias cdsrc='cd ~/src'
 alias cdscripts='cd ~/src/scripts'
-alias cdd='cd ~/Downloads'
-alias cd.="cd ~/.config"
-alias cdR="cd ~/Research"
 
-# drop-in replacements for Linux standbys
-command -v vim >/dev/null 2>&1 && alias vi='vim'
-#command -v rg >/dev/null 2>&1 && alias grep='rg'
-command -v lsd > /dev/null 2>&1 && alias ls='lsd'
-#command -v fd >/dev/null 2>&1 && alias find='fd'
-#command -v bat >/dev/null 2>&1 && alias cat='bat'  ## too many clashes in practice
+# clipboard
+c() {
+  if [ -n "$WAYLAND_DISPLAY" ]; then
+    wl-copy "$@"
+  else
+    xclip -selection clipboard "$@"
+  fi
+}
 
-alias feh='feh --auto-zoom --borderless --cache-size 16 --cache-thumbnails --scale-down'
+p() {
+  if [ -n "$WAYLAND_DISPLAY" ]; then
+    wl-paste -n "$@"
+  else
+    xclip -selection clipboard -o "$@"
+  fi
+}
 
-# programs I use a lot
+# misc
 alias ra='ranger'
-alias n='ncmpcpp'
-alias arch-wiki-man='awman'
+alias locate='locate -ei'		   # only show existing files, case-insensitive
+alias free='free -m'      				# shows free memory in MB
+alias paths='printf "%s\n" "$PATH" | tr : "\n"'	# pretty print paths
+alias date-iso='date +"%Y%m%dT%H%M%S"'
+alias yt-dlp="yt-dlp -o '%(uploader)s - %(title)s.%(ext)s'"
+
+# shell control
+alias zsh_activate='chsh -s "$(command -v zsh)" && echo "User shell changed to zsh. Now log out."'
+alias bash_activate='chsh -s "$(command -v bash)" && echo "User shell changed to bash. Now log out."'
 
 # fzf and augmented fuzzy calls
 alias f='fzf'
-alias pacls='pacman -Ss | fzf'
-alias hist='history | fzf'
-alias psf='ps -ef | fzf'
-alias condals='conda list | fzf'
-alias yt='ytfzf -t --thumb-viewer=kitty-viewer --thumbnail-quality=maxresdefault'
-
-# z autojump with fzf
-alias z='z -I'
-
-# GPU related
-alias DRIglxgears="DRI_PRIME=1 glxgears"
-alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
-
-# keyboard and xmodmap
-alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'; xmodmap ~/.Xmodmap"
-alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
-
-# systemctl
-alias yay="if command -v conda >/dev/null; then conda deactivate; fi && yay"
-alias pacman-ls-native="pacman -Qqettn"
-alias pacman-ls-aur="pacman -Qqettm"
+#alias yt='ytfzf -t --thumb-viewer=mpv --thumbnail-quality=maxresdefault'
 alias pacman-fzf-local="pacman -Qq | fzf --preview 'pacman -Qil {}' --layout=reverse --bind 'enter:execute(pacman -Qil {} | less)'"
-alias acman-fzf-remote="pacman -Slq | fzf --preview 'pacman -Si {}' --layout=reverse"
-alias zsh_activate="sudo chsh $USER -s /bin/zsh && echo 'User shell changed to zsh. Now log out.'"
-alias bash_activate="sudo chsh $USER -s /bin/bash && echo 'User shell changed to bash. Now log out.'"
-alias journalctl='journalctl --output=short-iso'	            # ISO timestamps
-alias journalctl-errors='journalctl -b -p err'
-alias restart-net="systemctl restart NetworkManager.service"    # restarts network and /etc/hosts
+alias pacman-fzf-remote="pacman -Slq | fzf --preview 'pacman -Si {}' --layout=reverse"
+
+# arch linux
+yay() {
+    command -v conda >/dev/null && conda deactivate
+    command yay "$@"
+}
 
 # cleanup
-alias clean-all-uninstalled-packages="paccache -ruk 0"
-alias clean-paccache-keep3="paccache -rk 3"
-alias clean-orphan-list="pacman -Qdtq; echo; echo Choose packages to remove manually."
-alias clean-journal="journalctl --vacuum-size=100M"
-alias clean-trash="rm -rf $HOME/.local/share/Trash/*"
-alias clean-cache-1year="find $HOME/.cache/ -type f -atime +365 -delete"
+alias clean-orphan-list='pacman -Qdtq; echo; echo Choose packages to remove manually.'
+alias clean-journal='journalctl --vacuum-size=100M'
+alias clean-trash='find ~/.local/share/Trash/files ~/.local/share/Trash/info -mindepth 1 -delete'
+alias clean-cache-1year='find "$HOME/.cache/" -type f -mtime +365 -delete'
 
 # kittens
-alias icat="kitty +kitten icat"
-alias hg='kitty +kitten hyperlinked_grep'
-alias d="kitty +kitten diff"
-alias ssh-kitty="kitty +kitten ssh"
-[[ "$TERM" == "xterm-kitty" ]] && alias ssh="kitty +kitten ssh"
+alias icat='kitten icat'
+alias hg='kitten hyperlinked_grep'
+alias d='kitten diff'
+[[ "$TERM" == "xterm-kitty" ]] && alias ssh='kitten ssh'
 
-alias sensor-watch="watch -n 2 'nvidia-smi;sensors'"
+# ssh
+alias ssh-keygen-1='ssh-keygen -t ed25519 -a 100'
+alias ssh-keygen-2='ssh-keygen -t rsa -b 4096 -a 100'
 
-alias ssh-keygen-1="ssh-keygen -t ed25519 -a 100"
-alias ssh-keygen-2="ssh-keygen -t rsa -b 4096 -o -a 100"
 
-alias yt-dlp="yt-dlp -o '%(uploader)s - %(title)s.%(ext)s'"
 
-alias udisks-mount='udisksctl mount -b'
-alias udisks-unmnt='udisksctl unmount -b'
-
-alias ipv4="ip addr show | grep 'inet ' | grep -v '127.0.0.1' | cut -d' ' -f6 | cut -d/ -f1"
-alias ipv6="ip addr show | grep 'inet6 ' | cut -d ' ' -f6 | sed -n '2p'"
+# old, out of date, or unnecessary aliases
+#alias DRIglxgears="DRI_PRIME=1 glxgears"
+#alias DRIglx="DRI_PRIME=1 glxinfo | grep renderer"
+#alias sensor-watch="watch -n 2 'nvidia-smi;sensors'"
+#alias journalctl='journalctl --output=short-iso'
+#alias udisks-mount='udisksctl mount -b'
+#alias udisks-unmnt='udisksctl unmount -b'
+#alias ipv4="ip addr show | grep 'inet ' | grep -v '127.0.0.1' | cut -d' ' -f6 | cut -d/ -f1"
+#alias ipv6="ip addr show | grep 'inet6 ' | cut -d ' ' -f6 | sed -n '2p'"
+#alias capslock-kill="xmodmap -e 'keycode 66 = Hyper_R NoSymbol Caps_Lock Caps_Lock Caps_Lock Caps_Lock Caps_Lock'; xmodmap ~/.Xmodmap"
+#alias capslock-normal="xmodmap -e 'keycode 66 = Caps_Lock Caps_Lock'"
+#alias arch-wiki-man='awman'
+#alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
+#alias cdX='cd /etc/X11/xorg.conf.d/'
+#alias feh='feh --auto-zoom --borderless --cache-size 16 --cache-thumbnails --scale-down'
+#alias hist='history | fzf'
+#alias psf='ps -ef | fzf'
+#alias condals='conda list | fzf'
+#alias c='xclip -selection clipboard'	  # xclip copy
+#alias p='xclip -selection clipboard -o'   # xclip paste
+#alias restart-net="systemctl restart NetworkManager.service" # restarts net and /etc/hosts

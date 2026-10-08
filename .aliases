@@ -7,8 +7,7 @@ command -v lsd > /dev/null 2>&1 && alias ls='lsd'
 command -v bat >/dev/null 2>&1 && alias cat='bat --paging=never --style=plain'
 command -v dfc >/dev/null 2>&1 && alias df='dfc'
 command -v vim >/dev/null 2>&1 && alias vi='vim'
-#command -v rg >/dev/null 2>&1 && alias grep='rg'
-#command -v fd >/dev/null 2>&1 && alias find='fd'
+command -v nvim >/dev/null 2>&1 && alias vi='nvim'
 
 # color and style for command line utilities
 alias less='less -R'	           # allow colorized pipes to less
@@ -112,7 +111,6 @@ alias ssh-keygen-2='ssh-keygen -t rsa -b 4096 -a 100'
 #alias duh='du -h --max-depth=1' 		# disk space in human-readable sizes
 #alias cdX='cd /etc/X11/xorg.conf.d/'
 #alias feh='feh --auto-zoom --borderless --cache-size 16 --cache-thumbnails --scale-down'
-#alias hist='history | fzf'
 #alias psf='ps -ef | fzf'
 #alias condals='conda list | fzf'
 #alias c='xclip -selection clipboard'	  # xclip copy

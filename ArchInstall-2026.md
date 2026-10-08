@@ -437,7 +437,7 @@ systemctl enable --now snapper-timeline.timer snapper-cleanup.timer
 
 ## other packages
 ```
-pacman -S bitwarden chromium clamav docker docker-compose fail2ban fastfetch fd ffmpeg firefox flatpak fzf gdu github-cli gparted htop jq kitty krita lsd lshw man-db mpv neovim obsidian obs-studio pacman-contrib peek plocate qbittorrent signal-desktop starship syncthing tailscale tealdeer tree wget wl-clipboard yadm yt-dlp zip zsh
+pacman -S bitwarden chromium clamav docker docker-compose fail2ban fastfetch fd ffmpeg firefox flatpak fzf gdu github-cli gparted htop jq kitty krita lsd lshw man-db mpv neovim obsidian obs-studio pacman-contrib peek plocate qbittorrent ripgrep signal-desktop starship syncthing tailscale tealdeer tree wget wl-clipboard yadm yt-dlp zip zsh
 ```
 
 ## other essential services and timers
@@ -568,7 +568,6 @@ See the section on dotfiles for how to import packages from a file.
 ```
 pacman -S pipewire pipewire-jack wireplumber
 pacman -S thunar gvfs gvfs-mtp thunar-volman tumbler ffmpegthumbnailer ranger
-pacman -S ripgrep fzf
 pacman -S network-manager-applet udiskie
 pacman -S github-cli
 pacman -S xdg-utils xdg-user-dirs

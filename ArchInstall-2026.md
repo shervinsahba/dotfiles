@@ -201,8 +201,6 @@ HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole block 
 ### /etc/mkinitcpio.d/linux.preset
 Edit `/etc/mkinitcpio.d/linux.preset` to generate a Unified Kernel Image (UKI). It should look like the following when the appropriate lines are un/commented.
 ```
-# mkinitcpio preset file to generate UKIs
-```
 ALL_config="/etc/mkinitcpio.conf"
 ALL_kver="/boot/vmlinuz-linux"
 #ALL_kerneldest="/boot/vmlinuz-linux"
@@ -339,6 +337,7 @@ This depends on your card and needs. With an NVIDIA 4070Ti and the expectation t
 ```
 pacman -S linux-headers
 pacman -S nvidia-open-dkms nvidia-utils nvidia-settings egl-wayland opencl-nvidia
+pacman -S lib32-nvidia-utils lib32-opencl-nvidia
 ```
 
 You may need [extra requirements with Wayland and NVIDIA](https://wiki.archlinux.org/title/Wayland#Requirements) Create `/etc/modprobe.d/nvidia.conf` with contents
@@ -357,10 +356,17 @@ systemctl enable gdm
 ```
 During the install, you'll be prompted with gnome group packages. Use ^<number> to deselect anything you don't want (e.g. epiphany, gnome-tour, yelp).
 
+## audio
+GNOME should have handled pipewire. Otherwise check to see if the following is installed and enabled. If not, download the packages and enable --now.
+```
+pacman -Q pipewire pipewire-pulse pipewire-jack wireplumber 2>&1
+systemctl --user status pipewire pipewire-pulse wireplumber
+```
+
 ## bluetooth
 ```
 pacman -S bluez blues-utils
-systemctl enable bluetooth
+systemctl enable --now bluetooth
 ```
 
 ## fonts
@@ -368,13 +374,51 @@ systemctl enable bluetooth
 pacman -S ttf-noto-nerd, noto-fonts-cjk, noto-fonts-extra, noto-fonts-emoji, noto-fonts otf-latin-modern otf-latinmodern-math ttf-firacode-nerd ttf-0xproto-nerd
 ```
 
+## good time for a reboot
+```
+sync
+systemctl reboot
+```
+
+# Packages! Round 2.
+
 ## printing
 ```
 pacman -S cups
 systemctl enable cups
 ```
 
-## snapper
+## nfs mounts
+If using nfs mounts, like sharing TrueNAS storage across a network.
+```
+pacman -S nfs-utils
+systemctl enable --now rpcbind.service
+systemctl enable --now rpcbind.socket
+```
+
+## ufw firewall
+```
+pacman -S ufw gufw
+systemctl enable ufw --now
+```
+Then run `gufw` as a superuser and toggle on. It should persist after reboot. By default ufw denies incoming for home/office profiles. Add any ufw rules you want (i.e. `ufw allow <whatever>`) or use the GUI log to append rules. VPNs may need some config changes in ufw - see the ufw arch wiki. Notably, running `ufw app list` shows preset profiles you may want to use. For example,
+```
+ufw allow syncthing
+```
+For tailscale, consider these rules
+```
+ufw allow in on tailscale0
+ufw allow 41641/udp
+```
+
+## backups
+
+### borg backups
+```
+pacman -S borg borgmatic vorta
+```
+
+### snapper snapshots
 Snap-pac will create snapshots before and after each pacman install.
 ```
 pacman -S snapper snap-pac
@@ -393,13 +437,14 @@ systemctl enable --now snapper-timeline.timer snapper-cleanup.timer
 
 ## other packages
 ```
-pacman -S bitwarden borg borgmatic chromium clamav docker docker-compose fail2ban fastfetch ffmpeg firefox flatpak gdu github-cli gparted gufw htop jq kitty krita lshw man-db mpv neovim obsidian obs-studio pacman-contrib peek plocate qbittorrent signal-desktop starship syncthing tailscale tealdeer tree ufw yadm zip zsh
+pacman -S bitwarden chromium clamav docker docker-compose fail2ban fastfetch fd ffmpeg firefox flatpak fzf gdu github-cli gparted htop jq kitty krita lsd lshw man-db mpv neovim obsidian obs-studio pacman-contrib peek plocate qbittorrent signal-desktop starship syncthing tailscale tealdeer tree wget wl-clipboard yadm yt-dlp zip zsh
 ```
 
 ## other essential services and timers
 ```
 systemctl enable --now systemd-oomd 
-systemctl enable --now reflector.timer fstrim.timer paccache.timer btrfs-scrub@-.timer btrfs-scrub@home.timer
+systemctl enable --now reflector.timer fstrim.timer paccache.timer 
+systemctl enable --now btrfs-scrub@-.timer btrfs-scrub@home.timer
 ```
 Note: For the btrfs (monthly) scrub timer, you can check on it with `journalctl -u btrfs-scrub@-.service` and `btrfs scrub status /`. This is for a mountpoint at `/` by the way. For other mount points, replace the `@-` with the volume name, like @home for /home.
 
@@ -424,29 +469,6 @@ Edit `/etc/xdg/reflector/reflector.conf` to use something like
 --sort rate
 ```
 
-## AUR
-Get AUR acess with `yay` or `paru`.
-```
-cd $(mktemp -d)
-git clone https://aur.archlinux.org/yay-bin
-cd yay-bin
-makepkg -si PKGBUILD
-```
-
-## ufw firewall
-Use `ufw` and its GUI `gufw`:
-```
-systemctl enable ufw --now
-```
-Then run `gufw` as a superuser and toggle on. It should persist after reboot. By default ufw denies incoming for home/office profiles. Add any ufw rules you want (i.e. `ufw allow <whatever>`) or use the GUI log to append rules. VPNs may need some config changes in ufw - see the ufw arch wiki. Notably, running `ufw app list` shows preset profiles you may want to use. For example,
-```
-ufw allow syncthing
-```
-For tailscale, consider these rules
-```
-ufw allow in on tailscale0
-ufw allow 41641/udp
-```
 
 ## SMART drive health
 ```
@@ -494,6 +516,26 @@ systemctl enable --now fail2ban
 4.) Disable password authentication on host device in `/etc/ssh/sshd_config`.
 
 
+## AUR
+Get AUR acess with `yay` or `paru`.
+```
+cd $(mktemp -d)
+git clone https://aur.archlinux.org/yay-bin
+cd yay-bin
+makepkg -si PKGBUILD
+```
+
+
+## gaming
+```
+pacman -S steam gamemode lib32-gamemode mangohud lib32-mangohud
+systemctl --user enable --now gamemoded
+```
+Consider vkbasalt as well, which is a vulkan layer that can be used via `ENABLE_VKBASALT=1 %command%` on steam.
+```
+yay -S vkbasalt
+```
+
 
 
 # USER STUFF
@@ -506,20 +548,28 @@ systemctl --user enable --now syncthing.service
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 # OLD
 
 ## packages
 See the section on dotfiles for how to import packages from a file.
 ```
-pacman -S rofi dunst feh starship batsignal pacman-contrib
-pacman -S noto-sans ttf-noto-nerd tf-nerd-fonts-symbols ttf-nerd-fonts-symbols-common ttf-nerd-fonts-symbols-mono ttf-iosevka-nerd ttf-firacode-nerd otf-firamono-nerd ttf-mplus-nerd
 pacman -S pipewire pipewire-jack wireplumber
-pacman -S bluez bluez-utils blueman
-pacman -S kitty firefox yadm bitwarden tealdeer
 pacman -S thunar gvfs gvfs-mtp thunar-volman tumbler ffmpegthumbnailer ranger
-pacman -S bat wget curl htop plocate ripgrep fzf neofetch lshw
+pacman -S ripgrep fzf
 pacman -S network-manager-applet udiskie
-pacamn -S fail2ban ufw gufw
 pacman -S github-cli
 pacman -S xdg-utils xdg-user-dirs
 xdg-user-dirs-update

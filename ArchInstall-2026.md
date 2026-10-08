@@ -469,35 +469,118 @@ Edit `/etc/xdg/reflector/reflector.conf` to use something like
 --sort rate
 ```
 
+## ntfy.sh notifications
+Let's set up a notification system for btrfs, SMART, and whatever else may need to communicater with the user. Create a https://ntfy.sh topic. Then use said topic and an email address to make
+```
+echo "https://ntfy.sh/<your-topic>" | sudo tee /etc/ntfy-url
+chmod 600 /etc/ntfy-url
+echo "you@example.com" | sudo tee /etc/ntfy-email
+chmod 600 /etc/ntfy-email
+```
+Copy an access token from ntfy.sh and paste it in `/etc/ntfy-token` via
+```
+sudoedit /etc/ntfy-token
+sudo chmod 600 /etc/ntfy-token
+```
+Now create a script for notifications:
+```
+tee /usr/local/bin/ntfy-send << 'EOF'
+#!/bin/bash
+# usage: ntfy-send "Title" "Message" [priority]
+curl -fsS --max-time 15 \
+  -H "Title: $1" -H "Priority: ${3:-high}" \
+  -H "Tags: warning" \
+  -H "Authorization: Bearer $(cat /etc/ntfy-token)" \
+  -H "X-Email: $(cat /etc/ntfy-email)" \
+  -d "$2" "$(cat /etc/ntfy-url)"
+EOF
+chmod +x /usr/local/bin/ntfy-send
+```
+
+To have btrfs scrub alert when it finds an issue:
+```
+tee /usr/local/bin/btrfs-scrub-notify << 'EOF'
+#!/bin/bash
+# $1 = mountpoint; systemd provides SERVICE_RESULT and EXIT_STATUS to ExecStopPost
+[ "$SERVICE_RESULT" = "success" ] && exit 0
+status=$(btrfs scrub status "$1" 2>&1 | tail -n 12)
+/usr/local/bin/ntfy-send "btrfs scrub problem on $1" "Result: $SERVICE_RESULT (exit $EXIT_STATUS)
+$status"
+EOF
+
+chmod +x /usr/local/bin/btrfs-scrub-notify
+```
+Then `systemctl edit btrfs-scrub@.service` and add
+```
+[Service]
+ExecStopPost=/usr/local/bin/btrfs-scrub-notify %f
+```
+
+To have daily btrfs stat checks:
+```
+tee /usr/local/bin/btrfs-stats-check << 'EOF'
+#!/bin/bash
+for mnt in / /home; do
+  out=$(btrfs device stats --check "$mnt" 2>&1) || \
+    /usr/local/bin/ntfy-send "btrfs error counters on $mnt" "$out"
+done
+EOF
+chmod +x /usr/local/bin/btrfs-stats-check
+
+tee /etc/systemd/system/btrfs-stats-check.service << 'EOF'
+[Unit]
+Description=Check btrfs device error counters
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/btrfs-stats-check
+EOF
+
+tee /etc/systemd/system/btrfs-stats-check.timer << 'EOF'
+[Unit]
+Description=Daily btrfs device stats check
+
+[Timer]
+OnCalendar=daily
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+EOF
+
+systemctl enable --now btrfs-stats-check.timer
+```
+
 
 ## SMART drive health
 ```
 pacman -S smartmontools
 systemctl enable --now smartd
 ```
-Setup some notifications via a https://ntfy.sh topic. Create a script and let smartd's config know about it.
+Create a ntfy.sh script and let smartd's config know about it.
 ```
-vim /usr/local/bin/ntfy-smartd.sh
-```
-```
+tee /usr/local/bin/ntfy-smartd << 'EOF'
 #!/bin/bash
-curl -s \
+curl -fsS --max-time 15 \
   -H "Title: SMART Alert" \
   -H "Priority: urgent" \
+  -H "Authorization: Bearer $(cat /etc/ntfy-token)" \
+  -H "X-Email: $(cat /etc/ntfy-email)" \
   -d "$SMARTD_MESSAGE" \
-  https://ntfy.sh/<ntfy.sh topic>
-```
-```
-chmod +x /usr/local/bin/ntfy-smartd.sh
+  "$(cat /etc/ntfy-url)"
+EOF
+
+chmod +x /usr/local/bin/ntfy-smartd
 ```
 Now in `/etc/smartd.conf` append the following directive to the end of DEVICESCAN:
 ```
 DEVICESCAN -m root -M exec /usr/local/bin/ntfy-smartd.sh
 ```
-Now 
+Finally 
 ```
 systemctl restart smartd
 ```
+
 
 ## SSH
 ### Host-side:

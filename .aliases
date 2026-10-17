@@ -55,7 +55,14 @@ p() {
 }
 
 # misc
-alias ra='ranger'
+function y() {   # yazi wrapper. cd on exit.
+	local tmp cwd; tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
+	command yazi "$@" --cwd-file="$tmp"
+	IFS= read -r -d '' cwd < "$tmp"
+	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd" || builtin true
+	command rm -f -- "$tmp"
+}
+
 alias locate='locate -ei'		   # only show existing files, case-insensitive
 alias free='free -m'      				# shows free memory in MB
 alias paths='printf "%s\n" "$PATH" | tr : "\n"'	# pretty print paths
@@ -116,3 +123,4 @@ alias ssh-keygen-2='ssh-keygen -t rsa -b 4096 -a 100'
 #alias c='xclip -selection clipboard'	  # xclip copy
 #alias p='xclip -selection clipboard -o'   # xclip paste
 #alias restart-net="systemctl restart NetworkManager.service" # restarts net and /etc/hosts
+#alias ra='ranger'

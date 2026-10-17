@@ -25,8 +25,8 @@ if command -v starship &>/dev/null; then
 fi
 
 ## pywal coloring
-[[ -f ~/.cache/wal/sequences ]] && (/usr/bin/cat ~/.cache/wal/sequences &)  # terminal colors, not needed for kitty
-[[ -f ~/.cache/wal/colors-tty.sh ]] && source ~/.cache/wal/colors-tty.sh    # tty colors
+#[[ -f ~/.cache/wal/sequences ]] && (/usr/bin/cat ~/.cache/wal/sequences &)  # terminal colors, not needed for kitty
+#[[ -f ~/.cache/wal/colors-tty.sh ]] && source ~/.cache/wal/colors-tty.sh    # tty colors
 
 ## aliases
 [[ -f ~/.aliases ]] && source "$HOME"/.aliases
@@ -34,11 +34,8 @@ fi
 ## fzf settings
 [[ -f ~/.config/fzf/config ]] && source ~/.config/fzf/config
 
-## z.lua autojump with fzf integration
-if [[ -f /usr/share/z.lua/z.lua ]]; then
-  eval "$(lua /usr/share/z.lua/z.lua --init bash enhanced once fzf)"
-  export _Z_DATA=$HOME/.zlua
-fi
+# initialize zoxide
+command -v zoxide > /dev/null 2>&1 && eval "$(zoxide init bash)"
 
 ## ruby rbenv
 if command -v rbenv &> /dev/null; then 
@@ -53,15 +50,6 @@ fi
 #export PATH="$PATH:$NPM_PACKAGES/bin"
 #export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
 
-## yazi wrapper (cd after yazi)
-function ya() {
-	tmp="$(mktemp -t "yazi-cwd.XXXXX")"
-	yazi --cwd-file="$tmp"
-	if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
 
 ## @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 ## integrations handled by outside software

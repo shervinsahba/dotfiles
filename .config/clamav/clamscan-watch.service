@@ -1,0 +1,10 @@
+[Unit]
+Description=ClamAV Downloads watcher
+
+[Service]
+ExecStartPre=/usr/bin/clamdscan --ping 60:2
+ExecStart=/usr/local/bin/clamscan-watch.sh %h/Downloads
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

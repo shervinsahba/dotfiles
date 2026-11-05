@@ -1,7 +1,6 @@
-# /etc/systemd/system/clamscan.timer
-
+# clamscan.timer
 [Unit]
-Description=Scheduled ClamAV Scan
+Description=Scheduled ClamAV scan
 
 [Timer]
 OnCalendar=weekly

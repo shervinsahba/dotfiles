@@ -385,7 +385,7 @@ We should have a working system by now. Next we need a functional system.
 ## miscellanous packages
 This isn't everything. These are simply those packages for which we don't go into detailed notes, often utilities or standalone applications. Not included are those listed separately below.
 ```
-pacman -S android-udev bitwarden chromium docker docker-compose f3d fail2ban fastfetch fd ffmpeg firefox flatpak fwupd fzf gdu github-cli gocryptfs gparted htop jq krita libreoffice-fresh lsd lshw man-db mpv neovim obsidian obs-studio pacman-contrib peek perl-image-exiftool plocate qbittorrent ripgrep signal-desktop starship syncthing tailscale tealdeer tree unarchiver unzip wget wl-clipboard yadm yazi yt-dlp zip zoxide zsh
+pacman -S android-udev bitwarden chromium docker docker-compose f3d fail2ban fastfetch fd ffmpeg firefox flatpak fwupd fzf gdu github-cli gocryptfs gparted htop jq krita libreoffice-fresh lsd lshw man-db mpv neovim obsidian obs-studio pacman-contrib peek perl-image-exiftool plocate qbittorrent ripgrep seahorse signal-desktop starship syncthing tailscale tealdeer tree unarchiver unzip wget wl-clipboard yadm yazi yt-dlp zip zoxide zsh
 ```
 
 ## ufw firewall

@@ -7,23 +7,19 @@
 @import url(theme/native-vertical-tabs.css);
 
 /* Prevent white new tab flash - see alternative solution in userContent */
-#tabbrowser-tabpanels {
+/*#tabbrowser-tabpanels {
   background-color: #404040 !important;
-}
-#browser {
-  background-color: #404040 !important;
-}
+}*/
 
 /* style titlebar buttons to have no bg on hover */
-.titlebar-button:hover {
+/*.titlebar-button:hover {
   background-color: transparent !important;
-}
-
+}*/
 
 /* URL BAR */
-#urlbar-background {
+/*#urlbar-background {
   border: none !important;
   animation: none !important;
-}
+}*/
 
 
